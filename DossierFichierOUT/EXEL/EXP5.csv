@@ -1,0 +1,750 @@
+ID VANNE;AFFECTATION;MACHINE;NUM ACTIONNNEUR;ATELIER;NUM CORPS;NUM POSITIONNEUR;N° COMMANDE;FOURNISSEUR  VANNE;Repère;DATE ACHAT;VUE EN;FREQ. REVISION;ORGANE  REGLANT;typeVannes;A VOIR EN
+1;"     ""Vannes bassins"" circulation";Bassins;1;1;1;NULL;030034 AR;10;LOCALE;2003;2003;100;PAPILLON;TOR;2103
+2;"""Vannes bassins"" prise d'échantillon";Bassins;2;1;2;NULL;030034 AR;10;LOCALE;2003;2003;100;PAPILLON;TOR;2103
+3;"     ""Vannes bassins"" circulation";Bassins;3;1;3;NULL;030034 AR;10;LOCALE;2003;2003;100;PAPILLON;TOR;2103
+4;Appoint d'eau ;Pompes à boues;4;1;4;NULL;NULL;2;LOCALE;2001;2001;100;PAPILLON;TOR;2101
+5;Chasse décanteur;Decanteur;5;1;5;NULL;2243AR;24;EV01260673;2022;NULL;100;Pelle;TOR;2122
+6;Debit eau decantee;Lavoir;6;1;6;6;2006AR;25;FCV20;2020;2020;10;PAPILLON;REG;2030
+7;Débit transport herbes;Cour;7;1;7;7;NULL;10;FV 01 01 AW610;NULL;2012;100;PAPILLON;REG;2112
+8;Niveau bac à herbes;Bac à herbes lavoir;8;1;8;8;NULL;2;FV 01 01 AW526;NULL;2010;100;PAPILLON;REG;2110
+9;Niveau bac eau mitrailleuses;Point de nuit;9;1;9;9;NULL;2;LOCALE;NULL;2018;100;PAPILLON;REG;2118
+10;Niveau tremie eau (vanne eau château d'eau);Trémie eau lavoir;10;1;10;10;NULL;2;2 FV 01 01 AW536;NULL;2003;100;PAPILLON;REG;2103
+11;pompes a eaux terreuses;Pompes à eaux terreuses;11;1;11;11;2217AR;24;LV01010626;13/04/2022;NULL;100;Pelle;REG;44764
+12;Rechange pompes a eaux terreuse;Pompe a eaux terreuses;12;1;12;NULL;2243AR;24;NULL;2022;NULL;100;Pelle;REG;2122
+13;Vanne accelerateur manuel point fixe 1;Accelerateurs point fixe;13;1;13;NULL;1912AR;2;NULL;2019;2019;100;PAPILLON;TOR;2119
+14;Vanne accelerateur manuel point fixe 2;Accelerateurs point fixe;14;1;14;NULL;1912AR;2;NULL;2019;2019;100;PAPILLON;TOR;2119
+15;Vanne accelerateur manuel point fixe 3;Accelerateurs point fixe;15;1;15;NULL;1912AR;2;NULL;2019;2019;100;PAPILLON;TOR;2119
+16;Vanne alimentation point de jour;Point de nuit;16;1;16;NULL;2206AR;25;EV01010555;2022;NULL;10;PAPILLON;TOR;2032
+17;Vanne alimentation point de nuit;Point de nuit;17;1;17;NULL;2206AR;25;EV01010554;2022;NULL;10;PAPILLON;TOR;2032
+18;Air de refroidissement;Sécheur à sucre;18;2;18;18;13003 DT;18;TV 01 22 0598;2013;2013;100;OPERCULE;REG;2113
+19;Air de séchage eau chaude;Sécheur à sucre;19;2;19;19;13003 DT;18;TV 01 22 0592;2013;2013;100;OPERCULE;REG;2113
+20;Air de séchage vapeur;Sécheur à sucre;20;2;20;20;13003 DT;18;TV 02 22 0594;2013;2013;100;OPERCULE;REG;2113
+21;Alimentation masse cuite 2ème jet BMA K 3300 n°1;Turbines de 2ème jet;21;2;21;21;NULL;3;NULL;2012;2020;5;PAPILLON;REG;2025
+22;Alimentation masse cuite 2ème jet BMA K 3300 n°2;Turbines de 2ème jet;22;2;22;22;NULL;3;FV 11 22 0702;2012;2020;5;PAPILLON;REG;2025
+23;Alimentation masse cuite turbine affinage K3300 N°1;Turbines affinage;23;2;23;23;15237DT;3;LV11220712;2015;2020;5;PAPILLON;REG;2025
+24;Alimentation masse cuite turbine affinage K3300 N°2;Turbines affinage;24;2;24;24;15237DT;3;LV11220714;2015;2020;5;PAPILLON;REG;2025
+25;Alimentation masse cuite turbine de 3ème jet K3300;Turbines de 3ème jet;25;2;25;NULL;NULL;NULL;NULL;NULL;2016;100;PELLE;REG;2116
+26;Alimentation rapide BMA K3300 n°2;Turbines de 2ème jet;26;2;26;NULL;1233AR;2;NULL;2012;2016;10;PAPILLON;TOR;2026
+27;Alimentation rapide cuite de 1er jet n°3;Cuites de 1er jet;27;2;27;NULL;1262AR;10;EV 07 22 004.2;2012;2012;100;PAPILLON;TOR;2112
+28;Alimentation rapide cuite de 1er jet n°4;Cuites de 1er jet;28;2;28;NULL;1262AR;10;EV 07 22 008.2;2012;2012;100;PAPILLON;TOR;2112
+29;Alimentation rapide cuite de 1er jet n°5;Cuites de 1er jet;29;2;29;NULL;1262AR;10;EV 07 22 010.2;2012;2012;100;PAPILLON;TOR;2112
+30;Alimentation rapide cuite de 1er jet n°6;Cuites de 1er jet;30;2;30;NULL;1262AR;10;EV 07 22 012.3;2012;2017;100;PAPILLON;TOR;2117
+31;Alimentation rapide cuite de 2ème jet n°1;Cuites de 2ème jet;31;2;31;NULL;1756AR;10;EV 07 22 020.2;2017;2018;100;PAPILLON;TOR;2118
+32;Alimentation rapide cuite de 2ème jet n°2;Cuites de 2ème jet;32;2;32;NULL;1756AR;10;EV 07 22 022.2;2017;2018;100;PAPILLON;TOR;2118
+33;Alimentation rapide cuite de 2ème jet n°3;cuites de 2ème jet;33;2;33;NULL;030030 AR;2;EV 07 03 0169;2003;2014;100;PAPILLON;TOR;2114
+34;Alimentation rapide cuite de 3ème jet n°1;Cuites de 3ème jet;34;2;34;NULL;1756AR;10;EV 07 22 026.2;2017;2018;100;PAPILLON;TOR;2118
+35;Alimentation rapide cuite de 3ème jet n°2;Cuites de 3ème jet;35;2;35;NULL;1756AR;10;EV 07 22 028.2;2017;2018;100;PAPILLON;TOR;2118
+36;Alimentation rapide turbine affinage n°1;Turbines affinage;36;2;36;NULL;1233AR;2;EV11 03 0705;2012;2016;100;PAPILLON;TOR;2116
+37;Alimentation rapide turbine affinage n°2;Turbines affinage;37;2;37;NULL;0910AR;2;EV11 03 0714;2009;2016;100;PAPILLON;TOR;2116
+38;Alimentation rapide turbine de 2ème jet n°1;Turbines de 2ème jet;38;2;38;NULL;0910AR;2;NULL;2009;2016;10;PAPILLON;TOR;2026
+39;Alimentation rapide turbine de 2ème jet n°2;Turbines de 2ème jet;39;2;39;NULL;0910AR;2;NULL;2009;2016;10;PAPILLON;TOR;2026
+40;Alimentation rapide turbine de 3ème jet n°1;Turbines de 3ème jet;40;2;40;NULL;0910AR;2;NULL;2009;2019;10;PAPILLON;TOR;2029
+41;Alimentation rapide turbine de 3ème jet n°2;Turbines de 3ème jet;41;2;41;NULL;1233AR;2;NULL;2012;2019;10;PAPILLON;TOR;2029
+42;alimentation très rapide cuite 1er jet n°2;cuites de 1er jet;42;2;42;NULL;970098 AR;10;EV 07 03 0188;1997;2004;100;PAPILLON;TOR;2104
+43;alimentation très rapide cuite 1er jet n°3;cuites de 1er jet;43;2;43;NULL;970098 AR;10;EV 07 03 0204;1997;2004;99;PAPILLON;TOR;2103
+44;BY PASS MC1 POMPE 2 EVBYPASS2;Cuites de 1er jet;44;2;44;NULL;2248AR;25;EV1122011,7;2022;2023;15;NULL;TOR;2038
+45;BY PASS MC1 POMPE 3 EVBYPASS1;Cuites de 1er jet;45;2;45;NULL;1256AR;2;EV 11 22 011,6;2012;NULL;12;PAPILLON;TOR;2024
+46;BY PASS MC1 POMPE 3 EVBYPASS3;Cuites de 1er jet;46;2;46;NULL;2248AR;25;EV1122011;2022;2023;15;NULL;TOR;2038
+47;By-pass pompe affinage n°1;Turbines affinage;47;2;47;NULL;NULL;10;EV 11 03 0728;NULL;2016;100;PAPILLON;REG;2116
+48;By-pass pompe affinage n°2;Turbines affinage;48;2;48;NULL;030030 AR;2;EV 11 03 0729;2003;2016;100;PAPILLON;TOR;2116
+49;Casse vide atmosphérique cuite de 1er jet n°1;Cuites de 1er jet;49;2;49;NULL;1256AR;2;EV 19 22 000.1;2012;2013;12;PAPILLON;TOR;2025
+50;Casse vide atmosphérique cuite de 1er jet n°2;Cuites de 1er jet;50;2;50;NULL;1256AR;2;EV 19 22 002.1;2012;2013;12;PAPILLON;TOR;2025
+51;Casse vide atmosphérique cuite de 1er jet n°3;Cuites de 1er jet;51;2;51;NULL;1256AR;2;EV 19 22 004.1;2012;2013;12;PAPILLON;TOR;2025
+52;Casse vide atmosphérique cuite de 1er jet n°4;Cuites de 1er jet;52;2;52;NULL;1256AR;2;EV 19 22 008.1;2012;2013;12;PAPILLON;TOR;2025
+53;Casse vide atmosphérique cuite de 1er jet n°5;Cuites de 1er jet;53;2;53;NULL;1256AR;2;EV 19 22 010.1;2012;2013;12;PAPILLON;TOR;2025
+54;Casse vide atmosphérique cuite de 1er jet n°6;Cuites de 1er jet;54;2;54;NULL;1256AR;2;EV 19 22 012.1;2012;2013;100;PAPILLON;TOR;2113
+55;Casse vide atmosphérique cuite de 2ème jet n°3;Cuites de 2ème jet;55;2;55;NULL;1422AR;2;NULL;2014;2014;100;PAPILLON;REG;2114
+56;Casse vide atmosphèrique cuite n° 6;Cuites de 1er jet;56;2;56;56;NULL;2;NULL;NULL;2010;100;PAPILLON ;TOR;2110
+57;Casse vide atmospherique cuites de 2ème jet n° 1;Cuites de 2ème jet;57;2;57;NULL;NULL;2;EV 19 22 026.1;2021;2021;10;NULL;TOR;2031
+58;Casse vide atmospherique cuites de 2ème jet n° 2;Cuites de 2ème jet;58;2;58;NULL;NULL;2;EV 19 22 028.1;2021;2021;10;inox;TOR;2031
+59;Casse vide vapeur cuite de 1er jet n°3;Cuites de 1er jet;59;2;59;59;1262AR;10;PV 02 22 0574;2013;2018;100;PAPILLON;REG;2118
+60;Casse vide vapeur cuite de 1er jet n°4;Cuites de 1er jet;60;2;60;60;1262AR;10;PV 02 22 0578;2013;2018;100;PAPILLON;REG;2118
+61;Casse vide vapeur cuite de 1er jet n°5;Cuites de 1er jet;61;2;61;61;1262AR;10;PV 02 22 0580;2013;2018;100;PAPILLON;REG;2118
+62;Casse vide vapeur cuite de 2ème jet n°1;cuites de 2ème jet;62;2;62;62;1652AR;10;PV 02 22 0630;2016;2017;100;PAPILLON;REG;2117
+63;Casse vide vapeur cuite de 1er jet n°6;cuites de 1er jet;63;2;63;NULL;030031 AR;10;EV 02 03 0219;2003;2014;20;PAPILLON;TOR;2034
+64;Casse vide vapeur cuite de 2ème jet n°2;cuites de 2ème jet;64;2;64;64;1652AR;10;PV 02 22 0638;2016;2017;100;PAPILLON;REG;2117
+65;Casse vide vapeur cuite de 2ème jet n°3;cuites de 2ème jet;65;2;65;65;1702AR;10;PV 02 22 0646;2017;2017;100;PAPILLON;REG;2117
+66;PH 2ème carbonatation;Caisse 2ème carbonatation;66;6;66;66;980175AR;25;AV 12 02 0019;1998;2017;100;PAPILLON;REG;2117
+67;Clairçage JAE turbine 1er jet n°1;Turbines de 1er jet;67;2;67;NULL;15091DT;11;NULL;2015;2015;20;BOULE;REG;2035
+68;Clairçage JAE turbine 1er jet n°2;Turbines de 1er jet;68;2;68;NULL;15091DT;11;NULL;2015;2015;20;BOULE;REG;2035
+69;Clairçage JAE turbine 1er jet n°3;Turbines de 1er jet;69;2;69;NULL;15091DT;11;NULL;2015;2015;20;BOULE;REG;2035
+70;Clairçage JAE turbine 1er jet n°4;Turbines de 1er jet;70;2;70;NULL;15091DT;11;NULL;2015;2015;20;BOULE;REG;2035
+71;Clairçage turbine de 1er jet n°1;Turbines de 1er jet;71;2;71;NULL;20245;6;EV 01 12 0087;2002;2009;99;BOULE;TOR;2108
+72;Dilution concentrateur à liqueur standard;Concentrateur à liqueur standard;72;2;72;72;NULL;18;DV 01 02 840;NULL;2015;10;CLAPET;REG;2025
+73;Dilution concentrateur de stockage;Concentrateur de stockage;73;2;73;73;NULL;18;DV 01 02 0838;NULL;2015;10;CLAPET;REG;2025
+74;Dilution liqueur standard ap refondoir;Bac de refonte;74;2;74;74;1842AR;25;DV 07 03 0304;2018;2018;10;OPERCULE;REG;2028
+75;Empattage turbine de 3ème jet n°1 BMA;Turbines de 3ème jet;75;2;75;75;NULL;18;NULL;2010;2018;10;OBTURATEUR;REG;2028
+76;Empattage turbine de 3ème jet n°2 K3300;Turbines de 3ème jet;76;2;76;76;1047 AR;18;FV 07 03 1004;2010;2016;10;OBTURATEUR;REG;2026
+77;Lavage des hublôts cuite de 1er jet n°1;Cuites de 1er jet;77;2;77;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+78;Lavage des hublôts cuite de 1er jet n°2;Cuites de 1er jet;78;2;78;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+79;Lavage des hublôts cuite de 1er jet n°3;Cuites de 1er jet;79;2;79;NULL;NULL;21;NULL;NULL;2013;100;BOULE;TOR;2113
+80;Lavage des hublôts cuite de 1er jet n°4;Cuites de 1er jet;80;2;80;NULL;NULL;21;NULL;NULL;2013;100;BOULE;TOR;2113
+81;Lavage des hublôts cuite de 1er jet n°5;Cuites de 1er jet;81;2;81;NULL;NULL;21;NULL;NULL;2013;100;BOULE;TOR;2113
+82;Lavage des hublôts cuite de 1er jet n°6;Cuites de 1er jet;82;2;82;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+83;Lavage des hublôts cuite de 2ème jet n°3;Cuites de 2ème jet;83;2;83;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+84;Lavage eau faisceau cuite de 1er jet n°1;Cuites de 1er jet;84;2;84;NULL;10011AR;21;EV 01 22 000.4;2010;NULL;20;BOULE;TOR;2030
+85;Lavage eau faisceau cuite de 1er jet n°2;Cuites de 1er jet;85;2;85;NULL;10011AR;21;EV 01 22 002.4;2010;NULL;20;BOULE;TOR;2030
+86;Lavage eau faisceau cuite de 1er jet n°3;Cuites de 1er jet;86;2;86;NULL;1261AR;21;EV 01 22 004.4;2012;2018;10;BOULE;TOR;2028
+87;Lavage eau faisceau cuite de 1er jet n°4;Cuites de 1er jet;87;2;87;NULL;1261AR;21;EV 01 22 008.4;2012;2018;10;BOULE;TOR;2028
+88;Lavage eau faisceau cuite de 1er jet n°5;Cuites de 1er jet;88;2;88;NULL;1261AR;21;EV 01 22 010.4;2012;2013;100;BOULE;TOR;2113
+89;Lavage eau faisceau cuite de 1er jet n°6;Cuites de 1er jet;89;2;89;NULL;10011AR;21;EV 01 22 012.5;2010;2018;10;BOULE;TOR;2028
+90;Lavage eau faisceau cuite de 2ème jet n°1;Cuites de 2ème jet;90;2;90;NULL;NULL;21;NULL;2011;2011;100;BOULE;TOR;2111
+91;Lavage eau faisceau cuite de 2ème jet n°2;Cuites de 2ème jet;91;2;91;NULL;NULL;21;NULL;2011;2011;100;Boule;TOR;2111
+92;Lavage eau faisceau cuite de 2ème jet n°3;Cuites de 2ème jet;92;2;92;NULL;10011AR;21;NULL;2010;2014;20;BOULE;TOR;2034
+93;Lavage eau faisceau cuite de 3ème jet n° 1;Cuites de 3ème jet;93;2;93;NULL;NULL;21;EV 01 03 0439;2011;2011;100;Boule;TOR;2111
+94;Lavage eau faisceau cuite de 3ème jet n°2;Cuites de 3ème jet;94;2;94;NULL;NULL;21;EV 01 03 0455;2011;2011;100;Boule;TOR;2111
+95;Lavage jupe turbine 1 n°1;Turbine 1 er jet n°1;95;2;95;NULL;0947AR;21;EV11120091;2009;2009;100;Boule;TOR;2109
+96;Lavage jupe turbine 1 n°2;Turbine 1 er jet n°2;96;2;96;NULL;0947AR;21;EV11120267;2009;2009;100;Boule;TOR;2109
+97;Lavage jupe turbine 1 n°3;Turbine 1 er jet n°3;97;2;97;NULL;0947AR;21;EV11120363;2009;2009;100;Boule;TOR;2109
+98;Lavage jupe turbine 1 n°4;Turbine 1 er jet n°4;98;2;98;NULL;0947AR;21;EV11120475;2009;2009;100;Boule;TOR;2109
+99;Niveau bac à liqueur standard n° 1 (sortie CLS);Bac à liqueur standard n° 1;99;2;99;99;NULL;18;LV 07 02 0085;NULL;2003;21;OPERCULE;REG;2024
+100;Niveau ballon;Ballon condensats cuites 2ème et 3ème jet;100;2;100;NULL;NULL;18;LV 01 03 0917;NULL;2000;100;CLAPET;REG;2100
+101;Niveau ballon condensats cuites 2ème et 3ème jet;Condensats cuites;101;2;101;101;NULL;18;LV 01 03 0917;1994;2000;100;CLAPET;REG;2100
+102;Niveau bouteille condensats 1er jet n°1 (cuites 1.2.3);Cuites de 1er jet;102;2;102;102;1260AR;18;LV 01 22 0568;2012;2013;100;OPERCULE;REG;2113
+103;Niveau bouteille condensats 1er jet n°2 (cuites 4.5.6);Cuites de 1er jet;103;2;103;103;1260AR;18;LV 01 22 0570;2012;2013;100;OPERCULE;REG;2113
+104;Petit vide cuite de 1er jet n°1;Cuites de 1er jet;104;2;104;104;NULL;2;PV 18 03 0838;NULL;2010;15;PAPILLON;REG;2025
+105;Petit vide cuite de 1er jet n°2;Cuites de 1er jet;105;2;105;105;1259 AR;2;PV 18 22 0522;2012;2013;100;PAPILLON;REG;2113
+106;Petit vide cuite de 1er jet n°3;Cuites de 1er jet;106;2;106;106;1259 AR;2;PV 18 22 0530;2012;2013;100;PAPILLON;REG;2113
+107;Petit vide cuite de 1er jet n°4;Cuites de 1er jet;107;2;107;107;1259 AR;2;PV 18 22 0546;2012;2013;100;PAPILLON;REG;2113
+108;Petit vide cuite de 1er jet n°5;Cuites de 1er jet;108;2;108;108;1259 AR;2;PV 18 22 0554;2012;2013;100;PAPILLON;REG;2113
+109;Petit vide cuite de 1er jet n°6;Cuites de 1er jet;109;2;109;109;NULL;2;PV 18 03 0840;1997;2010;15;PAPILLON;REG;2025
+110;Petit vide cuite de 2ème jet n°1;Cuites de 2ème jet;110;2;110;110;0721 AR;10;NULL;2007;2013;15;PAPILLON;TOR;2028
+111;Petit vide cuite de 2ème jet n°2;Cuites de 2ème jet;111;2;111;111;0721 AR;10;NULL;2007;2013;15;PAPILLON;TOR;2028
+112;Petit vide cuite de 2ème jet n°3;cuites de 2ème jet;112;2;112;NULL;030030 AR;2; ;2003;2009;100;PAPILLON;TOR;2109
+113;Pression ballon vapeur 3 kg cuites;Cuites;113;2;113;113;NULL;18; ;1990;2012;12;CLAPET;REG;2024
+114;Pression collecteur casse vide vapeur;Cuites de 1er jet;114;2;114;114;1807AR;25;PV 02 22 0650;2018;2018;15;PAPILLON;REG;2033
+115;Purge condensats cuite  de 1er jet n°6;Cuites de 1er jet;115;2;115;NULL;1809AR;2;EV 01 22 046,5;2018;NULL;100;PAPILLON;TOR;2118
+116;Purge condensats cuite de 1er jet n° 1;Cuites de 1er jet;116;2;116;NULL;1809AR;2;EV 01 22 001,6;2018;NULL;100;PAPILLON;TOR;2118
+117;Purge condensats cuite de 1er jet n° 2;Cuites de 1er jet;117;2;117;NULL;1809AR;2;EV 01 22 007,3;2018;NULL;100;PAPILLON;TOR;2118
+118;Purge condensats cuite de 1er jet n° 4;Cuites de 1er jet;118;2;118;NULL;1809AR;2;EV 01 22 009,6;2018;NULL;100;PAPILLON;TOR;2118
+119;Purge condensats cuite de 1er jet n° 5;Cuites de 1er jet;119;2;119;NULL;1809AR;2;EV 01 22 046,4;2018;NULL;100;PAPILLON;TOR;2118
+120;Purge condensats cuite de 1er jet n°3;Cuites de 1er jet;120;2;120;NULL;1809AR;2;EV 01 22 005,7;2018;NULL;100;PAPILLON;TOR;2118
+121;Purge condensats cuite de 2ème jet n°1;Cuites de 2ème jet;121;2;121;NULL;1809AR;2;EV 01 22 021,7;2018;NULL;100;PAPILLON;TOR;2118
+122;Purge condensats cuite de 2ème jet n°2;Cuites de 2ème jet;122;2;122;NULL;1809AR;2;EV 01 22 023,7;2018;NULL;100;PAPILLON;TOR;2118
+123;Purge condensats cuite de 2ème jet n°3;Cuites de 2ème jet;123;2;123;NULL;1809AR;2;EV 01 22 025,7;2018;NULL;100;PAPILLON;TOR;2118
+124;Purge condensats cuite de 3ème jet n°1;Cuites de 3ème jet;124;2;124;NULL;1809AR;2;EV 01 22 027,7;2018;NULL;100;PAPILLON;TOR;2118
+125;Purge condensats cuite de 3ème jet n°2;Cuites de 3ème jet;125;2;125;NULL;1809AR;2;EV 01 22 029,7;2018;NULL;100;PAPILLON;TOR;2118
+126;Purge vide 1er jet n°2;Cuites de 1er jet;126;2;126;NULL;NULL;21;NULL;NULL;2010;99;BOULE;TOR;2109
+127;Purge vide cuite de 1er jet n°1;Cuites de 1er jet;127;2;127;NULL;4500240490;21;2EV 02 22 000,3;2012;NULL;15;BOULE;TOR;2027
+128;Purge vide cuite de 1er jet n°2;Cuites de 1er jet;128;2;128;NULL;4500240490;21;2EV 02 22 002,3;2012;NULL;15;BOULE;TOR;2027
+129;Purge vide cuite de 1er jet n°3;Cuites de 1er jet;129;2;129;NULL;4500240490;21;2EV 02 22 004,3;2012;NULL;15;BOULE;TOR;2027
+130;Purge vide cuite de 1er jet n°4;Cuites de 1er jet;130;2;130;NULL;4500239173;21;2EV 02 22 008,3;2012;NULL;15;BOULE;TOR;2027
+131;Purge vide cuite de 1er jet n°5;Cuites de 1er jet;131;2;131;NULL;4500239173;21;2EV 02 22 010,3;2012;NULL;15;BOULE;TOR;2027
+132;Purge vide cuite de 1er jet n°6;Cuites de 1er jet;132;2;132;NULL;4500239173;21;2EV 02 22 012,4;2012;NULL;15;BOULE;TOR;2027
+133;Purge vide cuite de 2ème jet n°1;Cuites de 2ème jet;133;2;133;NULL;1722AR;10;2EV0222 020.3;2017;2017;10;BOULE;TOR;2027
+134;Purge vide cuite de 2ème jet n°2;Cuites de 2ème jet;134;2;134;NULL;1722AR;10;2EV0222 022.3;2017;2017;10;BOULE;TOR;2027
+135;Purge vide cuite de 2ème jet n°3;Cuites de 2ème jet;135;2;135;NULL;1416AR;21;2EV 02 22 024.3;2014;2014;100;BOULE;TOR;2114
+136;Purge vide cuite de 3ème jet n°1;Cuites de 3ème jet;136;2;136;NULL;1722AR;10;2EV0222 026.3;2017;2017;10;BOULE;TOR;2027
+137;Purge vide cuite de 3ème jet n°2;Cuites de 3ème jet;137;2;137;NULL;1722AR;10;2EV0222 023.3;2017;2017;10;BOULE;TOR;2027
+138;Refroidissement malaxeurs verticaux;Malaxeurs verticaux;138;2;138;138;1840AR;25;TV 01 03 0509;2010;NULL;100;PAPILLON;REG;2110
+139;Régulation sirop cuite de 1er jet n°1 (Sursat);Cuites de 1er jet;139;2;139;139;1260 AR;18;DV 07 22 0518;2012;2013;100;OPERCULE;REG;2113
+140;Régulation sirop cuite de 1er jet n°2 (sursat);Cuites de 1er jet;140;2;140;140;1260 AR;18;DV 07 22 0526;2012;2013;100;OPERCULE;REG;2113
+141;Régulation sirop cuite de 1er jet n°3 (Sursat);Cuites de 1er jet;141;2;141;141;1260 AR;18;DV 07 22 0534;2012;2013;100;OPERCULE;REG;2113
+142;Régulation sirop cuite de 1er jet n°4 (Sursat);Cuites de 1er jet;142;2;142;142;1260 AR;18;DV 07 22 0550;2012;2013;100;OPERCULE;REG;2113
+143;Régulation sirop cuite de 1er jet n°5 (Sursat);Cuites de 1er jet;143;2;143;143;1260 AR;18;DV 07 22 0558;2012;2013;100;OPERCULE;REG;2113
+144;Régulation sirop cuite de 1er jet n°6 (Sursat);Cuites de 1er jet;144;2;144;144;1260 AR;18;DV 07 22 0566;2012;2013;100;OPERCULE;REG;2113
+145;Régulation sirop cuite de 2ème jet n°1 (sursat);Cuites de 1er jet;145;2;145;145;NULL;18;DV 07 22 0628;NULL;2017;20;OPERCULE;REG;2037
+146;Régulation sirop cuite de 2ème jet n°2 (sursat);Cuites de 2ème jet;146;2;146;146;NULL;18;DV 07 22 0636;NULL;2017;10;OPERCULE;REG;2027
+147;Régulation vide 1er jet;Cuites de 1er jet;147;2;147;147;1256AR;2;PV 18 22 0536;2012;2013;100;PAPILLON;REG;2113
+148;Rinçage niveau malaxeur affinage; ;148;2;148;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+149;Rinçage niveau malaxeur de 3ème jet;Malaxeurs de 3ème;149;2;149;NULL;NULL;21;NULL;1994;2012;15;BOULE;NULL;2027
+150;Sursaturation cuite de 1er jet n°6;Cuites de 1er jet;150;2;150;150;NULL;22;DV 07 03 0101;NULL;1997;99;OPERCULE;REG;2096
+151;Sursaturation cuite de 2ème jet n°1;Cuites de 2ème jet;151;2;151;151;NULL;22;DV 07 03 0285 à démonter;NULL;1997;100;OPERCULE;REG;2097
+152;Sursaturation cuite de 2ème jet n°2;Cuites de 2ème jet;152;2;152;152;NULL;22;DV 07 03 0301 à démonter;NULL;1997;100;OPERCULE;REG;2097
+153;Sursaturation cuite de 2ème jet n°3;Cuites de 2ème jet;153;2;153;153;1417 AR;18;DV 07 03 0053;2014;2014;100;PAPILLON;REG;2114
+154;Sursaturation cuite de 3ème jet n°1;Cuites de 3ème jet;154;2;154;154;NULL;18;DV 07 03 0317;NULL;1997;15;OPERCULE;REG;2100
+155;Sursaturation cuite de 3ème jet n°2;Cuites de 3ème jet;155;2;155;155;NULL;18;DV 07 03 0333;NULL;2021;10;OBTURATEUR;REG;2031
+156;Température malaxeur vertical n° 1;Malaxeur vertical n° 1;156;2;156;156;940251 AR;18;TV 01 03 0525;1994;2018;12;OPERCULE;REG;2030
+157;Température malaxeur vertical n° 2;Malaxeur vertical n° 2;157;2;157;157;940251 AR;18;TV 01 03 0526;1994;2018;12;OPERCULE;REG;2030
+158;Température malaxeur vertical n° 3;Malaxeur vertical n° 3;158;2;158;158;940251 AR;18;TV 01 03 0527;1994;2009;100;OPERCULE;REG;2109
+159;Transport 2ème jet BMA K 3300 n° 1;Turbines de 2ème jet;159;2;159;159;NULL;3;NULL;2012;2012;100;CLAPET;REG;2112
+160;Transport 2ème jet BMA K 3300 n° 2;Turbines de 2ème jet;160;2;160;160;NULL;3;NULL;2012;2012;100;CLAPET;REG;2112
+161;Turbine 1er jet  n°1 vanne égouts pauvres (P1);Turbines de 1er jet;161;2;161;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+162;Turbine 1er jet  n°2 vanne égouts pauvres (P1);Turbines de 1er jet;162;2;162;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+163;Turbine 1er jet  n°3 vanne égouts pauvres (P1);Turbines de 1er jet;163;2;163;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+164;Turbine 1er jet  n°4 vanne égouts pauvres (P1);Turbines de 1er jet;164;2;164;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+165;Turbine 2e jet 1 - B5 tuyau transport;TURBINE 2E JET 1;165;2;165;NULL;2307AR;10;EV22T21;01/04/2023;2023;99;BOULE;TOR;2123
+166;Turbine 2e jet 1 - Clairçage global;TURBINE 2E JET 1;166;2;166;NULL;2307AR;10;EV26T21;01/04/2023;2023;99;BOULE;TOR;2123
+167;Turbine 2e jet 1 - Dégazage filtres;TURBINE 2E JET 1;167;2;167;NULL;2307AR;10;EV25T21;01/04/2023;2023;99;BOULE;TOR;2123
+168;Turbine 2e jet 1 - Entrée nettoyage eau/ JAE;TURBINE 2E JET 1;168;2;168;NULL;2307AR;10;EV20T21;01/04/2023;2023;99;BOULE;TOR;2123
+169;Turbine 2e jet 1 - Entrée nettoyage vapeur;TURBINE 2E JET 1;169;2;169;NULL;2307AR;10;EV11T21;01/04/2023;2023;99;BOULE;TOR;2123
+170;Turbine 2e jet 1 - Nettoyage tuyaux alimentation;TURBINE 2E JET 1;170;2;170;NULL;2307AR;10;EV10T21;01/04/2023;2023;99;BOULE;TOR;2123
+171;Turbine 2e jet 1 - Purge filtres transport;TURBINE 2E JET 1;171;2;171;NULL;2307AR;10;EV24T21;01/04/2023;2023;99;BOULE;TOR;2123
+172;Turbine 2e jet 1 - Régulation transport;TURBINE 2E JET 1;172;2;172;NULL;2307AR;17;EV23T21;2023;2023;99;Papillon;NULL;2123
+173;Turbine 2e jet 1 - Vanne  entrée  filtre  transport;TURBINE 2E JET 1;173;2;173;NULL;2307AR;10;EV21T21;01/04/2023;2023;99;BOULE;REG;2123
+174;Turbine 2e jet 2 - B5 tuyau transport;TURBINE 2E JET 2;174;2;174;NULL;2307AR;10;EV22T22;01/04/2023;2023;99;BOULE;TOR;2123
+175;Turbine 2e jet 2 - Clairçage global;TURBINE 2E JET 2;175;2;175;NULL;2307AR;10;EV26T22;01/04/2023;2023;99;BOULE;TOR;2123
+176;Turbine 2e jet 2 - Dégazage filtres;TURBINE 2E JET 2;176;2;176;NULL;2307AR;10;EV25T22;01/04/2023;2023;99;BOULE;TOR;2123
+177;Turbine 2e jet 2 - Entrée nettoyage eau/ JAE;TURBINE 2E JET 2;177;2;177;NULL;2307AR;10;EV20T22;01/04/2023;2023;99;BOULE;TOR;2123
+178;Turbine 2e jet 2 - Entrée nettoyage vapeur;TURBINE 2E JET 2;178;2;178;NULL;2307AR;10;EV11T22;01/04/2023;2023;99;BOULE;TOR;2123
+179;Turbine 2e jet 2 - Nettoyage tuyaux alimentation;TURBINE 2E JET 2;179;2;179;NULL;2307AR;10;EV10T22;01/04/2023;2023;99;BOULE;TOR;2123
+180;Turbine 2e jet 2 - Purge filtres transport;TURBINE 2E JET 2;180;2;180;NULL;2307AR;10;EV24T22;01/04/2023;2023;99;BOULE;TOR;2123
+181;Turbine 2e jet 2 - Régulation transport;TURBINE 2E JET 2;181;2;181;NULL;2307AR;17;EV23T22;2023;2023;99;Papillon;NULL;2123
+182;Turbine 2e jet 2 - Vanne  entrée  filtre  transport;TURBINE 2E JET 2;182;2;182;NULL;2307AR;10;EV21T22;01/04/2023;2023;99;BOULE;REG;2123
+183;Turbine de 1er jet n° 1 égouts pauvres;Turbines de 1er jet;183;2;183;NULL;0609AR;2;2 EV 21 12 0088;2006;NULL;99;PAPILLON;TOR;2105
+184;Turbine de 1er jet n° 2 égouts pauvres;Turbines de 1er jet;184;2;184;184;0609AR;2;2 EV 21 00 0000;2006;NULL;99;PAPILLON;TOR;2105
+185;Turbine de 1er jet n° 3 égouts pauvres;Turbines de 1er jet;185;2;185;185;0609AR;2;2 EV 21 00 0000;2006;NULL;99;PAPILLON;TOR;2105
+186;Turbine de 1er jet n° 4 égouts pauvres;Turbines de 1er jet;186;2;186;186;0609AR;2;2 EV 21 00 0000;2006;NULL;99;PAPILLON;TOR;2105
+187;Turbine de 1er jet n°1 vanne égouts riches (R1);Turbines de 1er jet;187;2;187;NULL;NULL;Five Cail;NULL;NULL;2019;10;PAPILLON;TOR;2029
+188;Turbine de 1er jet n°2 vanne égouts riches (R1);Turbines de 1er get;188;2;188;NULL;NULL;Five Cail;NULL;NULL;2019;10;PAPILLON;TOR;2029
+189;Turbine de 1er jet n°3 vanne égouts riches (R1);Turbines de 1er jet;189;2;189;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+190;Turbine de 1er jet n°4 vanne égouts riches (R1);Turbines de 1er jet;190;2;190;NULL;NULL;Five Cail;NULL;2013;2019;10;PAPILLON;TOR;2029
+191;Vanne by-pass MC2 pompe n°1;Malaxeur de coulée cuites de 2ème jet;191;2;191;NULL;1701AR;2;EV 11 22 047.5;2017;2017;100;PAPILLON;TOR;2117
+192;VANNE CASSE VIDE ATMOSPHERIQUE 3N1;NULL;192;2;192;NULL;2242AR;10;EVCASVIDATMO3_1;03/11/2022;2023;99;NULL;TOR;2122
+193;VANNE CASSE VIDE ATMOSPHERIQUE 3N2;NULL;193;2;193;NULL;2242AR;10;EVCASVIDATMO3_2;03/11/2022;2023;99;NULL;TOR;2122
+194;VANNE CASSE VIDE VAPEUR 3N1;NULL;194;2;194;NULL;2242AR;10;EVCASVIDVAP3_1;03/11/2022;2023;99;NULL;TOR;2122
+195;VANNE CASSE VIDE VAPEUR 3N2;NULL;195;2;195;NULL;2242AR;10;EVCASVIDVAP3_2;03/11/2022;2023;99;NULL;TOR;2122
+196;VANNE PETIT VIDE 3N1;NULL;196;2;196;NULL;2242AR;10;EVPETITVIDE3_1;03/11/2022;2023;99;NULL;TOR;2122
+197;VANNE PETIT VIDE 3N2;NULL;197;2;197;NULL;2242AR;10;EVPETITVIDE3_2;03/11/2022;2023;99;NULL;TOR;2122
+198;Vanne pression barriquand JUS DIF.;Barriquand jus diffusion;198;2;198;198;1262AR;10;PV02220540;2012;2012;100;PAPILLON;REG;2112
+199;Vanne remplissage pesage egouts R1;NULL;199;2;199;NULL;2053AR;2;EV2122039,4;NULL;NULL;NULL;NULL;NULL;NULL
+200;Vanne remplissage pesage mélasse;Pesage mélasse;200;2;200;NULL;1262AR;10;EV 14 22 0411;2012;2018;10;PAPILLON;TOR;2028
+201;Vanne rincage purge condensats cuite 1er jet n°1;Cuites de 1er jet;201;2;201;NULL;1901AR;10;EV 02 22 048,1;2010;2019;10;BOULE;TOR;2029
+202;Vanne rincage purge condensats cuite 1er jet n°2;Cuites de 1er jet;202;2;202;NULL;1901AR;10;EV 02 22 048,2;2010;2019;10;BOULE;TOR;2029
+203;Vanne rincage purge condensats cuite 1er jet n°3;Cuites de 1er jet;203;2;203;NULL;1901AR;10;EV 02 22 048,3;2010;2019;10;BOULE;TOR;2029
+204;Vanne rincage purge condensats cuite 1er jet n°4;Cuites de 1er jet;204;2;204;NULL;1901AR;10;EV 02 22 048,4;2010;2019;10;BOULE;TOR;2029
+205;Vanne rincage purge condensats cuite 1er jet n°5;Cuites de 1er jet;205;2;205;NULL;1901AR;10;EV 02 22 048,5;2010;2019;10;BOULE;TOR;2029
+206;Vanne rincage purge condensats cuite 1er jet n°6;Cuites de 1er jet;206;2;206;NULL;1901AR;10;EV 02 22 048,6;2010;2019;10;BOULE;TOR;2029
+207;Vanne rincage purge condensats cuite 2ème jet n°1;Cuites de 2ème jet;207;2;207;NULL;1901AR;10;EV 02 22 020,0;2010;2019;10;BOULE;TOR;2029
+208;Vanne rincage purge condensats cuite 2ème jet n°2;Cuites de 2ème jet;208;2;208;NULL;1901AR;10;EV 02 22 022,0;2010;2019;10;BOULE;TOR;2029
+209;Vanne rincage purge condensats cuite 2ème jet n°3;Cuites de 2ème jet;209;2;209;NULL;1901AR;10;EV 02 22 048,0;2010;2019;10;BOULE;TOR;2029
+210;Vanne vidange pesage egouts R1;NULL;210;2;210;NULL;2053AR;2;EV2122039,5;NULL;NULL;NULL;NULL;NULL;NULL
+211;Vanne vidange pesage mélasse;Pesage mélasse;211;2;211;NULL;NULL;10;EV 14 22 0412;1994;2022;15;PAPILLON;TOR;2037
+212;Vapeur coulée couronne cuite de 1er jet n°1;Cuites de 1er jet;212;2;212;NULL;NULL;21;2EV 02 22 000.3;2011;2014;100;BOULE;TOR;2114
+213;Vapeur coulée couronne cuite de 1er jet n°2;Cuites de 1er jet;213;2;213;NULL;NULL;21;2EV 02 22 002.3;2011;2011;100;BOULE;TOR;2111
+214;Vapeur coulée couronne cuite de 1er jet n°3;Cuites de 1er jet;214;2;214;NULL;1261AR;21;2EV 02 22 004.3;2012;2014;100;BOULE;TOR;2114
+215;Vapeur coulée couronne cuite de 1er jet n°4;Cuites de 1er jet;215;2;215;NULL;1261AR;21;2EV 02 22 008.3;2012;2014;100;BOULE;TOR;2114
+216;Vapeur coulée couronne cuite de 1er jet n°5;Cuites de 1er jet;216;2;216;NULL;1261AR;21;2EV 02 22 010.3;2012;2013;100;BOULE;TOR;2113
+217;Vapeur coulée couronne cuite de 1er jet n°6;Cuites de 1er jet;217;2;217;NULL;NULL;21;2EV 02 22 012.4;2011;2011;100;BOULE;TOR;2111
+218;Vapeur coulée couronne cuite de 2ème jet n°1;Cuites de 2ème jet;218;2;218;NULL;NULL;20;NULL;NULL;2014;20;BOULE;TOR;2034
+219;Vapeur coulée couronne cuite de 2ème jet n°2;Cuites de 2ème jet;219;2;219;NULL;NULL;21;NULL;NULL;2015;10;BOULE;TOR;2025
+220;Vapeur coulée couronne cuite de 2ème jet n°3;Cuites de 2ème jet;220;2;220;NULL;NULL;21;EV 01 03 0175;2011;2011;100;BOULE;TOR;2111
+221;Vapeur coulée couronne cuite de 3ème jet n° 1;Cuites de 3ème jet;221;2;221;NULL;NULL;21;EV 01 03 0437;2011;2011;100;Boule;TOR;2111
+222;Vapeur coulée couronne cuite de 3ème jet n° 2;Cuites de 3ème jet;222;2;222;NULL;NULL;21;EV 01 03 0453;2011;2011;100;Boule;TOR;2111
+223;Vapeur cuite de 1er jet n°1;Cuites de 1er jet;223;2;223;223;NULL;2;NULL;1987;2011;15;PAPILLON;REG;2026
+224;Vapeur cuite de 1er jet n°1;Cuites de 1er jet;224;2;224;224;1402AR;2;PV 02 22 0516;2014;2019;10;PAPILLON;REG;2029
+225;Vapeur cuite de 1er jet n°2;cuites de 1er jet;225;2;225;225;NULL;2;PV 02 22 0524;NULL;2018;100;PAPILLON;REG;2118
+226;Vapeur cuite de 1er jet n°2;Cuites de 1er jet;226;2;226;226;NULL;2;PV 02 03 0087;2012;2012;100;PAPILLON;REG;2112
+227;Vapeur cuite de 1er jet n°3;Cuites de 1er jet;227;2;227;227;1222AR;2;PV 02 22 0564;2012;2019;10;PAPILLON;REG;2029
+228;Vapeur cuite de 1er jet n°4;Cuites de 1er jet;228;2;228;228;1222AR;2;PV 02 22 0548;2012;2018;100;PAPILLON;REG;2118
+229;Vapeur cuite de 1er jet n°5;Cuites de 1er jet;229;2;229;NULL;1222AR;2;PV 02 22 0556;2012;2018;100;PAPILLON;TOR;2118
+230;Vapeur cuite de 1er jet n°6;Cuites de 1er jet;230;2;230;230;NULL;2;NULL;1987;1997;99;PAPILLON;REG;2096
+231;Vapeur cuite de 1er jet n°6;Cuites de 1er jet;231;2;231;231;1222AR;2;PV 02 22 0532;2012;2013;100;PAPILLON;REG;2113
+232;Vapeur cuite de 2ème jet n°1;Cuites de 2ème jet;232;2;232;232;NULL;2;A démonter;1981;1997;100;PAPILLON;REG;2097
+233;Vapeur cuite de 2ème jet n°1;cuites de 2ème jet;233;2;233;233;1701AR;2;PV 02 22 0626;2017;2017;100;PAPILLON;REG;2117
+234;Vapeur cuite de 2ème jet n°2;Cuites de 2ème jet;234;2;234;234;NULL;2;NULL;1981;1997;15;PAPILLON;REG;2100
+235;Vapeur cuite de 2ème jet n°2;cuites de 2ème jet;235;2;235;235;1701AR;2;PV 02 22 0634;2017;2017;100;PAPILLON;REG;2117
+236;Vapeur cuite de 2éme jet n°3;Cuites de 2ème jet;236;2;236;236;NULL;2;NULL;1981;2011;15;PAPILLON;REG;2026
+237;Vapeur cuite de 2ème jet n°3;Cuites de 2ème jet;237;2;237;237;1403AR;2;PV 02 03 0055;2014;2020;10;PAPILLON;REG;2030
+238;Vapeur cuite de 3ème jet n°1;Cuites de 3ème jet;238;2;238;238;NULL;2;A démonter;1985;1997;100;PAPILLON;REG;2097
+239;Vapeur cuite de 3ème jet n°1;Cuites de 3ème jet;239;2;239;239;1701AR;2;PV 02 22 0658;2017;2017;100;PAPILLON;REG;2117
+240;Vapeur cuite de 3ème jet n°2;Cuites de 3ème jet;240;2;240;240;NULL;2;NULL;1985;1997;15;PAPILLON;REG;2100
+241;Vapeur cuite de 3ème jet n°2;Cuites de 3ème jet;241;2;241;241;1701AR;2;PV 02 22 0666;2017;2017;100;PAPILLON;REG;2117
+242;Vide cuite de 1er jet n°1;Cuites de 1er jet;242;2;242;242;NULL;2;PV 18 03 0070;2012;2012;100;PAPILLON;REG;2112
+243;Vide cuite de 1er jet n°2;Cuites de 1er jet;243;2;243;243;1402AR;2;PV 18 22 0520;2014;2014;100;PAPILLON;REG;2114
+244;Vide cuite de 1er jet n°3;Cuites de 1er jet;244;2;244;244;1222AR;2;PV 18 22 0528;2013;2013;100;PAPILLON;REG;2113
+245;Vide cuite de 1er jet n°4;Cuites de 1er jet;245;2;245;245;1222AR;2;PV 18 22 0544;2012;2013;100;PAPILLON;REG;2113
+246;Vide cuite de 1er jet n°5;Cuites de 1er jet;246;2;246;246;NULL;2;PV 18 22 0552;2012;2013;100;PAPILLON;REG;2113
+247;Vide cuite de 1er jet n°6;Cuites de 1er jet;247;2;247;247;NULL;2;NULL;1981;1997;99;PAPILLON;REG;2096
+248;Vide cuite de 2ème jet n°1;Cuites de 2ème jet;248;2;248;248;NULL;2;NULL;1981;2013;15;PAPILLON;REG;2028
+249;Vide cuite de 2ème jet n°1;Cuites de 2ème jet;249;2;249;249;1701AR;2;PV 18 22 0624;2017;2017;100;PAPILLON;REG;2117
+250;Vide cuite de 2ème jet n°2;Cuites de 2ème jet;250;2;250;250;NULL;2;NULL;1981;2006;100;PAPILLON;REG;2106
+251;Vide cuite de 2ème jet n°2;Cuites de 2ème jet;251;2;251;251;1701AR;2;PV 18 22 0632;2017;2017;100;PAPILLON;REG;2117
+252;Vide cuite de 3ème jet n° 2;Cuites de 3ème jet;252;2;252;252;1701AR;2;PV 18 22 0664;2017;2017;100;PAPILLON;REG;2117
+253;Vide cuite de 3ème jet n°1;Cuites de 3ème jet;253;2;253;253;990013 AR;2;A démonter;1999;2015;10;PAPILLON;REG;2025
+254;Vide cuite de 3ème jet n°1;Cuites de 3ème jet;254;2;254;254;1701AR;2;PV 18 22 0656;2017;2017;100;PAPILLON;REG;2117
+255;Vide général bis;Cuites de 1er jet;255;2;255;255;NULL;2;NULL;1987;2016;15;PAPILLON;REG;2031
+256;Chauffage sécheur G;Sécheur G;256;3;256;256;1473 AR;18;PV 02 23 0700;2014;2015;100;OPERCULE;REG;2115
+257;Extinction refroidisseur;Refroidisseur deshy;257;3;257;NULL;NULL;21;EV01070401;NULL;2022;10;BOULE;TOR;NULL
+258;Mise à l'atmosphère sécheur;Sécheur 8;258;3;258;258;200165AR;2;PV 02 07 0096;2000;2015;10;PAPILLON;REG;2025
+259;Mise à l'atmosphère sécheur G;Sécheur G;259;3;259;259;14273 DT;2;PV 02 23 0702;2014;2015;10;PAPILLON;REG;2025
+260;Niveau bouteille 25 bars sécheur;réseau condensats deshy;260;3;260;260;1473 AR;18;LV 01 23 0718;2014;2015;10;CLAPET;REG;2025
+261;Niveau bouteille 25 bars sécheur G;réseau condensats deshy;261;3;261;261;010253AR;12;LV 01 07 0094;2001;2015;15;OPERCULE;REG;2030
+262;Niveau bouteille 25b sécheurs deshy;réseau condensats deshy;262;3;262;262;NULL;18;LV 01 23 0716;NULL;2015;100;CLAPET;REG;2115
+263;Pression bouteille 15b chaufferie Duquesne;réseau condensats deshy;263;3;263;263;1253 AR;12;PV 02 07 0102;2001;2001;100;OPERCULE;REG;2101
+264;Pression sécheur G;Sécheur G;264;3;264;264;NULL;2;PV 02 23 0704;NULL;2015;100;PAPILLON;REG;2115
+265;Température entrée sécheur G;Sécheur G;265;3;265;265;1474AR;4;TV 02 23 0722;2014;2015;10;CLAPET;REG;2025
+266;Vapeur entrée sécheur (pression surchauffeur);Sécheur 8;266;3;266;266;NULL;18;NULL;1990;2008;100;OPERCULE;REG;2108
+267;By-pass jus de circulation vers bac de soutirage;diffusion;267;4;267;NULL;NULL;10;2 EV 06 01 A20,3;NULL;2004;99;PAPILLON;TOR;2103
+268;Chasse epulpeur meichage N°1;Epulpeur meichage N°1;268;4;268;NULL;2243AR;24;EV06010200;2022;NULL;100;Pelle;TOR;2122
+269;Chasse epulpeur soutirage N°1;Epulpeur soutirage N°1;269;4;269;NULL;2243AR;24;EV06010203;2022;NULL;100;Pelle;TOR;2122
+270;Chasse epulpeur soutirage N°2;Epulpeur soutirage N°2;270;4;270;NULL;2243AR;24;EV06010201;2022;NULL;100;Pelle;TOR;2122
+271;Chaulage eaux traitées vanne  n°2;Diffusion;271;4;271;NULL;0947AR;21;2 EV 09 01 0440;NULL;NULL;NULL;Boule;TOR;NULL
+272;Chaulage eaux traitées vanne n°1;Bac eaux traitées;272;4;272;NULL;NULL;21;2 EV 09 01 0440;2000;2015;100;BOULE;TOR;2115
+273;Débit eaux traitées;Bac eaux traitées;273;4;273;273;030018 AR;2;FV 01 01 0578;2003;2016;8;PAPILLON;REG;2024
+274;Débour. coupe-racines n°1;Coupes racines;274;4;274;NULL;NULL;21;EV 03 01 0776;NULL;1992;100;BOULE;TOR;2092
+275;Débour. coupe-racines n°2;Coupes racines;275;4;275;NULL;NULL;21;EV 03 01 0777;NULL;1992;100;BOULE;TOR;2092
+276;Débour. coupe-racines n°3;Coupes racines;276;4;276;NULL;NULL;21;EV 03 01 0778;NULL;1992;100;BOULE;TOR;2092
+277;Débour. coupe-racines n°4;Coupes racines;277;4;277;NULL;NULL;21;EV 03 01 0779;NULL;1992;100;BOULE;TOR;2092
+278;Ecumes eaux traitées;bac eaux traitées;278;4;278;NULL;950556AR;10;2 EV27 01 0440;1995;2008;99;PAPILLON;TOR;2107
+279;Injection formol milieu diffuseur;Diffuseur;279;4;279;NULL;970301 AR;21;EV 04 01 0893;1997;2007;100;BOULE;TOR;2107
+280;Injection formol queue;Diffuseur;280;4;280;NULL;970301 AR;21;EV 04 01 0899;1997;2007;100;BOULE;TOR;2107
+281;Injection formol tête chaude;Diffuseur;281;4;281;NULL;970301 AR;21;EV 04 01 0898;1997;2007;100;BOULE;TOR;2107
+282;Injection formol tête froide;Diffuseur;282;4;282;NULL;970301 AR;21;EV 04 01 0897;1997;2007;100;BOULE;TOR;2107
+283;Lavage couronne coupe racine n°1;Coupes racines;283;4;283;NULL;NULL;21;EV 15 01 A24,3;1991;2013;100;BOULE;TOR;2113
+284;Lavage couronne coupe racines n°4;Coupes racines;284;4;284;NULL;NULL;21;EV 15 01 A28,3;1991;2013;100;BOULE;TOR;2113
+285;Lavage droit presse n°1;Presses;285;4;285;285;0721 AR;10;EV 01 01 033,7;2007;2018;10;PAPILLON;TOR;2028
+286;Lavage droit presse n°2;Presses;286;4;286;NULL;940288 AR;10;EV 01 01 032,1;1999;2020;10;PAPILLON;TOR;2030
+287;Lavage droit presse n°3;Presses;287;4;287;NULL;990288 AR;10;EV 01 01 032,4;1999;NULL;100;PAPILLON;TOR;2099
+288;Lavage droit presse n°4;Presses;288;4;288;NULL;990288 AR;10;EV 01 01 032,7;1999;NULL;100;PAPILLON;TOR;2099
+289;Lavage droit presse n°5;Presses;289;4;289;NULL;990288 AR;10;EV 01 01 033,2;1999;NULL;100;PAPILLON;TOR;2099
+290;Lavage droit presse n°8;Presses;290;4;290;290;NULL;10;EV 01 01 033,5;NULL;NULL;NULL;PAPILLON;TOR;NULL
+291;Lavage fut bout de ligne;Presses;291;4;291;NULL;NULL;10;EV0101;NULL;NULL;NULL;NULL;NULL;NULL
+292;Lavage fût presse n°2;Presses;292;4;292;NULL;940288 AR;10;EV 01 01 032,0;1999;NULL;100;PAPILLON;TOR;2099
+293;Lavage fût presse n°3;Presses;293;4;293;293;950326AR;10;EV 01 01 032,3;1995;2014;99;PAPILLON;TOR;2113
+294;Lavage fût presse n°4;Presses;294;4;294;NULL;990288 AR;10;EV 01 01 032,6;1999;NULL;100;PAPILLON;TOR;2099
+295;Lavage fût presse n°5;Presses;295;4;295;NULL;950556AR;10;EV 01 01 033,1;1999;2018;100;PAPILLON;TOR;2118
+296;Lavage fût presse n°8;Presses;296;4;296;296;NULL;10;EV 01 01 033,4;NULL;NULL;NULL;PAPILLON;TOR;NULL
+297;Lavage gauche presse n°1;Presses;297;4;297;NULL;NULL;10;EV 01 01 034,0;NULL;2018;10;PAPILLON;TOR;2028
+298;Lavage gauche presse n°2;Presses;298;4;298;NULL;940288 AR;10;EV 01 01 032,2;1999;2020;10;PAPILLON;TOR;2030
+299;Lavage gauche presse n°3;Presses;299;4;299;NULL;990288 AR;10;EV 01 01 032,5;1999;NULL;100;PAPILLON;TOR;2099
+300;Lavage gauche presse n°4;Presses;300;4;300;NULL;990288 AR;10;EV 01 01 033,0;1999;NULL;100;PAPILLON;TOR;2099
+301;Lavage gauche presse n°5;Presses;301;4;301;NULL;990288 AR;10;EV 01 01 033,3;1999;NULL;100;PAPILLON;TOR;2099
+302;Lavage gauche presse n°8;Presses;302;4;302;NULL;NULL;10;EV 01 01 033,4;NULL;NULL;NULL;PAPILLON;TOR;NULL
+303;Niveau bac eaux traitées;Bac eaux traitées ;303;4;303;303;NULL;2;LV 01 01 0578;NULL;2018;8;PAPILLON;REG;2026
+304;Niveau bouteille condensats Barriquand;Bouteille condensats Barriquand;304;4;304;304;NULL;2;NULL;NULL;2016;100;PAPILLON;REG;2116
+305;ph eaux traitees ecumes FAD 2;Bac de préparation eaux traitées;305;4;305;NULL;NULL;21;NULL;2017;2018;100;BOULE;TOR;2118
+306;ph eaux traitees ecumes FAD 3;Bac de préparation eaux traitées;306;4;306;NULL;NULL;20;NULL;1981;2010;100;BOULE;TOR;2110
+307;Pompes a eaus terreuses P3A;Pompes a eaux terreuses;307;4;307;307;2243AR;24;LV0101****;2022;NULL;100;Pelle;REG;2122
+308;Purge bac de préparation eaux traitées;Bac de préparation eaux traitées;308;4;308;NULL;030030 AR;2;NULL;2003;2016;100;PAPILLON;TOR;2116
+309;Purge by-pass saccharateur;Saccharateur;309;4;309;NULL;NULL;10;2 EV 06 01 A20,3;1995;2006;20;PAPILLON;TOR;2026
+310;Température eaux traitées;Caisse 1ère carbonatation;310;4;310;NULL;NULL;18;TV 01 02 0577;NULL;NULL;8;OPERCULE;REG;NULL
+311;Température jus clair après alpha;Saccharateur;311;4;311;NULL;NULL;25;TV 01 02 0578;NULL;NULL;NULL;PAPILLON;REG;NULL
+312;Température réchauff. de meichage;Réchauffeurs;312;4;312;312;NULL;2;TV 02 01 0534;1981;2016;100;PAPILLON;REG;2116
+313;Vanne débourrage cr3;COUPE RACINE 3;313;4;313;NULL; ;10;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+314;Vide diffusion (réchauffeurs meichage et soutirage);Réchauffeurs ;314;4;314;NULL;NULL;25;PV 18 01 0598;NULL;NULL;NULL;PAPILLON;REG;NULL
+315;Chauffage fioul groupe n°1;Chaufferie Duquesne;315;5;315;315;940229 AR;18;LOCALE;1994;1995;100;OPERCULE;REG;2095
+316;chauffage fioul groupe n°2;Chaufferie Duquesne;316;5;316;316;940229 AR;18;LOCALE;1994;1995;100;OPERCULE;REG;2095
+317;Débit d' eau (niveau ballon);Chaudière Babcok;317;5;317;317;NULL;18;FV 1120 (rep Babcok);1996;2017;10;CLAPET;REG;2027
+318;Débit gaz chaudière;Chaudière Babcok;318;5;318;318;NULL;18;FV 3000 (rep Babcok);1996;2010;100;OPERCULE;REG;2110
+319;Débit gaz chaudière n°1;Groupe d'allumage gaz chaudière n°1;319;5;319;319;NULL;18;NULL;NULL;NULL;10;CLAPET;REG;NULL
+320;Débit gaz chaudière n°2;Groupe d'allumage gaz chaudière n°2;320;5;320;320;NULL;18;NULL;NULL;NULL;10;CLAPET;REG;NULL
+321;Débit gaz chaudière n°3;Groupe d'allumage gaz chaudière n°3;321;5;321;321;NULL;18;NULL;NULL;NULL;10;CLAPET;REG;NULL
+322;Décharge deshy G ou 8;Deshy G;322;5;322;322;1474AR;4;NULL;2014;NULL;100;CAGE;REG;2114
+323;Décharge réseau 25 bars;Réseau vapeur;323;5;323;323;NULL;4;FV 8003/4;1996;2011;99;CLAPET;REG;2110
+324;Desurchauffe décharge sécheur G ou 8;Sécheur G;324;5;324;324;1473 AR;18;TV 8012;2014;2022;10;CLAPET;REG;2032
+325;Désurchauffe entree corps I;Turbo 3,9 kw;325;5;325;325;980825 AR;18;TV 8013;1998;2005;100;CLAPET;REG;2105
+326;Désurchauffe réseau vapeur (détente 25 b) secours;Réseau vapeur;326;5;326;326;960036 AR;18;TV 8001;1996;2018;10;CLAPET;REG;2028
+327;Désurchauffe réseau vapeur (détente 25b);Réseau vapeur;327;5;327;327;2238 AR;18;TV 8001;27-01-2023;2023;10;NULL;REG;Impossible achat sup à révision !!!
+328;Désurchauffe vapeur chaudière;Chaudière Babcok;328;5;328;NULL;NULL;5;TV 1510 (rep Babcok);1996;2022;3;BUSES;REG;2025
+329;Entree bache 1 vanne n°2;Baches à eau Babcock;329;5;329;NULL;1336 AR;10;CVEB1;2013;2020;6;PAPILLON;TOR;2026
+330;Entree bache 2 vanne n°2;Baches à eau Babcock;330;5;330;NULL;1336 AR;10;CVEB2;2013;2022;6;PAPILLON;TOR;2028
+331;Entree bache 3 vanne n°2;Baches à eau Babcock;331;5;331;NULL;1336 AR;10;CVEB3;2013;2020;6;PAPILLON;TOR;2026
+332;Entrée bache 3 vanne n°2;Chaudière Babcok;332;5;332;NULL;NULL;10;459122;2010;2020;6;PAPILLON;TOR;2026
+333;Évent gaz;Chaudière Babcok;333;5;333;NULL;NULL;9;UV 3302 (rep Babcok);1996;2022;10;BOULE;TOR;2032
+334;Niveau bâche 4;Baches à eau Babcock;334;5;334;334;960223 AR;18;LV 8010 (rep Babcok);1996;2020;16;CLAPET;REG;2036
+335;Niveau ballon chaudière n°2;Chaufferie Duquesne;335;5;335;335;NULL;18; ;NULL;2014;100;CLAPET;REG;2114
+336;Niveau ballon purge chaudière babcock;NULL;336;5;336;336;NULL;25;LV0105****;NULL;2017;10;OPERCULE;REG;2027
+337;Niveau des baches babcock par somme 123;Baches à eau Babcock;337;5;337;337;1313 AR;25;LV 01 05  0373;2013;2013;100;PAPILLON;REG;2113
+338;Pression fioul groupe n°1;Chaufferie Duquesne;338;5;338;NULL;NULL;1;LOCALE;NULL;1994;100;CLAPET;REG;2094
+339;Pression fioul groupe n°2;Chaufferie Duquesne;339;5;339;NULL;NULL;1;LOCALE;NULL;1994;100;CLAPET;REG;2094
+340;Pression gaz d'allumage chaudière n°1;Groupe d'allumage gaz chaudière n°1;340;5;340;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+341;Pression gaz d'allumage chaudière n°2;Groupe d'allumage gaz chaudière n°2;341;5;341;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+342;Pression gaz d'allumage chaudière n°3;Groupe d'allumage gaz chaudière n°3;342;5;342;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+343;Pression réseau 25 bars (détente réseau);Réseau Vapeur 25 bars;343;5;343;343;1762AR;4;8006 (rep babcock);2010;2019;5;CLAPET;REG;2024
+344;Pulvérisation vapeur chaudière n° 1;Chaufferie Duquesne;344;5;344;NULL;NULL;1;LOCALE;NULL;1994;100;CLAPET;REG;2094
+345;Pulvérisation vapeur chaudière n° 2;Chaufferie Duquesne;345;5;345;NULL;NULL;1;LOCALE;NULL;1994;100;CLAPET;REG;2094
+346;Pulvérisation vapeur chaudière n° 3;Chaufferie Duquesne;346;5;346;NULL;NULL;22;LOCALE;NULL;1995;100;CLAPET;REG;2095
+347;Refroidissement turbo;Turbo Breguet;347;5;347;NULL;NULL;14;LOCALE;NULL;NULL;NULL;3 VOIES;REG;NULL
+348;régulateur d'alimentation en gaz TAG;Turbine à gaz;348;5;348;NULL;NULL;21;NULL;NULL;2003;100;CAGE;REG;2103
+349;Section gaz amont chaudière n°1 (vanne du haut);Groupe d'allumage gaz chaudière n°1;349;5;349;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+350;Section gaz amont chaudière n°2 (vanne du haut);Groupe d'allumage gaz chaudière n°2;350;5;350;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+351;Section gaz amont chaudière n°3 (vanne du haut);Groupe d'allumage gaz chaudière n°3;351;5;351;NULL;NULL;21;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+352;Section gaz amont évent;Chaudière Babcok;352;5;352;NULL;NULL;9;UV 3301 (rep Babcok);1996;2022;10;BOULE;TOR;2032
+353;Section gaz aval babcok;Chaudière Babcok;353;5;353;NULL;0505 AR;21;UV 3303 (rep Babcok);2005;2022;10;BOULE;TOR;2032
+354;Sécurité niveau bache A5;NULL;354;5;354;NULL;030031 AR;10;NULL;2003;2016;100;PAPILLON;TOR;2116
+355;Sortie bache 3;Baches à eau Babcock;355;5;355;NULL;NULL;10;CVSB3;2010;2013;12;PAPILLON;TOR;2025
+356;Vanne entre bâche 1;Baches à eau Babcock;356;5;356;NULL;950736 AR;10;CVEB1;1995;2020;20;PAPILLON;TOR;2040
+357;Vanne entre bâche 3;Baches à eau Babcock;357;5;357;NULL;950736 AR;10;CVEB3;1995;2020;6;PAPILLON;TOR;2026
+358;VANNE ENTREE BACHE 1  CHAINE A;Baches à eau Babcock;358;5;358;NULL;2248AR;25;CVEB11;2022;2023;15;NULL;TOR;2038
+359;VANNE ENTREE BACHE 1 CHAINE C;NULL;359;5;359;NULL;2248AR;25;CVEB12;2022;2023;15;NULL;TOR;2038
+360;VANNE ENTREE BACHE 2 CHAINE A;NULL;360;5;360;NULL;2248AR;25;CVEB21;2022;2023;15;NULL;TOR;2038
+361;VANNE ENTREE BACHE 2 CHAINE C;NULL;361;5;361;NULL;2248AR;25;CVEB22;15/11/2022;2023;15;NULL;TOR;2038
+362;VANNE ENTREE BACHE 3 CHAINE A;NULL;362;5;362;NULL;2248AR;25;CVEB31;15/11/2022;2023;15;NULL;TOR;2038
+363;VANNE ENTREE BACHE 3 CHAINE C;NULL;363;5;363;NULL;2248AR;25;CVEB32;15/11/2022;2023;15;NULL;TOR;2038
+364;Vanne sécurité sucre (isolement baches Babcock);Baches à eau Babcock;364;5;364;NULL;1313AR;25;NULL;2013;2013;100;PAPILLON;TOR;2113
+365;Vanne sortie bâche 1;Baches à eau Babcock;365;5;365;NULL;950736 AR;10;CVSB1;1995;2017;10;PAPILLON;TOR;2027
+366;Vanne sortie bâche 2;Baches à eau Babcock;366;5;366;NULL;950736 AR;10;CVSB2;1995;2017;10;PAPILLON;TOR;2027
+367;Vanne sortie bache 2 (Duquesne);Baches Duquesne;367;5;367;NULL;NULL;25;NULL;NULL;2018;10;PAPILLON;TOR;2028
+368;Vanne sortie bache alimentaire n°1;Baches alimentaires Bab.;368;5;368;NULL;1804AR;2;CVSB1;2018;2018;10;PAPILLON;TOR;2028
+369;Vanne sortie bache alimentaire n°2;Baches alimentaires Bab.;369;5;369;NULL;1804AR;2;CVSB2;2018;2018;10;PAPILLON;TOR;2028
+370;Vanne sortie bache alimentaire n°3;Baches alimentaires Bab.;370;5;370;NULL;1804AR;2;CVSB3;2018;2018;10;PAPILLON;TOR;2028
+371;Adoucisseur n° 1 vanne n°1;Adoucisseurs ERPAC;371;6;371;NULL;NULL;2;EV 01 02 0241;NULL;1994;100;PAPILLON;TOR;2094
+372;Adoucisseur n° 1 vanne n°2;Adoucisseurs ERPAC;372;6;372;NULL;NULL;2;EV 01 02 0242;NULL;1994;100;PAPILLON;TOR;2094
+373;Adoucisseur n° 2 vanne n°11;Adoucisseurs ERPAC;373;6;373;NULL;NULL;2;EV 01 02 0250;NULL;1994;100;PAPILLON;TOR;2094
+374;Adoucisseur n° 2 vanne n°12;Adoucisseurs ERPAC;374;6;374;NULL;NULL;2;EV 01 02 0251;NULL;1994;100;PAPILLON;TOR;2094
+375;Adoucisseur n° 3 vanne n°21;Adoucisseurs ERPAC;375;6;375;NULL;NULL;2;EV 01 02 0259;NULL;1996;100;PAPILLON;TOR;2096
+376;Adoucisseur n° 3 vanne n°22;Adoucisseurs ERPAC;376;6;376;NULL;NULL;2;EV 01 02 0260;NULL;1996;100;PAPILLON;TOR;2096
+377;Annexe ERPAC vanne n° 35;Adoucisseurs ERPAC;377;6;377;NULL;NULL;2;EV 01 02 0279;NULL;1994;100;PAPILLON;TOR;2094
+378;Appoint eau bouteille laveur des buées;four à chaux;378;6;378;378;NULL;2;EV 01 13 0381;2000;2009;100;BOULE;TOR;2109
+379;Appoint eau réfrigérant par retour turbo;Réfrigérant;379;6;379;NULL;020504 AR;2;EV 01 02 0167;2002;2002;100;PAPILLON;TOR;2102
+380;Lavage des buées;four à chaux;380;6;380;380;NULL;2;EV 01 13 0383;2000;2017;10;BOULE;TOR;2027
+381;Niveau bac de circulation;Chaulerie;381;6;381;381;NULL;2;LV 09 13 0093;2000;2018;8;PAPILLON;REG;2026
+382;Pression réchauffeur JT1 n°2;Réchauffeur de JT1;382;6;382;382;NULL;18;PV 22 02 0562;NULL;2011;100;OBTURATEUR;REG;2111
+383;Niveau bac JAE;Bac JAE;383;6;383;383;NULL;22;LV 06 02 0073;NULL;2016;10;OPERCULE;REG;2026
+384;Niveau bac jus clair 2;Bac jus clair 2;384;6;384;384;990294 AR;2;LT 06 02 0015;1990;2011;100;PAPILLON;REG;2111
+385;Niveau bouteille C2;Distillateur;385;7;385;385;1253AR;25;LV 01 02 1075;2012;2013;15;PAPILLON;REG;2028
+386;Niveau bouteille C5;Distillateur;386;7;386;386;1253AR;25;LV 01 02 1076;2012;2013;15;PAPILLON;REG;2028
+387;Niveau bac récup. Condensats réchauffeurs;Bac récupération condensats réchauffeurs;387;6;387;387;NULL;18;LV 01 02 0567;NULL;2012;100;OPERCULE;REG;2112
+388;Niveau Bache  Réfrigérant par appoint eau de forage;Réfrigérant;388;6;388;388;020504 AR;2;LV 01 02 0568;2002;2019;6;PAPILLON;REG;2025
+389;Niveau bache par eau des digues;Réfrigérant;389;6;389;389;950259 AR;10;2 LV 01 02 0568;1995;2015;100;PAPILLON;REG;2115
+390;Niveau bouteille CC;Distillateur;390;7;390;390;1253AR;25;LV 01 02 1074;2012;2013;15;PAPILLON;REG;2028
+391;Niveau Réfrigérant;Réfrigérant;391;6;391;391;020504 AR;2;LV 01 02 0471;2002;2018;15;PAPILLON;REG;2033
+392;Niveau bouteille D1;Chaine condensats deshy;392;7;392;392;NULL;25;LV 01 13 0500;NULL;2009;100;PAPILLON;REG;2109
+393;PH 2ème carbonatation;NULL;393;6;393;393;NULL;25;AV 12 02 0019;NULL;2008;100;PAPILLON;REG;2108
+394;Pression CO2;Chaulerie;394;6;394;394;200165AR;2;PV 20 02 0472;2000;2020;6;PAPILLON;REG;2026
+395;Pression pompe à vide;pompe à vide;395;6;395;NULL;NULL;23;PV 22 02 0563;1998;1998;100;PAPILLON;REG;2098
+396;Purge ballon à gaz n°1;NULL;396;6;396;NULL;NULL;10; ;NULL;2016;100;PAPILLON;TOR;2116
+397;Purge ballon à gaz n°2;NULL;397;6;397;NULL;NULL;10;NULL;NULL;2016;100;PAPILLON;TOR;2116
+398;Purge JT1;Bac de contact JT1;398;6;398;NULL;NULL;25;EV 06 02 0629;NULL;2003;100;PAPILLON;TOR;2103
+399;Purge lavage buées;Chaulerie;399;6;399;NULL;NULL;2;EV 09 13 0382;2000;2009;100;PAPILLON;TOR;2109
+400;Purge laveur à gaz;Laveur à gaz;400;6;400;NULL;DT17096;15;EV 0113 0348;2017;2018;100;GUILLOTINE;TOR;2118
+401;Temp. Eau sortie Barriquand;NULL;401;6;401;401;récup Chalons;19;NULL;NULL;2011;100;PAPILLON;REG;2111
+402;Chauffage jus clair 1;NULL;402;6;402;402;NULL;25;NULL;NULL;2005;100;PAPILLON;REG;2105
+403;Débit régénération ( EV33 );Adoucisseur;403;6;403;NULL;1122AR;2;EV01 02 0277;2011;2011;100;PAPILLON;TOR;2111
+404;Débit rincage lent ( EV32 );Adoucisseur;404;6;404;NULL;1122AR;2;EV01 02 0276;2011;2011;100;PAPILLON;TOR;2111
+405;Débit rinçage rapide ( EV31 );Adoucisseur;405;6;405;NULL;1122AR;2;Ev01 02 0275;2011;2011;100;PAPILLON;TOR;2111
+406;Débit saumure ( EV35 );Adoucisseur;406;6;406;NULL;1122AR;2;EV01 02 0279;2011;2011;100;PAPILLON;TOR;2111
+407;Entrée adoucisseur n°1 ( EV1 );Adoucisseur n°1;407;6;407;NULL;1122AR;2;EV01 02 0241;2011;2011;100;PAPILLON;TOR;2111
+408;Entrée adoucisseur n°2 ( EV11 );Adoucisseur N°2;408;6;408;NULL;1122AR;2;EV01 02 0250;2011;2011;100;PAPILLON;TOR;2111
+409;Entrée rinçage rapide adoucisseur n°1 (EV6 );Adoucisseur n°1;409;6;409;NULL;1122AR;2;EV01 02 0246;2011;2011;100;PAPILLON;TOR;2111
+410;Entrée rinçage rapide adoucisseur n°2 ( EV16 );Adoucisseur n°2;410;6;410;NULL;1122AR;2;EV01 02 0255;2011;2011;100;PAPILLON;TOR;2111
+411;Entrée soulèvement adoucisseur n°1 ( EV3 );Adoucisseur n°1;411;6;411;NULL;1122ar;2;EV01 02 0243;2011;2011;100;PAPILLON;TOR;2111
+412;Entrée soulèvement adoucisseur n°2 ( EV13 );Adoucisseur n°2;412;6;412;NULL;1122AR;2;EV01 02 0252;2011;2011;100;PAPILLON;TOR;2111
+413;Erpac n°1 Soufflage (vanne n°8);Adoucisseurs Erpac;413;6;413;NULL;NULL;21;NULL;NULL;2011;100;BOULE;TOR;2111
+414;Erpac n°2 Soufflage (vanne 18);Adoucisseurs ERPAC;414;6;414;NULL;NULL;21;NULL;1988;2011;100;BOULE;TOR;2111
+415;Niveau bache eau froide usine;Bache à eau froide usine;415;6;415;415;NULL;2;LV 01 02 0583;2012;2012;100;PAPILLON;REG;2112
+416;PH 1ère carbonatation;Caisse 1ère carbonatation;416;6;416;416;NULL;25;AV 06 02 0580;2011;2011;13;PAPILLON;REG;2024
+417;Niveau distillateur;Distillateur;417;7;417;417;1253AR;25;LT 01 02 1078;2013;NULL;11;PAPILLON;REG;2024
+418;Pression réchauffeur jus chaulé n° 3;Réchauffeurs jus chaulé;418;7;418;418;NULL;18;PV 22 02 0855;2012;2012;100;Opercule;REG;2112
+419;Purge bac de contact 2ème carbo;Bac de contact 2ème carbonatation;419;6;419;NULL;1506AR;25;NULL;2015;2015;10;PAPILLON;NULL;2025
+420;Sortie adoucisseur n°1 ( EV2 );Adoucisseur n°1;420;6;420;NULL;1122AR;2;EV 01 02 0242;2011;2011;100;PAPILLON;TOR;2111
+421;Sortie adoucisseur n°2 ( EV12 );Adoucisseur N°2;421;6;421;NULL;1122AR;2;EV01 02 0251;2011;2011;100;PAPILLON;TOR;2111
+422;Sortie rinçage lent adoucisseur n°1 ( EV7 );Adoucisseur n°1;422;6;422;NULL;1122AR;2;EV01 02 0247;2011;2011;100;PAPILLON;TOR;2111
+423;Sortie rincage lent adoucisseur n°2 ( EV17 );Adoucisseur n°2;423;6;423;NULL;1122AR;2;EV01 02 0256;2011;2011;100;PAPILLON;TOR;2111
+424;Sortie rinçage rapide adoucisseur n°1 ( EV5 );Adoucisseur n°1;424;6;424;NULL;1122AR;2;EV01 02 0245;2011;2011;100;PAPILLON;TOR;2111
+425;Sortie rinçage rapide adoucisseur n°2 ( EV15 );Adoucisseur n°2;425;6;425;NULL;1122AR;2;EV01 02 0254;2011;2011;100;PAPILLON;TOR;2111
+426;Sortie soulèvement adoucisseur n°1 ( EV4 );Adoucisseur n°1;426;6;426;NULL;1122AR;2;EV01 02 0244;2011;2011;100;PAPILLON;TOR;2111
+427;Sortie soulèvement adoucisseur n°2 ( EV14 );Adoucisseur n°2;427;6;427;NULL;1122AR;2;EV01 02 0253;2011;2011;100;PAPILLON;TOR;2111
+428;Température gaz four;four à chaux;428;6;428;428;vanne fournie par Delot;2;TV 12 13 0045;2000;2021;6;PAPILLON;REG;2027
+429;Ancienne Niveau corps I1 et I2;Corps I1 et  I2;429;7;429;429;NULL;25;LV 06 02 0901;NULL;2003;25;PAPILLON;REG;2028
+430;Appoint d'eau bac JAE;Bac JAE;430;7;430;430;NULL;2;LV 01 02 0083;NULL;2018;100;PAPILLON;REG;2118
+431;CEFT vanne aspiration pompe n°1;CEFT;431;7;431;NULL;1256AR;2;EV 06 02 0651;2012;2013;12;PAPILLON;TOR;2025
+432;CEFT Vanne aspiration pompe n°2;CEFT;432;7;432;NULL;1256AR;2;EV 06 02 0652;2012;2013;12;PAPILLON;TOR;2025
+433;CEFT vanne refoul. Pompe n°1;CEFT;433;7;433;NULL;1256AR;2;EV 06 02 0653;2012;NULL;100;Papillon;REG;2112
+434;CEFT vanne refoul. Pompe n°2;CEFT;434;7;434;NULL;1256AR;2;EV 06 02 0654;2012;NULL;100;PAPILLON;REG;2112
+435;Chauffage 6ème corps par corps I1;6ème corps;435;7;435;435;NULL;25;PV 02 02 0079;1998;2002;100;PAPILLON;REG;2102
+436;Chauffage concentrateur par 3ème corps;6ème corps;436;7;436;436;NULL;2;NULL;NULL;2010;100;PAPILLON;REG;2110
+437;Débit avant évaporation;Bac avant évaporation;437;7;437;437;NULL;25;FV 06 02 0086;NULL;2006;100;PAPILLON;REG;2106
+438;Dégazage Réchauffeur Gi ;Réchauffeurs jus chaulé;438;7;438;438;1253AR;25;PV 06 02 0856;2012;2013;100;PAPILLON;REG;2113
+439;Désurchauffe CEFT;CEFT;439;7;439;439;13025 DT;4;TV 01021080;2013;2013;100;NULL;REG;2113
+440;Désurchauffe éjecto 2;Ejectos Désurchauffe;440;7;440;440;010511AR;10;NULL;2001;2010;15;BOULE;TOR;2025
+441;Désurchauffe éjecto A;Ejectos Désurchauffe;441;7;441;441;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+442;Désurchauffe éjecto A;Ejectos Désurchauffe;442;7;442;NULL;010511AR;10;NULL;2001;NULL;99;BOULE;TOR;2100
+443;Désurchauffe éjecto B;Ejectos Désurchauffe;443;7;443;443;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+444;Désurchauffe éjecto B;Ejectos Désurchauffe;444;7;444;NULL;NULL;10;NULL;2001;NULL;99;BOULE;TOR;2100
+445;Désurchauffe éjecto C;Ejectos Désurchauffe;445;7;445;445;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+446;Désurchauffe éjecto C;Ejectos Désurchauffe;446;7;446;NULL;NULL;10;NULL;2001;NULL;99;BOULE;TOR;2100
+447;Désurchauffe éjecto D;Ejectos Désurchauffe;447;7;447;447;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+448;Désurchauffe éjecto D;Ejectos Désurchauffe;448;7;448;NULL;NULL;10;NULL;2001;NULL;99;BOULE;TOR;2100
+449;Désurchauffe éjecto deshy. N°1;Ejectos Désurchauffe;449;7;449;449;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+450;Desurchauffe éjecto deshy. N°2;Ejectos Désurchauffe;450;7;450;450;NULL;18;NULL;2012;2012;100;OPERCULE;TOR;2112
+451;Désurchauffe éjecto E;Ejectos corps I turbo;451;7;451;NULL;NULL;18;3EV 01 02 0161;2013;2013;100;OPERCULE;TOR;2113
+452;Désurchauffe éjecto F;Ejectos corps I turbo;452;7;452;NULL;NULL;18;3EV 01 02 0162;2013;2013;100;OPERCULE;REG;2113
+453;Désurchauffe éjecto G;Ejectos corps I turbo;453;7;453;NULL;NULL;18;3EV 01 02 0163;2013;2013;100;OPERCULE;TOR;2113
+454;Désurchauffe ejecto1;Ejectos Désurchauffe;454;7;454;454;010511AR;10;NULL;2001;2010;15;BOULE;TOR;2025
+455;Désurchauffe vapeur 45 bars  detente 2,5b;NULL;455;7;455;455;1270 AR;18;NULL;2012;2013;100;NULL;REG;2113
+456;Ejecto A aspirée;Ejectos;456;7;456;NULL;NULL;25;NULL;2001;2022;10;PAPILLON;TOR;2032
+457;Ejecto A vanne motrice;Ejectos;457;7;457;NULL;010447AR;6;NULL;2001;2022;99;GUILLOTINE;TOR;2121
+458;Ejecto B aspirée;Ejectos;458;7;458;NULL;010446AR;25;NULL;2001;2022;10;PAPILLON;TOR;2032
+459;Ejecto B vanne motrice;Ejectos;459;7;459;NULL;010447AR;6;NULL;2001;2022;99;GUILLOTINE;TOR;2121
+460;Ejecto C aspirée;Ejectos;460;7;460;NULL;010446AR;25;NULL;2001;2022;10;PAPILLON;TOR;2032
+461;Ejecto C vanne motrice;Ejectos;461;7;461;NULL;010447AR;6;NULL;2001;2022;99;GUILLOTINE;TOR;2121
+462;Ejecto D aspirée;Ejectos;462;7;462;NULL;010446AR;25;NULL;2001;2022;10;PAPILLON;TOR;2032
+463;Ejecto D vanne motrice;Ejectos;463;7;463;NULL;010447AR;6;NULL;2001;2022;99;GUILLOTINE;TOR;2121
+464;Ejecto n° 1 aspirée;Corps I deshy;464;7;464;NULL;2216AR;25;NULL;NULL;2022;10;PAPILLON;TOR;2032
+465;Ejecto n° 1 vanne motrice;Corps I deshy;465;7;465;465;1021 AR;6;NULL;2010;2022;99;CLAPET;TOR;2121
+466;Ejecto n° 2 aspirée;Corps I deshy;466;7;466;NULL;2216AR;25;NULL;2010;2022;10;PAPILLON;TOR;2032
+467;Ejecto n° 2 vanne motrice;Corps I deshy;467;7;467;NULL;1021 AR;6;NULL;2010;2022;99;CLAPET;TOR;2121
+468;Niv. Bouteille D2;Chaine condensats deshy;468;7;468;468;0919 AR;25;NULL;2009;2009;100;PAPILLON;REG;2109
+469;Niv. Bouteille D3;Chaine condensats deshy;469;7;469;469;0919 AR;25;NULL;2009;2009;100;PAPILLON;REG;2109
+470;Niveau 1er corps;1er corps;470;7;470;470;NULL;18;LV 06 02 0902;1998;2011;100;PAPILLON;REG;2111
+471;Niveau 2ème corps;2ème corps;471;7;471;471;1842AR;25;LV 06 02 0903;2010;2019;10;OBTURATEUR;REG;2029
+472;Niveau 3ème corps;3ème corps;472;7;472;472;NULL;18;LV 06 02 0904;2012;2012;100;OPERCULE;REG;2112
+473;Niveau 3ème corps;3ème corps;473;7;473;NULL;NULL;22;LOCALE;NULL;1995;99;OPERCULE;REG;2094
+474;Niveau 4ème corps;4ème corps;474;7;474;474;NULL;18;LV 06 02 0075;2012;2012;100;OPERCULE;REG;2112
+475;Niveau 4ème corps;4ème corps;475;7;475;NULL;NULL;22;LOCALE;NULL;1995;99;OPERCULE;REG;2094
+476;Niveau 4ème corps C;4ème corps;476;7;476;476;NULL;25;LV 01 02 0839;1989;2005;100;PAPILLON;REG;2105
+477;Niveau 5ème corps;5ème corps;477;7;477;477;13142036;22;LV 07 02 0566;NULL;2004;100;OPERCULE;REG;2104
+478;Niveau 6ème corps;6ème corps;478;7;478;478;990013 AR;2;LV 07 02 0082;1999;2021;10;PAPILLON;REG;2031
+479;Niveau baches Duquesne;Baches à eau Duquesne;479;7;479;479;1313 AR;25;LV 01 02 1073;2013;2017;10;PAPILLON;REG;2027
+480;Niveau baches Duquesne (appoint A5 par B0);Baches à eau Duquesne;480;7;480;480;1313 AR;25;2LV 01 02 1073;2013;2013;100;PAPILLON;REG;2113
+481;Niveau ballon cond. rechauffeurs G0. G1. G2.;Ballon condensats rechauffeurs G0. G1. G2.;481;7;481;NULL;NULL;18;NULL;NULL;1997;100;OPERCULE;REG;2097
+482;Niveau bouteille A2;Bouteille évapo A2;482;7;482;482;NULL;22;LV 01 13 0431;NULL;2002;22;OPERCULE;REG;2024
+483;Niveau bouteille A3;Chaine condensats évaporation;483;7;483;483;NULL;22;A démonter;NULL;2002;100;OPERCULE;REG;2102
+484;Niveau bouteille A4;Chaine condensats évaporation;484;7;484;484;NULL;22;NULL;NULL;2002;100;OPERCULE;REG;2102
+485;Niveau bouteille B0;Chaine condensats évaporation;485;7;485;485;1013AR;25;LV 01 13 0446;2010;2010;15;PAPILLON;REG;2025
+486;Niveau bouteille B1;Chaine B condensats évaporation;486;7;486;486;1842AR;25;LV 01 02 0556;2010;2019;10;OBTURATEUR;REG;2029
+487;Niveau bouteille B2;Chaine condensats évaporation;487;7;487;487;NULL;25;NULL;NULL;2003;100;PAPILLON;REG;2103
+488;Niveau bouteille B4;Bouteille B4;488;7;488;488;NULL;18;LV 01 13 098;NULL;2002;22;PAPILLON;REG;2024
+489;Pression réchauffeur JT1 n°1;Réchauffeur de JT1;489;6;489;489;NULL;18;PV 22 02 0856;NULL;2005;100;OPERCULE;REG;2105
+490;Casse vide vapeur cuite de 1er jet n°2;cuites de 1er jet;490;2;490;490;030031 AR;10;PV 02 22 0576;2003;2018;100;PAPILLON;REG;2118
+491;Niveau bac expédition;Chaulerie;491;6;491;491;NULL;25;LV 09 13 0094;NULL;2008;16;BOULE;REG;2024
+492;NIVEAU BOUTEILLE CONDENSAT A4;Chaine condensats évaporation;492;7;492;492;2248AR;25;LV01020552;15/11/2022;2023;15;NULL;REG;2038
+493;Niveau bac petit jus vanne n° 1;Bac à petit jus;493;6;493;493;NULL;10;LV 06 02 0024;1997;2005;19;PAPILLON;REG;2024
+494;Niveau bouteille DI;Chaine condensats deshy;494;7;494;494;NULL;25;LV 01 13 0499;NULL;2009;100;PAPILLON;REG;2109
+495;Niveau concentrateur ls;Concentrateur ls;495;7;495;495;NULL;25;LV 07 02 0581;NULL;NULL;NULL;PAPILLON;REG;NULL
+496;Niveau bac petit jus vanne n° 2;Bac à petit jus;496;6;496;496;NULL;10;LV 06 02 0564;1997;2015;9;PAPILLON;REG;2024
+497;Niveau entrée sur sortie CEFT;CEFT;497;7;497;497;1313AR;25;LV 06 02 0901;2013;2013;100;PAPILLON;REG;2113
+498;Pression  B5;ballon B5;498;7;498;498;NULL;2;NULL;NULL;2005;100;PAPILLON;REG;2105
+499;Pression distillateur;Distillateur;499;7;499;499;1251AR;4;NULL;2012;2012;100;CAGE;REG;2112
+500;Niveau bache réfrigérant vers digues;Réfrigérant;500;6;500;500;NULL;2;LV 01 02 0853;NULL;2007;100;PAPILLON;REG;2107
+501;Rinçage CEFT n°1;CEFT;501;7;501;501;950661AR;21;12/31/99;1995;2013;15;Boule;TOR;2028
+502;Rinçage CEFT n°2;CEFT;502;7;502;NULL;950661AR;21;NULL;1995;2013;100;BOULE;TOR;2113
+503;Rincage matelas 2ème corps n°2;2ème corps;503;7;503;NULL;NULL;21;EV 01 02 0157;NULL;2019;10;BOULE;TOR;2029
+504;Rinçage matelas 3ème corps n° 1;3ème corps;504;7;504;NULL;NULL;21;EV 01 02 0158;NULL;1999;100;BOULE;TOR;2099
+505;Rinçage matelas 3ème corps n° 2;3ème corps;505;7;505;NULL;NULL;21;EV 01 02 0159;NULL;1999;100;BOULE;TOR;2099
+506;Rinçage matelas 4ème corps n° 1;4ème corps;506;7;506;NULL;NULL;NULL;NULL;NULL;1999;100;NULL;NULL;2099
+507;Rinçage matelas 4ème corps n° 2;4ème corps;507;7;507;NULL;NULL;NULL;NULL;NULL;1999;100;NULL;NULL;2099
+508;Rinçage matelas corps I turbo n° 2;Corps I turbo;508;7;508;NULL;NULL;NULL;NULL;NULL;1999;100;NULL;NULL;2099
+509;Sirop vers bac à sirop léger;Concentrateur de stockage;509;7;509;NULL;NULL;10;EV 07 02 0153;1997;2022;10;PAPILLON;TOR;2032
+510;Sirop vers bacs à sirop;Concentrateur de stockage;510;7;510;NULL;NULL;10;EV 07 02 0153;1997;2008;100;PAPILLON;TOR;2108
+511;Vanne motrice éjecto E;Corps I1;511;7;511;NULL;0830 AR;6;2EV 02 02 0161;2008;NULL;100;DOUBLE OPERCULE;TOR;2108
+512;VANNE PRESSION B5;NULL;512;7;512;512;2248AR;25;PVB5;15/11/2022;2023;15;NULL;REG;2038
+513;Vide 5ème corps;5ème corps;513;7;513;513;1840AR;25;PV 18 02 0074;2010;2019;15;PAPILLON;REG;2034
+514;Vide concentrateur stockage;Concentrateur de stockage sirop;514;7;514;514;NULL;2;NULL;NULL;2004;20;PAPILLON;REG;2024
+515;Alimentation diastar 1n°1;Diastars de 1ère carbonatation;515;8;515;515;2206AR;25;XV06020554;2022;2022;10;PAPILLON;REG;2032
+516;Alimentation diastar 1n°2;Diastars de 1ère carbonatation;516;8;516;516;2206AR;25;XV06020560;2022;2022;NULL;PAPILLON;REG;Impossible achat sup à révision !!!
+517;Alimentation diastar 1n°3;Diastars de 1ère carbonatation;517;8;517;517;2206AR;25;XV06020561;2022;2022;NULL;PAPILLON;REG;Impossible achat sup à révision !!!
+518;Alimentation diastar 1n°4;Diastars de 1ère carbonatation;518;8;518;518;2206AR;25;XV06020565;2022;2022;NULL;papillon;REG;Impossible achat sup à révision !!!
+519;Alimentation diastar 1n°5;Diastars de 1ère carbonatation;519;8;519;519;2206AR;25;XV06020579;2022;2022;NULL;PAPILLON;REG;Impossible achat sup à révision !!!
+520;Débit d'eau filtre à disques n° 2;Filtre à disques n°2;520;8;520;520;020397 AR;18;FV 01 13 0461;2002;2020;15;OPERCULE;REG;2035
+521;Débit d'eau filtre à disques n° 3;Filtre à disques n°3;521;8;521;521;020397 AR;18;FV 01 13 0477;2002;2002;100;OPERCULE;REG;2102
+522;Dégonflage 1 FAD n° 3;Filtre à disques n°3;522;8;522;NULL;04003 AR;10;2 EV 08 13 0548;2004;2016;100;PAPILLON;TOR;2116
+523;Dégonflage 2 FAD n° 3;Filtre à disques n°3;523;8;523;NULL;04003 AR;10;2 EV 08 13 0548;2004;2016;100;PAPILLON;TOR;2116
+524;Dégonflage filtre à disques n° 2 (droite);Filtre à disques n°2;524;8;524;NULL;NULL;10;2EV 08 13 0542;NULL;2018;100;PAPILLON;TOR;2118
+525;Dégonflage filtre à disques n° 2 (gauche);Filtre à disques n°2;525;8;525;NULL;NULL;10;2EV 08 13 0542;2002;2018;100;PAPILLON;TOR;2118
+526;Dégonflage filtre à disques n°1;Filtre à disques n°1;526;8;526;NULL;NULL;10;EV 08 13 0568;NULL;2004;100;PAPILLON;TOR;2104
+527;Densité jus épaissi;Bac jus épaissi;527;8;527;527;1840AR;25;DV 06 02 0584;2010;NULL;100;OPERCULE;REG;2110
+528;Niveau jus filtre à disques n° 1;Filtre à disques n°1;528;8;528;NULL;NULL;18;LOCALE;1993;1999;100;OPERCULE;REG;2099
+529;Purge n° 1;Filtre à disques n°1;529;8;529;NULL;950326AR;10;EV 06 02 0675;1995;2001;100;PAPILLON;TOR;2101
+530;Purge n° 3;Filtre à disques n°1;530;8;530;NULL;950326AR;10;EV 06 02 0677;1995;2002;100;PAPILLON;TOR;2102
+531;Purge n° 5;Filtre à disques n°1;531;8;531;NULL;950326AR;10;EV 06 02 0679;1995;2002;100;PAPILLON;TOR;2102
+532;Purge n°2;Filtre à disques n°1;532;8;532;NULL;950326AR;10;EV 06 02 0676;1995;1995;99;PAPILLON;TOR;2094
+533;Purge n°4;Filtre à disques n°1;533;8;533;NULL;950326AR;10;EV 06 02 0678;NULL;NULL;NULL;NULL;NULL;NULL
+534;Soufflage 1 FAD n° 3;Filtre à disques n°3;534;8;534;NULL;04003 AR;10;2 EV 08 13 0547;2004;2016;100;PAPILLON;TOR;2116
+535;Soufflage 2 FAD n° 3;Filtre à disques n°3;535;8;535;NULL;04003 AR;10;2 EV 08 13 0547;2004;NULL;100;PAPILLON;TOR;2104
+536;Soufflage filtre à disques n° 2 (droite);Filtre à disques n°2;536;8;536;NULL;NULL;10;2EV 08 13 0541;NULL;2018;100;PAPILLON;TOR;2118
+537;Soufflage filtre à disques n° 2 (gauche);Filtre à disques n°2;537;8;537;NULL;NULL;10;2EV 08 13 0541;NULL;2018;100;PAPILLON;TOR;2118
+538;Soufflage filtre à disques n°1;Filtre à disques n°1;538;8;538;NULL;NULL;10;EV 08 13 0567;1996;2004;100;PAPILLON;TOR;2104
+539;Vanne n° 1 alimentation diastar de 2ème n° 1;Diastars de 2ème carbonatation;539;8;539;NULL;NULL;10;EV 06 02 0860;1991;2019;10;PAPILLON;TOR;2029
+540;Vanne n° 1 alimentation diastar de 2ème n° 2;Diastars de 2ème carbonatation;540;8;540;NULL;NULL;10;EV 06 02 0868;1991;2015;10;PAPILLON;TOR;2025
+541;Vanne n° 1 alimentation diastar de 2ème n° 3;Diastars de 2ème carbonatation;541;8;541;NULL;NULL;10;EV 06 02 0876;1991;2001;10;PAPILLON;TOR;2024
+542;Vanne n° 1 alimentation diastar n° 4;Diastars de 2ème carbonatation;542;8;542;NULL;040016AR;10;EV 06 02 0642;2004;2018;10;PAPILLON;TOR;2028
+543;Vanne n° 1 alimentation diastar n° 4;Diastars de 1ère carbonatation;543;8;543;543;NULL;10;EV 06 02 0623;1993;2019;6;PAPILLON;TOR;2025
+544;Vanne n° 2 recyclage diastar de 2ème n° 1;Diastars de 2ème carbonatation;544;8;544;NULL;NULL;10;EV 06 02 0861;1991;2022;10;PAPILLON;TOR;2032
+545;Vanne n° 2 recyclage diastar de 2ème n° 2;Diastars de 2ème carbonatation;545;8;545;NULL;NULL;10;EV 06 02 0869;1991;2024;10;PAPILLON;TOR;2034
+546;Vanne n° 2 recyclage diastar de 2ème n° 3;Diastars de 2ème carbonatation;546;8;546;NULL;NULL;10;EV 06 02 0877;1991;2018;8;PAPILLON;TOR;2026
+547;Vanne n° 2 recyclage diastar n° 4;Diastars de 2ème carbonatation;547;8;547;NULL;040016AR;10;EV 06 02 0643;2004;2022;10;PAPILLON;TOR;2032
+548;Vanne n° 3 décompression diastar de 2ème n° 1;Diastars de 2ème carbonatation;548;8;548;NULL;NULL;10;EV 06 02 0862;1991;2015;10;PAPILLON;TOR;2025
+549;Vanne n° 3 décompression diastar de 2ème n° 2;Diastars de 2ème carbonatation;549;8;549;NULL;NULL;10;EV 06 02 0870;1992;2014;10;PAPILLON;TOR;2024
+550;Vanne n° 3 décompression diastar de 2ème n° 3;Diastars de 2ème carbonatation;550;8;550;NULL;NULL;10;EV 06 02 0878;1992;2015;10;PAPILLON;TOR;2025
+551;Vanne n° 3 décompression diastar n° 4;Diastars de 2ème carbonatation;551;8;551;NULL;040016AR;10;EV 06 02 0644;2004;2015;10;PAPILLON;TOR;2025
+552;Vanne n° 4 décompression diastar n° 1;Diastars de 1ère carbonatation;552;8;552;NULL;NULL;10;EV 06 02 0605;1993;2021;6;PAPILLON;TOR;2027
+553;Vanne n° 4 décompression diastar n° 2;Diastars de 1ère carbonatation;553;8;553;NULL;NULL;10;EV 06 02 0612;2019;2019;6;PAPILLON;TOR;2025
+554;Vanne n° 4 décompression diastar n° 3;Diastars de 1ère carbonatation;554;8;554;NULL;NULL;10;EV 06 02 0619;1992;2007;100;PAPILLON;TOR;2107
+555;Vanne n° 4 décompression diastar n° 4;Diastars de 1ère carbonatation;555;8;555;NULL;980164 AR;10;EV 06 02 0626;1998;2007;100;PAPILLON;TOR;2107
+556;Vanne n° 4 décompression n° 5;Diastars de 1ère carbonatation;556;8;556;NULL;020238 AR;10;EV 06 02 0637;2002;2019;6;PAPILLON;TOR;2025
+557;Vanne n° 4 extraction diastar 2eme  n° 4;Diastars de 2ème carbonatation;557;8;557;NULL;NULL;10;EV 06 02 0645;1997;2008;16;PAPILLON;TOR;2024
+558;Vanne n° 4 extraction diastar de 2ème n° 1;Diastars de 2ème carbonatation;558;8;558;NULL;NULL;10;EV 06 02 0863;1991;2014;10;PAPILLON;TOR;2024
+559;Vanne n° 4 extraction diastar de 2ème n° 2;Diastars de 2ème carbonatation;559;8;559;NULL;NULL;10;EV 06 02 0871;1991;2014;100;PAPILLON;TOR;2114
+560;Vanne n° 4 extraction diastar de 2ème n° 3;Diastars de 2ème carbonatation;560;8;560;NULL;NULL;10;EV 06 02 0879;1991;2016;10;PAPILLON;TOR;2026
+561;Vanne n° 5 extraction diastar n° 1;Diastars de 1ère carbonatation;561;8;561;NULL;NULL;10;EV 06 02 0606;NULL;2022;6;PAPILLON;TOR;2028
+562;Vanne n° 5 extraction diastar n° 2;Diastars de 1ère carbonatation;562;8;562;NULL;NULL;10;EV 06 02 0613;NULL;2022;6;PAPILLON;TOR;2028
+563;Vanne n° 5 extraction diastar n° 3;Diastars de 1ère carbonatation;563;8;563;NULL;NULL;10;EV 06 02 0620;NULL;2022;6;PAPILLON;TOR;2028
+564;Vanne n° 5 extraction diastar n° 4;Diastars de 1ère carbonatation;564;8;564;NULL;980164 AR;10;EV 06 02 0627;1998;2022;6;PAPILLON;TOR;2028
+565;Vanne n° 5 extraction diastar n° 5;Diastars de 1ère carbonatation;565;8;565;NULL;020238 AR;10;EV 06 02 0638;2002;2022;6;PAPILLON;TOR;2028
+566;Vanne n° 5 nivellement diastar 2ème n° 2;Diastars de 2ème carbonatation;566;8;566;NULL;NULL;10;EV 06 02 0872;1992;2015;10;PAPILLON;TOR;2025
+567;Vanne n° 5 nivellement diastar de 2 éme n° 4;Diastars de 2ème carbonatation;567;8;567;NULL;040016AR;10;EV 06 02 0646;2004;2015;10;PAPILLON;TOR;2025
+568;Vanne n° 5 nivellement diastar de 2ème n° 1;Diastars de 2ème carbonatation;568;8;568;NULL;NULL;10;EV 06 02 0864;1991;2017;8;PAPILLON;TOR;2025
+569;Vanne n° 5 nivellement diastar de 2ème n° 3;Diastars de 2ème carbonatation;569;8;569;NULL;NULL;10;EV 06 02 0880;1992;2015;10;PAPILLON;TOR;2025
+570;Vanne n° 6 nivellement diastar n° 1;Diastars de 1ère carbonatation;570;8;570;NULL;NULL;10;EV 06 02 0607;1993;2018;100;PAPILLON;TOR;2118
+571;Vanne n° 6 nivellement diastar n° 2;Diastars de 1ère carbonatation;571;8;571;NULL;NULL;10;EV 06 02 0614;1992;2017;100;PAPILLON;TOR;2117
+572;Vanne n° 6 nivellement diastar n° 3;Diastars de 1ère carbonatation;572;8;572;572;NULL;10;EV 06 02 0621;1992;2017;100;PAPILLON;TOR;2117
+573;Vanne n° 6 nivellement diastar n° 4;Diastars de 1ère carbonatation;573;8;573;NULL;980164 AR;10;EV 06 02 0628;1998;2023;6;PAPILLON;TOR;2029
+574;Vanne n° 6 nivellement diastar n° 5;Diastars de 1ère carbonatation;574;8;574;574;020238 AR;10;EV 06 02 0639;2002;2014;100;PAPILLON;TOR;2114
+575;Vanne Purge Diastar 1N1;Diastars de 1ère carbonatation;575;8;575;NULL;2206AR;25;EV 06 02;2022;2022;10;OPERCULE;TOR;2032
+576;Vanne Purge Diastar 1N2;Diastars de 1ère carbonatation;576;8;576;NULL;2206AR;25;EV 06 02;2022;2022;10;OPERCULE;TOR;2032
+577;Vanne Purge Diastar 1N3;Diastars de 1ère carbonatation;577;8;577;NULL;2206AR;25;EV 06 02;2022;2022;10;OPERCULE;TOR;2032
+578;Vanne Purge Diastar 1N4;Diastars de 1ère carbonatation;578;8;578;NULL;2206AR;25;EV 06 02;2022;2022;10;OPERCULE;TOR;2032
+579;Vanne Purge Diastar 1N5;Diastars de 1ère carbonatation;579;8;579;NULL;2206AR;25;EV 06 02;2022;2022;10;OPERCULE;TOR;2032
+580; VANNE PURGE NETTOYAGE TAMBOUR LAVEUR;COFFRET TAMBOUR LAVEUR;580;9;580;NULL;2010 AR;24;ZV 117;2020;2020;10;Pelle;TOR;2030
+581; Vanne supérieure purge hélice à betteraves;COFFRET EPAILLEUR;581;9;581;NULL;2010 AR;24;ZV 105;2020;2020;10;Pelle;TOR;2030
+582;Aspiration P2;NULL;582;9;582;NULL;2010 AR;24;23;2020;2020;10;Pelle;NULL;2030
+583;Aspiration P4;NULL;583;9;583;NULL;2010 AR;24;14;2020;2020;10;Pelle;NULL;2030
+584;CDE VANNE ZV23 HERBES VERS EPIERREUR 2;COFFRET EPAILLEUR;584;9;584;NULL;2010 AR;24;ZV 23;2020;2020;10;Pelle;TOR;2030
+585;PN16;NULL;585;9;585;NULL;2009 AR;17;1;2020;2020;10;Papillon;NULL;2030
+586;PURGE HELICE A RADICELLES;COFFRET EPAILLEUR;586;9;586;NULL;2021 AR;24;ZV 100;2020;2020;10;Pelle;TOR;2030
+587;Vanne alimentation tambour épierreur;NULL;587;9;587;NULL;2009 AR;17;31;2020;2020;10;Papillon;NULL;2030
+588;VANNE ASPIRATION POMPE MRA 50210;COFFRET BACHE;588;9;588;NULL;2009 AR;17;ZV 270;2020;2020;10;Papillon;TOR;2030
+589;Vanne aspiration POMPE P10;NULL;589;9;589;NULL;2009 AR;17;47;2020;2020;10;Papillon;TOR;2030
+590;Vanne aspiration POMPE P10;COFFRET BACHE;590;9;590;NULL;2009 AR;17;ZV 219;2020;2020;10;Papillon;TOR;2030
+591;Vanne aspiration POMPE P10;NULL;591;9;591;NULL;2009 AR;17;ZV 219;2020;2020;10;Papillon;TOR;2030
+592;Vanne aspiration POMPE P1A/P1B;NULL;592;9;592;NULL;2009 AR;21;ZV 278;2020;2020;10;Papillon;TOR;2030
+593;VANNE ASPIRATION POMPE P9;COFFRET BACHE;593;9;593;NULL;2009 AR;17;ZV 224;2020;2020;10;Papillon;TOR;2030
+594;Vanne boite séparatrice;COFFRET TAMBOUR FINISSEUR;594;9;594;NULL;2009 AR;16;ZV 190;2020;2020;10;boisseau sphérique;TOR;2030
+595;Vanne boite séparatrice;COFFRET TAMBOUR FINISSEUR;595;9;595;NULL;2009 AR;16;ZV 205;2020;2020;10;boisseau sphérique;TOR;2030
+596;Vanne boite séparatrice;NULL;596;9;596;NULL;2009 AR;16;ZV 210;2020;2020;10;boisseau sphérique;TOR;2030
+597;Vanne débit circulation;NULL;597;9;597;597;2006 AR;25;FCV 260;2020;2020;10;NULL;REG;2030
+598;Vanne débit eau décantée;NULL;598;9;598;598;2006 AR;25;FCV 20;2020;2020;10;NULL;REG;2030
+599;Vanne hélice à betteraves;NULL;599;9;599;NULL;2009 AR;17;75;2020;2020;10;Papillon;NULL;2030
+600;VANNE HERBES VERS ESHERBEUR;COFFRET EPAILLEUR;600;9;600;NULL;2010 AR;24;ZV 209;2020;2020;10;Pelle;TOR;2030
+601;Vanne manuelle ASPI POMPE P1B;NULL;601;9;601;NULL;2009 AR;17;54;2020;2020;10;Papillon;TOR;2030
+602;Vanne nettoyage : Grille filtration;COFFRET TAMBOUR FINISSEUR;602;9;602;NULL;2009 AR;16;ZV 10;2020;2020;10;boisseau sphérique;TOR;2030
+603;Vanne nettoyage : Grille filtration;COFFRET TAMBOUR FINISSEUR;603;9;603;NULL;2009 AR;16;ZV 13;2020;2020;10;boisseau sphérique;TOR;2030
+604;Vanne nettoyage : Grille filtration;COFFRET TAMBOUR FINISSEUR;604;9;604;NULL;2009 AR;16;ZV 16;2020;2020;10;boisseau sphérique;TOR;2030
+605;VANNE NETTOYAGE TAMBOUR LAVEUR - VANNE A;COFFRET TAMBOUR LAVEUR;605;9;605;NULL;2010 AR;24;ZV 231;2020;2020;10;Pelle;TOR;2030
+606;VANNE NETTOYAGE TAMBOUR LAVEUR - VANNE B;COFFRET TAMBOUR LAVEUR;606;9;606;NULL;2010 AR;24;ZV 228;2020;2020;10;Pelle;TOR;2030
+607;VANNE NETTOYAGE TAMBOUR LAVEUR - VANNE C;COFFRET TAMBOUR LAVEUR;607;9;607;NULL;2010 AR;24;ZV 234;2020;2020;10;Pelle;TOR;2030
+608;VANNE PURGE EPIERREUR 2 TEC-4000-2;COFFRET TAMBOUR LAVEUR;608;9;608;NULL;2010 AR;24;ZV 183;2020;2020;10;Pelle;TOR;2030
+609;VANNE PURGE EPIERREUR 2 TEC-4000-2;COFFRET TAMBOUR LAVEUR;609;9;609;NULL;2010 AR;24;ZV 180;2020;2020;10;Pelle;TOR;2030
+610;VANNE PURGE NETTOYAGE TAMBOUR LAVEUR;COFFRET TAMBOUR LAVEUR;610;9;610;NULL;2010 AR;24;ZV 120;2020;2020;10;Pelle;TOR;2030
+611;VANNE PURGE RAMASSE FLOTTANTS;COFFRET EPAILLEUR;611;9;611;NULL;2021 AR;24;ZV 164;2020;2020;10;Pelle;TOR;2030
+612;Vanne refoulement POMPE P1A;COFFRET BACHE;612;9;612;NULL;2009 AR;21;ZV 74;2020;2020;10;Papillon;TOR;2030
+613;Vanne refoulement POMPE P1B;COFFRET BACHE;613;9;613;NULL;2009 AR;21;ZV 77;2020;2020;10;Papillon;TOR;2030
+614;NULL;NULL;614;9;614;NULL;2010 AR;24;40;2020;2020;10;Pelle;NULL;2030
+615;NULL;NULL;615;9;615;NULL;2010 AR;24;26;2020;2020;10;Pelle;NULL;2030
+616;NULL;NULL;616;9;616;NULL;2010 AR;24;86;2020;2020;10;Pelle;NULL;2030
+617;NULL;NULL;617;9;617;NULL;2010 AR;24;6;2020;2020;10;Pelle;NULL;2030
+618;NULL;NULL;618;9;618;NULL;2010 AR;24;281;2020;2020;10;Pelle;NULL;2030
+619;NULL;NULL;619;9;619;NULL;2010 AR;24;32;2020;2020;10;Pelle;NULL;2030
+620;NULL;NULL;620;9;620;NULL;2009 AR;17;43;2020;2020;10;Papillon;NULL;2030
+621;NULL;NULL;621;9;621;NULL;2009 AR;17;45;2020;2020;10;Papillon;NULL;2030
+622;NULL;NULL;622;9;622;NULL;2009 AR;17;48;2020;2020;10;Papillon;NULL;2030
+623;NULL;NULL;623;9;623;NULL;2009 AR;17;77;2020;2020;10;Papillon;NULL;2030
+624;NULL;NULL;624;9;624;NULL;2009 AR;17;55;2020;2020;10;Papillon;NULL;2030
+625;NULL;NULL;625;9;625;NULL;2009 AR;17;56;2020;2020;10;Papillon;NULL;2030
+626;NULL;NULL;626;9;626;NULL;2009 AR;17;80;2020;2020;10;Papillon;NULL;2030
+627;NULL;NULL;627;9;627;NULL;2009 AR;17;78;2020;2020;10;Papillon;NULL;2030
+628;NULL;NULL;628;9;628;NULL;2009 AR;17;87;2020;2020;10;Papillon;NULL;2030
+629;Vanne trémie fin vrac;Trémie vrac;629;10;629;NULL;040024 AR;2;EV 17 14 1298;2004;NULL;100;PAPILLON;TOR;2104
+630;Vanne trémie gros vrac;Trémie vrac;630;10;630;NULL;040024 AR;2;EV 17 14 1297;2004;NULL;100;PAPILLON;TOR;2104
+631;Vanne trémie moyen vrac;Trémie vrac;631;10;631;NULL;040024 AR;2;EV 17 17 1296;2004;NULL;100;PAPILLON;TOR;2104
+632;Vanne trèmie tout venant vrac;Trémie vrac;632;10;632;NULL;040024 AR;2;EV 17 14 1299;2004;NULL;100;PAPILLON;TOR;2104
+633;NULL;NULL;633;12;633;633;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+634;NULL;NULL;634;12;634;634;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+635;NULL;NULL;635;12;635;635;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+636;NULL;NULL;636;12;636;636;NULL;18;NULL;NULL;NULL;NULL;CLAPET;REG;NULL
+637;NULL;NULL;637;12;637;637;NULL;25;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+638;NULL;NULL;638;12;638;638;13801414;22;NULL;NULL;NULL;NULL;OPERCULE;REG;NULL
+639;NULL;NULL;639;12;639;639;NULL;18;NULL;NULL;NULL;NULL;BOULE;REG;NULL
+640;NULL;NULL;640;12;640;640;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+641;NULL;NULL;641;12;641;641;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+642;NULL;NULL;642;12;642;NULL;NULL;18;NULL;NULL;NULL;NULL;CLAPET;REG;NULL
+643;NULL;NULL;643;12;643;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;REG;NULL
+644;NULL;NULL;644;12;644;644;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+645;NULL;NULL;645;12;645;645;NULL;18;NULL;NULL;NULL;NULL;NULL;REG;NULL
+646;Ancienne débit lait de chaux préchauleur 2;Etage atelier régulation;646;12;646;646;040023 AR;25;A01A04211408;2004;2020;100;SPHERE;REG;2120
+647;Ancienne Niveau ballon D4;ANC Niveau Ballon D4;647;12;647;647;0919 AR;25;NULL;2009;2021;12;PAPILLON;REG;2033
+648;Ancienne Pression D4;ANC Pression ballon D4;648;12;648;648;0919AR;25;NULL;2009;2021;12;PAPILLON;REG;2033
+649;Ancienne Température empattage 3ème jet;Etage atelier régulation;649;12;649;649;940328 AR;18;NULL;1994;2018;12;OPERCULE;REG;2030
+650;Debit de circulation;Lavoir;650;12;650;650;2006AR;25;FCV260;2020;2020;100;PAPILLON;REG;2120
+651;Débit eaux buées 2eme carbo;Chaulerie;651;12;651;651;980875 AR;12;FV 09 02 0017;1999;2007;100;OPERCULE;REG;2107
+652;Densité lait de chaux finale;Chaulerie;652;12;652;652;200166 AR;12;DV 06 13 0077;2000;2004;99;OPERCULE;REG;2103
+653;Empattage turbine de 3ème jet n°1 K3300;Turbines de 3ème jet;653;12;653;653;1047 AR;18;FV 07 03 1003;2010;2016;10;OBTURATEUR;REG;2026
+654;Empattage turbine de 3ème jet n°1 K3300;Turbines de 3ème jet;654;12;654;654;1047 AR;18;FV 07 03 1003;2010;2016;10;OBTURATEUR;REG;2026
+655;Etage atelier régulation;NULL;655;12;655;655;NULL;18;NULL;NULL;NULL;NULL;PAPILLON;REG;NULL
+656;Etage atelier régulation;NULL;656;12;656;656;NULL;25;S8274;NULL;2020;100;SPHERE;REG;2120
+657;Etage atelier régulation;NULL;657;12;657;657;NULL;18;37412;NULL;2006;100;PAPILLON;REG;2106
+658;Etage atelier régulation;NULL;658;12;658;658;NULL;18;63-236301-1;NULL;2016;100;CLAPET;REG;2116
+659;Etage atelier régulation;NULL;659;12;659;659;NULL;18;61-860906-2;NULL;2013;100;PAPILLON;REG;2113
+660;Etage atelier régulation;ANC. Pression bout 15b chauff. Duquesne;660;12;660;660;NULL;18;63541504-1;NULL;2020;100;CLAPET;REG;2120
+661;Etage atelier régulation;NULL;661;12;661;661;970365AR;10;337020;1997;2019;100;PAPILLON;REG;2119
+662;Etage atelier régulation;Ancienne niveau BD4;662;12;662;662;010567 AR;12;EU 03271681;2001;2006;100;OPERCULE;REG;2106
+663;Etage atelier régulation;NULL;663;12;663;663;NULL;18;04237501-1;NULL;2017;100;Clapet;REG;2117
+664;Etage atelier régulation;Etage atelier régulation;664;12;664;664;16184DT;3;16227260;2016;2018;100;PAPILLON;REG;2118
+665;Etage atelier régulation;Etage atelier régulation;665;12;665;665;16184DT;3;16227262;2016;2018;100;PAPILLON;REG;2118
+666;Etage atelier régulation;NULL;666;12;666;666;NULL;25;D01A12170492;NULL;2015;10;OPERCULE;REG;2025
+667;Etage atelier régulation;NULL;667;12;667;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+668;Etage atelier régulation (anc.appoint d'eau Bac JAE); ;668;12;668;668;NULL;22;T8009;NULL;2012;100;OPERCULE;REG;2112
+669;Etage regulation (Ancienne temp. empattage 2. jet);NULL;669;12;669;669;940328 AR;18;64-2408-02-1;1994;2017;100;OPERCULE;REG;2117
+670;Event gaz chaudière n°3;Chaudière;670;12;670;NULL;0505 AR;21;05/12294;2005;NULL;100;BOULE;TOR;2105
+671;Mise à l'atmosphère corps I1 (mini-campagne).;Corps I1;671;12;671;671;920413 AR;25;PV 02 05 0373;1992;2005;100;PAPILLON;REG;2105
+672;Niveau bouteille A3;Chaine condensats évaporation;672;12;672;672;13142036;22;LV 01 02 0550;NULL;2019;15;OPERCULE;REG;2034
+673;Niveau bouteille B3;Bouteille B3;673;12;673;673;NULL;22;LV 01 02 0576;NULL;2019;10;OPERCULE;REG;2029
+674;Niveau bouteille condensat 3ème jet;Cuites de 3ème jet;674;12;674;674;NULL;18;NULL;NULL;2015;10;NULL;REG;2025
+675;Niveau jus filtre à disques n° 2;Filtre à disques n°2;675;12;675;675;020397 AR;18;LV 06 13 0462;2002;2018;10;OPERCULE;REG;2028
+676;Niveau jus filtre à disques n°3;Filtre à disques n°3;676;12;676;676;020397 AR;18;LV  06 13 0478;2002;2018;10;OPERCULE;REG;2028
+677;Pression Barriquand Eaux de Presses;Echangeur Barriquand;677;12;677;677;NULL;25;FV 02 01 0562;NULL;2005;100;PAPILLON;REG;2105
+678;Pression réseau 25 bars (détente réseau) secours;Réseau vapeur 25 bars;678;12;678;678;NULL;4;PV 8006 (rep Babcok);1996;2018;100;CLAPET;REG;2118
+679;Rechange ballon 3 kg cuites;Ballon 3 kg cuites;679;12;679;679;950760 AR;18;64-9270-01-01;1995;2013;100;clapet;REG;2113
+680;Rechange refroidissement malaxeurs verticaux;Malaxeurs verticaux;680;12;680;680;990015 AR;18;66-6939-01.1;1999;2006;100;OPERCULE;REG;2106
+681;Secours niveau bac expédition;Chaulerie;681;12;681;681;NULL;25;NULL;NULL;2003;100;BOULE;REG;2103
+682;Secours pression distillateur;Distillateur;682;12;682;682;1711AR;4;NULL;2017;2018;100;CAGE;REG;2118
+683;Section gaz ch °1 ou  n°2;NULL;683;12;683;NULL;0505AR;SAPAG ;03/10474;NULL;NULL;NULL;BOULE;TOR;NULL
+684;Vanne entre bâche 2;Baches à eau Babcock;684;12;684;NULL;950736 AR;10;CVEB2;1995;2020;20;PAPILLON;TOR;2040
+685;NULL;ANC Niveau ballon condensats;685;12;685;685;NULL;18;62.873403-01;NULL;2000;100;OPERCULE;REG;2100
+686;NULL;NULL;686;13;686;NULL;NULL;10;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+687;NULL;NULL;687;13;687;NULL;2010 AR;24;NULL;2020;NULL;NULL;Pelle;TOR;NULL
+688;NULL;NULL;688;13;688;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+689;NULL;NULL;689;13;689;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+690;NULL;NULL;690;13;690;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+691;NULL;NULL;691;13;691;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+692;NULL;NULL;692;13;692;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+693;NULL;NULL;693;13;693;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+694;NULL;NULL;694;13;694;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+695;NULL;NULL;695;13;695;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+696;NULL;NULL;696;13;696;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+697;NULL;NULL;697;13;697;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+698;NULL;NULL;698;13;698;NULL;NULL;18;NULL;NULL;NULL;NULL;BOULE;TOR;NULL
+699;NULL;NULL;699;13;699;NULL;NULL;17;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+700;NULL;NULL;700;13;700;NULL;NULL;17;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+701;NULL;NULL;701;13;701;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+702;NULL;NULL;702;13;702;NULL;NULL;21;NULL;NULL;NULL;NULL;NULL;TOR;NULL
+703;NULL;NULL;703;13;703;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+704;NULL;NULL;704;13;704;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+705;NULL;NULL;705;13;705;NULL;NULL;10;NULL;NULL;NULL;NULL;PAPILLON;TOR;NULL
+706;NULL;NULL;706;13;706;NULL;NULL;10;NULL;NULL;NULL;NULL;NULL;TOR;NULL
+707;NULL;NULL;707;13;707;NULL;NULL;21;NULL;NULL;NULL;NULL;NULL;TOR;NULL
+708;NULL;NULL;708;13;708;NULL;NULL;21;NULL;NULL;NULL;NULL;SPHERIQUE;TOR;NULL
+709;NULL;NULL;709;13;709;NULL;NULL;21;NULL;NULL;NULL;NULL;NULL;REG;NULL
+710;Alimentation rapide cuite de 1er jet n°1;Cuites de 1er jet;710;13;710;NULL;1262AR;10;EV 07 22 000.2;2012;2012;100;PAPILLON;TOR;2112
+711;Alimentation rapide cuite de 1er jet n°2;Cuites de 1er jet;711;13;711;NULL;1262AR;10;EV 07 22 002.2;2012;NULL;100;PAPILLON;TOR;2112
+712;ancienne vide général de 1 er jet;NULL;712;13;712;712;NULL;2;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+713;CEFT vanne sécurité mouillage;CEFT;713;13;713;NULL;1256AR;2;EV 01 02 0655;2012;2013;12;PAPILLON;TOR;2025
+714;Ejecto E aspirée (DISPO );Corps I1;714;13;714;NULL;0831 AR;2;2EV 02 02 0161;2008;NULL;100;PAPILLON;TOR;2108
+715;Ejecto G aspirée;Corps I1;715;13;715;NULL;0831 AR;2;2EV 02 02 0163;2008;NULL;100;PAPILLON;TOR;2108
+716;Etage atelier régulation;NULL;716;13;716;NULL;NULL;2;1046;NULL;NULL;NULL;NULL;NULL;NULL
+717;Etage atelier régulation;NULL;717;13;717;NULL;NULL;20;9;NULL;NULL;NULL;BOULE;TOR;NULL
+718;Etage atelier régulation;NULL;718;13;718;NULL;1262AR;10;860112;2010;2020;100;PAPILLON;TOR;2120
+719;Etage atelier régulation;NULL;719;13;719;NULL;NULL;20;8;NULL;2006;100;BOULE;TOR;2106
+720;Etage atelier régulation;NULL;720;13;720;NULL;950326AR;10;240909;1995;2014;100;PAPILLON;REG;2114
+721;Etage atelier régulation;NULL;721;13;721;NULL;950326AR;10;240930;1995;2014;100;PAPILLON;REG;2114
+722;Etage atelier régulation;NULL;722;13;722;NULL;950326AR;10;240906;1995;2014;100;PAPILLON;REG;2114
+723;Etage atelier régulation;NULL;723;13;723;NULL;NULL;21;NULL;1995;2013;100;BOULE;TOR;2113
+724;Etage atelier régulation;Ancienne chaulage eaux traitées;724;13;724;NULL;950661AR;21;5744201;1995;2009;100;BOULE;TOR;2109
+725;Etage atelier régulation;Etage atelier régulation;725;13;725;NULL;1744AR;25;D01A17260421;2017;2018;100;PAPILLON;TOR;2118
+726;Etage atelier régulation;NULL;726;13;726;NULL;NULL;10;NULL;2016;2016;100;BOULE;TOR;2116
+727;Etage atelier régulation;NULL;727;13;727;NULL;NULL;10;NULL;2016;2016;100;BOULE;TOR;2116
+728;Etage atelier régulation;5ème corps;728;13;728;NULL;200165AR;2;76045403/0120;2000;2019;100;PAPILLON;REG;2119
+729;Etage atelier régulation;cuites de 1er jet;729;13;729;NULL;030031 AR;10;EV 02 03 0170;2003;2014;20;PAPILLON;TOR;2034
+730;Event gaz chaudière n°1 ou 2;Chaudière;730;13;730;730;0505 AR;21;05/12294;2005;NULL;100;BOULE;TOR;2105
+731;Lavage goulotte turbine de 1er jet n°1;Turbines de 1er jet;731;13;731;NULL;20245;6;EV 01 12 0084;2002;2009;100;BOULE;TOR;2109
+732;Lavage goulotte turbine de 1er jet n°1 (étage régulation);NULL;732;13;732;NULL;0845AR;Corri Servais;7306706;2008;NULL;100;BOULE;TOR;2108
+733;Masse cuite 1er jet by-pass pompe n° 1;Cuites de 1er jet;733;13;733;NULL;1256AR;2;1 110 175 932;2012;NULL;100;PAPILLON;TOR;2112
+734;Masse cuite 1er jet by-pass pompe n° 2;Cuites de 1er jet;734;13;734;NULL;1256AR;2;1 110 175 932;NULL;NULL;NULL;NULL;NULL;NULL
+735;Purge vide;Cuites;735;13;735;NULL;1416AR;21;NULL;2014;2014;100;BOULE;TOR;2114
+736;Purge vide cuites ;Cuites ;736;13;736;NULL;1722AR;10;NULL;2017;2017;100;BOULE;TOR;2117
+737;Rech. Casse vide atmosphérique (étage atelier régul);Cuites de 1er jet;737;13;737;NULL;1256AR;2;NULL;2012;2013;100;PAPILLON;TOR;2113
+738;Rechange section gaz amont Babcock;Chaudière Babcok;738;13;738;NULL;NULL;9;NULL;1996;2004;100;BOULE;TOR;2104
+739;Secours dégonflage fad;FAD;739;13;739;NULL;NULL;10;NULL;2009;NULL;100;PAPILLON;TOR;2109
+740;Section gaz ch n°1 ou 2;Chaudière;740;13;740;NULL;0505 AR;21;.71000659;2005;NULL;100;BOULE;TOR;2105
+741;Section gaz CH3 ou Babcok;Chaudière;741;13;741;NULL;0505 AR;21;05/12294;2005;NULL;100;BOULE;TOR;2105
+742;Soufflage filtre à disque n°1 (étage régulation);Filtre à disques n°1;742;13;742;NULL;Reprise magasin pièces;10;305897;NULL;2008;100;PAPILLON;TOR;2108
+743;Vanne sortie bâche Babcock;Baches à eau Babcock;743;13;743;NULL;950736 AR;10;NULL;1995;2006;20;PAPILLON;TOR;2026
+744;NULL;NULL;744;13;744;NULL;2009 AR;17;ZV 100 (bis);2020;2020;10;Papillon;TOR;2030
+745;NULL;NULL;745;13;745;NULL;NULL;17;NULL;2020;2020;10;Papillon;TOR;2030
+746;Vanne sortie bache 3 n°2;NULL;746;5;746;NULL;NULL;10;CVSB3;2018;2018;10;PAPILLON;TOR;2028
+747;NULL;NULL;747;13;747;NULL;NULL;17;NULL;2020;2020;10;Papillon;TOR;2030
+748;Entree bache 3 vanne n°1;Baches à eau Babcock;748;13;748;NULL;1336 AR;10;CVEB3;2013;2020;6;PAPILLON;TOR;2026
+749;Vanne df'entrée bache 2;NULL;749;13;749;NULL;NULL;10;NULL;2022;2023;15;NULL;TOR;2038
