@@ -1,0 +1,116 @@
+{% extends "appliVanne/base.html" %}
+{% load static %}
+
+{% block title %} Les vannes {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
+
+
+<style>
+    table {
+        margin-bottom: 20px;
+    }
+    .debutLigne {
+        background-color: rgba(0, 0, 255, 0.5);
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    .ligne {
+
+        border-radius: 5px;
+        border: 1px solid black;
+        padding: 5px;
+        
+    }
+    #tableauGeneral {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #tableauGeneral table {
+        width: 100%; /* Cela garantit que le tableau prend toute la largeur du div #tableauGeneral */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ligneFin {
+        text-align: center;
+    }
+    
+    
+    
+    
+
+</style>
+
+{% endblock %}
+{% block main %}
+
+
+
+<!--
+  Tableau avec liste des vanne  et le info suivante : 
+    - numéro de la vanne
+    - nom de l'atelier
+    - repere de la vanne
+    - affectation de la vanne
+    - type de vanne
+
+  option pour voir en detail, mettre à jour et supprimer la vanne
+-->
+
+
+<!-- INFO VANNES -->
+
+
+<div id="tableauGeneral">
+
+    <p> Information générale de la vanne : </p>
+
+    <table>
+        <tbody>
+
+            <tr class="ligne"><td class="debutLigne"> NOM DE VANNE : </td><td class = "ligneFin"> {{ vanne.id_atelier.nom_atelier }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> REPERE VANNE : </td><td class = "ligneFin"> {{ vanne.repere_vanne }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> AFFECTION DE LA VANNE : </td><td class = "ligneFin"> {{ vanne.affectation_vanne }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> NUMÉRO DE LA COMMANDE : </td><td class = "ligneFin"> {{ vanne.numero_commande }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> DATE DE LA COMMANDE : </td><td class = "ligneFin"> {{ vanne.date_achat }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> TYPE DE VANNE : </td><td class = "ligneFin"> {{ vanne.type_vannes }} </td></tr>
+        </tbody>
+    </table>
+
+    
+
+    <p> Information sur le corps : </p>
+    <table>
+        <tbody>
+
+            <tr class="ligne"><td class="debutLigne"> NUMÉRO DU CORPS : </td><td class = "ligneFin"> {{ vanne.id_corps }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> FOURNISSEUR : </td><td class = "ligneFin"> {{ vanne.id_corps.id_fournisseur.nom_fournisseur }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> TYPE DE CORPS : </td><td class = "ligneFin"> {{ vanne.affectation_vanne }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> NUMÉRO DE SÉRIE : </td><td class = "ligneFin"> {{ vanne.numero_commande }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> DN : </td><td class = "ligneFin"> {{ vanne.date_achat }} </td></tr>
+            <tr class="ligne"><td class="debutLigne"> PN : </td><td class = "ligneFin"> {{ vanne.type_vannes }} </td></tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+
+<!-- INFO CORPS -->
+
+
+<!-- INFO POSITIONEUR -->
+
+
+
+<!-- INFO ACTIONNEUR -->
+
+
+
+{% endblock %}

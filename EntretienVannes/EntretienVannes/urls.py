@@ -18,7 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from appliVanne import views
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("vannes/", views.listeVanne),
+    path("dump/", views.rechercheVanne, name="dump"),
+    path("recherche/", views.rechercheAJAX),
+    path("positionneur/", views.positionneur, name="positionneur"),
+    path("", views.listeVanne, name="home"),
+    path('vanne/<int:id_vanne>/detail', views.detailVanne, name='detail_vanne'),
+
 ]

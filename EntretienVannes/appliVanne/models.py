@@ -6,9 +6,8 @@ class ATELIER(models.Model):
         db_table = 'ATELIER'
          
     id_atelier = models.IntegerField(primary_key=True, unique=True)
-    nom_atelier = models.CharField(max_length=45)
-
-  
+    nom_atelier = models.CharField(max_length=45, default='a remplir')
+   
 class COMMANDE(models.Model): 
     class Meta:
         db_table = 'COMMANDE'

@@ -3,9 +3,7 @@
 
 <h2>Nombre total de vannes présente sur le site :  {{listeVannes|length}}</h2>
 
-
 <!--
-
   Tableau avec liste des vanne  et le info suivante : 
     - numéro de la vanne
     - nom de l'atelier
@@ -14,14 +12,13 @@
     - type de vanne
 
   option pour voir en detail, mettre à jour et supprimer la vanne
-
 -->
 
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col"> Identifiant </th>
-        <th scope="col">Atelier </th>
+        <th scope="col"> <a href="?tri=id_vanne&ordre={% if request.GET.tri == 'id_vanne' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Identifiant</a></th>
+        <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% if request.GET.tri == 'id_atelier__nom_atelier' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Atelier</a></th>
         <th scope="col">Repere Vannes </th>
         <th scope="col">Affectation </th>
         <th scope="col">Type de vanne </th>
@@ -39,7 +36,7 @@
         <td>{{ vanne.affectation_vanne }}</td> 
         <td>{{ vanne.type_vannes }}</td> 
         <td>{{ vanne.voir_en }}</td>
-        <td> Detail / delete / mise à jour </td> 
+        <td><a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL</a> / DELETE</td>
         
       </tr>
     {% endfor %}

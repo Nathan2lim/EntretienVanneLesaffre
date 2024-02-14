@@ -1,0 +1,75 @@
+{% extends "appliVanne/base.html" %}
+{% block title %} Les vannes {% endblock %}
+{% block main %}
+    <input type="text" id="searchInput" placeholder="Rechercher...">
+    <div id="searchResults"></div>
+
+<script> console.log("test") </script>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"> <a href="?tri=id_vanne&ordre={% if request.GET.tri == 'id_vanne' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Identifiant</a></th>
+        <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% if request.GET.tri == 'id_atelier__nom_atelier' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Atelier</a></th>
+        <th scope="col">Repere Vannes </th>
+        <th scope="col">Affectation </th>
+        <th scope="col">Type de vanne </th>
+        <th scope="col"> Prochaine maintenance</th>
+        <th scope="col">PLUS</th>
+  
+      </tr>
+
+      <tbody id="vannesContainer">
+        {% for vanne in listeVannes %}
+        <tr>
+            <td>{{ vanne.id_vanne }}</td>
+            <td>{{ vanne.id_atelier.nom_atelier }}</td>
+            <!-- Ajoute les autres cellules ici, en suivant la même structure -->
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+    </thead>
+    <script> console.log("test") </script>
+
+    <script>
+        console.log("test")
+
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var searchTerm = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url 'dump' %}',
+                    data: {
+                        term: searchTerm
+                    },
+                    dataType: 'json', // Assure-toi d'ajouter cette ligne pour que jQuery parse le JSON automatiquement
+                    success: function(response) {
+                        displayResults(response);
+                    }
+                });
+            });
+        
+            function displayResults(response) {
+                var tableBody = $('#vannesContainer');
+                tableBody.empty();
+                
+                response.results.forEach(function(result) {
+                    var row = '<tr>' +
+                        '<td>' + result.id_vanne + '</td>' +
+                        '<td>' + result.id_atelier__nom_atelier + '</td>' +
+                        '<td>' + result.repere_vanne + '</td>' +
+                        '<td>' + result.affectation_vanne + '</td>' +
+                        '<td>' + result.type_vannes + '</td>' +
+                        '<td>' + result.voir_en + '</td>' +
+                        '<td>' + 'détail/suppression/mise à jour' + '</td>' +
+                        '</tr>';
+                    tableBody.append(row);
+                });
+            }
+            
+            
+        });
+        
+    </script>
+{% endblock %}
