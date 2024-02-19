@@ -1,55 +1,50 @@
-{% extends "appliVanne/base.html" %}
-{% load static %}
-
-{% block title %} Les vannes {% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
-
+{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Les
+vannes {% endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
 
 <style>
-    table {
-        margin-bottom: 20px;
-    }
-    .debutLigne {
-        background-color: rgba(0, 0, 255, 0.5);
-        font-weight: bold;
-        border: 1px solid black;
-        padding: 5px;
-    }
+  table {
+    margin-bottom: 20px;
+  }
+  .debutLigne {
+    background-color: rgba(0, 0, 255, 0.5);
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 5px;
+  }
 
-    .ligne {
+  .ligne {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px;
+  }
+  #tableauGeneral {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-        border-radius: 5px;
-        border: 1px solid black;
-        padding: 5px;
-        
-    }
-    #tableauGeneral {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  #tableauGeneral table {
+    width: 100%; /* Cela garantit que le tableau prend toute la largeur du div #tableauGeneral */
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  table td,tr
+  {
+    border: 1px solid black;
 
-    #tableauGeneral table {
-        width: 100%; /* Cela garantit que le tableau prend toute la largeur du div #tableauGeneral */
-        margin-left: auto;
-        margin-right: auto;
-    }
+  }
 
-    .ligneFin {
-        text-align: center;
-    }
-    
-    
-    
-    
-
+  .ligneFin {
+    text-align: center;
+  }
 </style>
 
-{% endblock %}
-{% block main %}
-
-
+{% endblock %} {% block main %}
 
 <!--
   Tableau avec liste des vanne  et le info suivante : 
@@ -62,55 +57,260 @@
   option pour voir en detail, mettre à jour et supprimer la vanne
 -->
 
-
 <!-- INFO VANNES -->
 
-
 <div id="tableauGeneral">
+  <p>Information générale de la vanne :</p>
 
-    <p> Information générale de la vanne : </p>
+  <table>
+    <tbody>
+      <tr class="ligne">
+        <td class="debutLigne">ATELIER :</td>
+        <td class="ligneFin">{{ vanne.id_atelier.nom_atelier }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">REPERE VANNE :</td>
+        <td class="ligneFin">{{ vanne.repere_vanne }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">AFFECTION DE LA VANNE :</td>
+        <td class="ligneFin">{{ vanne.affectation_vanne }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">NUMÉRO DE LA COMMANDE :</td>
+        <td class="ligneFin">{{ vanne.numero_commande }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">DATE DE LA COMMANDE :</td>
+        <td class="ligneFin">{{ vanne.date_achat }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">TYPE DE VANNE :</td>
+        <td class="ligneFin">{{ vanne.type_vannes }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <table>
-        <tbody>
+  <!-- INFO CORPS -->
+  <p>Information sur le corps :</p>
+  <table>
+    <tbody>
+      <tr class="ligne">
+        <td class="debutLigne">FOURNISSEUR :</td>
+        <td class="ligneFin">
+          {{ vanne.id_corps.id_fournisseur.nom_fournisseur }}
+        </td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">TAILLE CORPS (DN) :</td>
+        <td class="ligneFin">{{ vanne.id_corps.dn_corps}}</td>
+      </tr>
 
-            <tr class="ligne"><td class="debutLigne"> NOM DE VANNE : </td><td class = "ligneFin"> {{ vanne.id_atelier.nom_atelier }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> REPERE VANNE : </td><td class = "ligneFin"> {{ vanne.repere_vanne }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> AFFECTION DE LA VANNE : </td><td class = "ligneFin"> {{ vanne.affectation_vanne }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> NUMÉRO DE LA COMMANDE : </td><td class = "ligneFin"> {{ vanne.numero_commande }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> DATE DE LA COMMANDE : </td><td class = "ligneFin"> {{ vanne.date_achat }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> TYPE DE VANNE : </td><td class = "ligneFin"> {{ vanne.type_vannes }} </td></tr>
-        </tbody>
-    </table>
+      <tr class="ligne">
+        <td class="debutLigne">CODE :</td>
+        <td class="ligneFin">{{ vanne.id_corps.code_corps}}</td>
+      </tr>
 
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+        <tr>
+            <td class="debutLigne">TYPE</td>
+            <td class="ligneFin">{{vanne.id_corps.type_corps}}</td>
+            <td class="debutLigne">NUM. SÉRIE</td>
+            <td class="ligneFin">{{vanne.id_corps.num_serie_corps}}</td>
+            <td class="debutLigne">CDE MANUELLE</td>
+            <td class="ligneFin"> {% if vanne.id_actionneur.commande_manuel == "1"%} Oui {% elif vanne.id_actionneur.commande_manuel is None  %} N/C {% else %} Non {% endif %}</td>
+        </tr>
+
+        <tr>
+            <td class="debutLigne">PN</td>
+            <td class="ligneFin">{{vanne.id_corps.pn_corps}}</td>
+            <td class="debutLigne">NORME BRIDES</td>
+            <td class="ligneFin">{{vanne.id_corps.norme_bride_corps}}</td>
+            <td class="debutLigne">MATIERE ARBRE</td>
+            <td class="ligneFin">{{vanne.id_corps.matiere_arbre_corps}}</td>
+        </tr>
+
+        <tr>
+            <td class="debutLigne">CV</td>
+            <td class="ligneFin">{{vanne.id_corps.cv_corps}}</td>
+            <td class="debutLigne">GARNITURES</td>
+            <td class="ligneFin">{{vanne.id_corps.matiere_garnitures_corps}}</td>
+            <td class="debutLigne">MATIERE SIEGE</td>
+            <td class="ligneFin">{{vanne.id_corps.matiere_siege_corps}}</td>
+        </tr>
+        <tr>
+            <td class="debutLigne">CORPS</td>
+            <td class="ligneFin">{{vanne.id_corps.corps_corps}}</td>
+            <td class="debutLigne">TYPE GARN.</td>
+            <td class="ligneFin">{{vanne.id_corps.type_garniture_corps}}</td>
+            <td class="debutLigne">MATIERE ORG. REG.</td>
+            <td class="ligneFin">{{vanne.id_corps.matiere_org_reglant_corps}}</td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+  <!-- INFO ACTIONNEUR -->
+  <p>Information sur l'actionneur :</p>
+  <table>
+    <tbody>
+      <tr class="ligne">
+        <td class="debutLigne">FOURNISSEUR :</td>
+        <td class="ligneFin">
+          {{ vanne.id_actionneur.id_fournisseur.nom_fournisseur }}
+        </td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">TAILLE :</td>
+        <td class="ligneFin">{{ vanne.id_actionneur.taille_actionneur}}</td>
+      </tr>
+
+      <tr class="ligne">
+        <td class="debutLigne">TYPE :</td>
+        <td class="ligneFin">{{ vanne.id_actionneur.type_actionneur}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+        <tr>
+            <td class="debutLigne">TYPE</td>
+            <td class="ligneFin">{{vanne.id_corps.type_corps}}</td>
+            <td class="debutLigne">NUM. SÉRIE</td>
+            <td class="ligneFin">{{vanne.id_actionneur.num_serie_actionneur}}</td>
+            <td class="debutLigne">CDE MANUELLE</td>
+            <td class="ligneFin"> {% if vanne.id_actionneur.commande_manuel == "1"%} Oui {% else %} Non {% endif %}
+
+          </td>
+                    </tr>
+        <tr>
+            <td class="debutLigne">SENS : </td>
+            <td class="ligneFin">{{vanne.id_actionneur.sens_actionneur}}</td>
+            <td class="debutLigne">PRESSION ALIM.</td>
+            <td class="ligneFin">{{vanne.id_actionneur.pression_alimentation}}</td>
+            <td class="debutLigne">TYPE CONT. </td>
+            <td class="ligneFin">{{vanne.id_actionneur.type_contact_actionneur}}</td>
+        </tr>
+
+        <tr>
+            <td class="debutLigne">EFFET </td>
+            <td class="ligneFin">{{vanne.id_actionneur.actionneur_simpl_double_effet}}</td>
+            <td class="debutLigne">CONTACT</td>
+            <td class="ligneFin">{{vanne.id_actionneur.contact_ouv_ferm_actionneur}}</td>
+            <td class="debutLigne"></td>
+            <td class="ligneFin"></td>
+        </tr>
+       <!-- <tr>
+            <td class="debutLigne">CORPS</td>
+            <td class="ligneFin">{{vanne.id_corps.corps_corps}}</td>
+            <td class="debutLigne">TYPE ?</td>
+            <td class="ligneFin">{{vanne.id_corps.type_corps}}</td>
+            <td class="debutLigne">MATIERE ORG. REG.</td>
+            <td class="ligneFin">{{vanne.id_corps.matiere_org_reglant}}</td>
+        </tr>
+      -->
+    </tbody>
+  </table>
+
+
+  <!-- INFO CORPS -->
+
+  {% if vanne.id_positionneur is null %}
+
+  <p> aucun positionneur pour cette vanne </p>
     
+  {% else %}
+  <p>Information sur le positionneur :</p>
+  <table>
+    <tbody>
+      <tr class="ligne">
+        <td class="debutLigne">FOURNISSEUR :</td>
+        <td class="ligneFin">
+          {{ vanne.id_positionneur.id_fournisseur.nom_fournisseur }}
+        </td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">TECHNOLOGIE POSITIONNEUR :</td>
+        <td class="ligneFin">{{ vanne.id_positionneur.fonctionnement_positionneur.description_type_positionneur}}</td>
+      </tr>
 
-    <p> Information sur le corps : </p>
-    <table>
-        <tbody>
+      <tr class="ligne">
+        <td class="debutLigne">TYPE POSITIONNEUR :</td>
+        <td class="ligneFin">{{ vanne.id_positionneur.type_positionneur}}</td>
+      </tr>
 
-            <tr class="ligne"><td class="debutLigne"> NUMÉRO DU CORPS : </td><td class = "ligneFin"> {{ vanne.id_corps }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> FOURNISSEUR : </td><td class = "ligneFin"> {{ vanne.id_corps.id_fournisseur.nom_fournisseur }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> TYPE DE CORPS : </td><td class = "ligneFin"> {{ vanne.affectation_vanne }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> NUMÉRO DE SÉRIE : </td><td class = "ligneFin"> {{ vanne.numero_commande }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> DN : </td><td class = "ligneFin"> {{ vanne.date_achat }} </td></tr>
-            <tr class="ligne"><td class="debutLigne"> PN : </td><td class = "ligneFin"> {{ vanne.type_vannes }} </td></tr>
-        </tbody>
-    </table>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+        <tr>
+            <td class="debutLigne">Alimentation</td>
+            <td class="ligneFin">{{vanne.id_positionneur.presion_positionneur}}</td>
+            <td class="debutLigne">NUM. SERIE</td>
+            <td class="ligneFin">{{vanne.id_positionneur.num_serie_positionneur}}</td>
+            <td class="debutLigne">LOI</td>
+            <td class="ligneFin">{{vanne.id_positionneur.loi_positionneur}}</td>
+        </tr>
+
+        <tr>
+            <td class="debutLigne">SIGNAL ENTRÉE</td>
+            <td class="ligneFin">{{vanne.id_positionneur.signal_entre_positionneur}}</td>
+            <td class="debutLigne">REPERE CAME</td>
+            <td class="ligneFin">{{vanne.id_positionneur.repere_came}}</td>
+            <td class="debutLigne">FERME A</td>
+            <td class="ligneFin">{{vanne.id_positionneur.femer_aS}}</td>
+        </tr>
+
+        <tr>
+            <td class="debutLigne">SIGNAL SORTIE</td>
+            <td class="ligneFin">{{vanne.id_positionneur.signal_sortie}}</td>
+            <td class="debutLigne">FACE CAME</td>
+            <td class="ligneFin">{{vanne.id_positionneur.face_came}}</td>
+            <td class="debutLigne">OUVERT A</td>
+            <td class="ligneFin">{{vanne.id_positionneur.ouvert_a}}</td>
+        </tr>
+        <tr>
+            <td class="debutLigne">SENS ACTION</td>
+            <td class="ligneFin">{{vanne.id_positionneur.sens_action}}</td>
+            <td class="debutLigne"></td>
+            <td class="ligneFin"></td>
+            <td class="debutLigne"></td>
+            <td class="ligneFin"></td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+  {% endif %}
 
 
 
+</div> <!-- <div id="tableauGeneral">-->
 
-</div>
-
-<!-- INFO CORPS -->
-
-
-<!-- INFO POSITIONEUR -->
 
 
 
 <!-- INFO ACTIONNEUR -->
 
-
-
 {% endblock %}
+
+<tr class="ligne">
+  <td class="debutLigne">TYPE DE CORPS :</td>
+  <td class="ligneFin">{{ vanne.affectation_vanne }}</td>
+</tr>
+<tr class="ligne">
+  <td class="debutLigne">NUMÉRO DE SÉRIE :</td>
+  <td class="ligneFin">{{ vanne.numero_commande }}</td>
+</tr>
+<tr class="ligne">
+  <td class="debutLigne">DN :</td>
+  <td class="ligneFin">{{ vanne.date_achat }}</td>
+</tr>
+<tr class="ligne">
+  <td class="debutLigne">PN :</td>
+  <td class="ligneFin">{{ vanne.type_vannes }}</td>
+</tr>

@@ -62,7 +62,8 @@
                         '<td>' + result.affectation_vanne + '</td>' +
                         '<td>' + result.type_vannes + '</td>' +
                         '<td>' + result.voir_en + '</td>' +
-                        '<td>' + 'détail/suppression/mise à jour' + '</td>' +
+                        '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
+                        '<td>' + '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL</a>' + '</td>' 
                         '</tr>';
                     tableBody.append(row);
                 });

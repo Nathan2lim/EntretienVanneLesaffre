@@ -39,8 +39,9 @@ def rechercheVanne(request):
             Q(repere_vanne__icontains=search_query) |
             Q(affectation_vanne__icontains=search_query) |
             Q(type_vannes__icontains=search_query)|
-            Q(voir_en__icontains=search_query)
-        ).values('id_vanne', 'id_atelier__nom_atelier', 'repere_vanne', 'affectation_vanne', 'type_vannes', 'voir_en')
+            Q(voir_en__icontains=search_query)|
+            Q(id_positionneur__fonctionnement_positionneur__description_type_positionneur__icontains=search_query)
+            ).values('id_vanne', 'id_atelier__nom_atelier', 'repere_vanne', 'affectation_vanne', 'type_vannes', 'voir_en', 'id_positionneur__fonctionnement_positionneur__description_type_positionneur')
 
         # Ajoutez la vérification supplémentaire "OK" à la réponse JSON
         response_data = {
