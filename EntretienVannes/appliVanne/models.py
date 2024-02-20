@@ -118,7 +118,7 @@ class Vanne(models.Model):
     freq_revision = models.IntegerField(null=True)
     derniere_revision = models.IntegerField(null=True)
     voir_en = models.IntegerField(null=True)
-    en_service_vanne = models.BooleanField(default=1)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
+    en_service_vanne = models.IntegerField(default=1)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
     
     #une méthode de type "toString"
    #def __str__(self) -> str:

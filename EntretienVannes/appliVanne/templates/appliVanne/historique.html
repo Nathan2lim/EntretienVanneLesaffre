@@ -1,20 +1,7 @@
-{% extends "appliVanne/base.html" %} {% block title %} Les vannes {% endblock %}
+{% extends "appliVanne/base.html" %} {% block title %} Ajout Vannes {% endblock %}
 {% block main %}
 
-<h2>Nombre total de vannes présente sur le site :  {{listeVannes|length}}</h2>
-
-<!--
-  Tableau avec liste des vanne  et le info suivante : 
-    - numéro de la vanne
-    - nom de l'atelier
-    - repere de la vanne
-    - affectation de la vanne
-    - type de vanne
-
-  option pour voir en detail, mettre à jour et supprimer la vanne
--->
-
-  <table class="table table-striped">
+<table class="table table-striped">
     <thead>
       <tr>
         <th scope="col"> <a href="?tri=id_vanne&ordre={% if request.GET.tri == 'id_vanne' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Identifiant</a></th>
@@ -36,14 +23,13 @@
         <td>{{ vanne.affectation_vanne }}</td> 
         <td>{{ vanne.type_vannes }}</td> 
         <td>{{ vanne.voir_en }}</td>
-        <td><a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL </a>/ 
-            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/delete"> DELETE</a>
+        <td>
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL</a> 
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/recover"> METTRE EN SERVICE </a> 
         </td>
         
       </tr>
     {% endfor %}
   </table>
-
-
 
 {% endblock %}

@@ -1,10 +1,6 @@
-{% extends "appliVanne/base.html" %} {% block title %} Les Positionneur {% endblock %}
+{% extends "appliVanne/base.html" %} {% block title %} Les Actionneur {% endblock %}
 {% block main %}
-
-<h2>Nombre total de vannes présente sur le site :  {{listePos|length}}</h2>
   
-
-
 <!--
 
   Tableau avec liste des vanne  et le info suivante : 
@@ -35,13 +31,13 @@
       </tr>
     </thead>
 
-    {% for pos in listePos %}
+    {% for act in listeAct %}
       <tr>
-        <td>{{ pos.id_positionneur}}</td>
-        <td>{{ pos.id_fournisseur.nom_fournisseur}}</td>
-        <td>{{ pos.fonctionnement_positionneur.description_type_positionneur }}</td>
-        <!-- a reglé --> <td>{{ pos.id_positionneur.vanne.repere_vanne}}</td>
-        <td>{{ pos.type_positionneur }}</td>
+        <td>{{ act.id_actionneur}}</td>
+        <td>{{ act.id_fournisseur.nom_fournisseur}}</td>
+        <td>{{ act.type_actionneur}}</td>
+        <td>{{ act.num_serie_actionneur}}</td>
+        <td>{{ act.taille_actionneur }}</td>
       </tr>
     {% endfor %}
   </table>

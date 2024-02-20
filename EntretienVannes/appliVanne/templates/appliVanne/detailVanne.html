@@ -1,5 +1,4 @@
-{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Les
-vannes {% endblock %} {% block extra_css %}
+{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Détail Vannes n°{{vanne.id_vanne}} {% endblock %} {% block extra_css %}
 <link
   rel="stylesheet"
   href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
@@ -224,6 +223,7 @@ vannes {% endblock %} {% block extra_css %}
   <p> aucun positionneur pour cette vanne </p>
     
   {% else %}
+
   <p>Information sur le positionneur :</p>
   <table>
     <tbody>

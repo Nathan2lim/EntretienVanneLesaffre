@@ -1,5 +1,5 @@
 {% extends "appliVanne/base.html" %}
-{% block title %} Les vannes {% endblock %}
+{% block title %} Rechercher... {% endblock %}
 {% block main %}
     <input type="text" id="searchInput" placeholder="Rechercher...">
     <div id="searchResults"></div>
@@ -14,25 +14,17 @@
         <th scope="col">Affectation </th>
         <th scope="col">Type de vanne </th>
         <th scope="col"> Prochaine maintenance</th>
+        <th scope="col"> Fonctionnement</th>
         <th scope="col">PLUS</th>
   
       </tr>
+    </thead>
 
-      <tbody id="vannesContainer">
-        {% for vanne in listeVannes %}
-        <tr>
-            <td>{{ vanne.id_vanne }}</td>
-            <td>{{ vanne.id_atelier.nom_atelier }}</td>
-            <!-- Ajoute les autres cellules ici, en suivant la même structure -->
-        </tr>
-        {% endfor %}
+    <tbody id="vannesContainer">
     </tbody>
     
-    </thead>
-    <script> console.log("test") </script>
-
+</table>
     <script>
-        console.log("test")
 
         $(document).ready(function() {
             $('#searchInput').keyup(function() {
@@ -54,23 +46,53 @@
                 var tableBody = $('#vannesContainer');
                 tableBody.empty();
                 
-                response.results.forEach(function(result) {
-                    var row = '<tr>' +
-                        '<td>' + result.id_vanne + '</td>' +
-                        '<td>' + result.id_atelier__nom_atelier + '</td>' +
-                        '<td>' + result.repere_vanne + '</td>' +
-                        '<td>' + result.affectation_vanne + '</td>' +
-                        '<td>' + result.type_vannes + '</td>' +
-                        '<td>' + result.voir_en + '</td>' +
-                        '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
-                        '<td>' + '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL</a>' + '</td>' 
-                        '</tr>';
-                    tableBody.append(row);
-                });
+                if (response.results.length === 0) {
+                    // Si aucun résultat n'est trouvé, affichez un message
+                    var noResultsRow = '<tr><td colspan="8">Aucun résultat</td></tr>';
+                    tableBody.append(noResultsRow);
+                }
+                else
+                {
+                    response.results.forEach(function(result) {
+                        var deleteRecoverLink;
+                        var deleteRecoverText;
+                        
+                        if (parseInt(result.en_service_vanne) === 1) {
+                            deleteRecoverLink = "/delete";
+                            deleteRecoverText = "DELETE";
+                            //console.log("del");
+                        } else {
+                            deleteRecoverLink = "/recover";
+                            deleteRecoverText = "RECOVER";
+                            //console.log("reco");
+                        }
+                        
+                        var row = '<tr>' +
+                            '<td>' + result.id_vanne + '</td>' +
+                            '<td>' + result.id_atelier__nom_atelier + '</td>' +
+                            '<td>' + result.repere_vanne + '</td>' +
+                            '<td>' + result.affectation_vanne + '</td>' +
+                            '<td>' + result.type_vannes + '</td>' +
+                            '<td>' + result.voir_en + '</td>' +
+                            '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
+                            '<td>' + 
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL / </a>' +
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + deleteRecoverLink + '">' + deleteRecoverText + '</a>' +
+                            '</td>'+
+                            '</tr>';
+                            
+                            
+                        tableBody.append(row);
+                    });
+                }
             }
             
             
         });
         
     </script>
+
+
+
+
 {% endblock %}

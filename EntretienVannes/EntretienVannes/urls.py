@@ -21,11 +21,19 @@ from appliVanne import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("vannes/", views.listeVanne),
+    path("vannes/", views.listeVanne, name="vannes"),
     path("dump/", views.rechercheVanne, name="dump"),
     path("recherche/", views.rechercheAJAX),
     path("positionneur/", views.positionneur, name="positionneur"),
+    path("actionneur/", views.actionneur, name="actionneur"),
     path("", views.listeVanne, name="home"),
     path('vanne/<int:id_vanne>/detail', views.detailVanne, name='detail_vanne'),
+    path('vanne/<int:id_vanne>/delete', views.delete, name='delete'),
+    path('vanne/<int:id_vanne>/recover', views.recover, name='recover'),
+    path("historique/", views.historiqueVanne, name="historique"),
+    
+    
+    
+    
 
 ]
