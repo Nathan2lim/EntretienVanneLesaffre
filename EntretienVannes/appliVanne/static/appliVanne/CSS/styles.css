@@ -1,5 +1,5 @@
 h2 {
-    background-color: blue;
+    background-color: rgb(115, 112, 112,0.5);
   }
   
   main {
@@ -16,7 +16,7 @@ h2 {
   
   .logo {
     width: auto;
-    height: 75px;
+    height: 45px;
   }
   
   footer {

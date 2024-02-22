@@ -31,9 +31,8 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/delete', views.delete, name='delete'),
     path('vanne/<int:id_vanne>/recover', views.recover, name='recover'),
     path("historique/", views.historiqueVanne, name="historique"),
-    
-    
-    
+    path("ajoutVanne/", views.ajoutVanne, name="ajoutVanne"),
+    path("ajoutVanne/trtVanne/", views.traitementAjoutVanne, name="traitementVanne"),
     
 
 ]

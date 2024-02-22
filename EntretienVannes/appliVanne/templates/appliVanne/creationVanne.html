@@ -1,6 +1,78 @@
-{% extends "appliVanne/base.html" %} {% block title %} Ajout Vannes {% endblock %}
+{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Ajout Vannes {% endblock %}
+
+{% block extra_css%}
+<link
+  rel="stylesheet"
+  href="{% static 'appliVanne/CSS/styleCreationVanne.css' %}" />
+{% endblock %}
+
+{% block extra_js%}
+    <script src="{% static 'appliVanne/JS/creationVanne.js' %}"></script>
+{% endblock%}
+
+
 {% block main %}
 
+    <h1>Ajout Vannes</h1>
 
+    <form action="{% url 'traitementVanne' %}" method="POST"> <!-- Assurez-vous que l'URL est correcte -->
+        {% csrf_token %}
+        
+        <div id="infoGeneral">
+
+            <div class="form-group">
+                <label for="id_atelier">Nom de l'atelier:</label>
+                <select name="id_atelier" id="id_atelier" class="form-control">
+                    {% for atl in listAtelier %}
+                    <option value={{atl.id_atelier}}>{{ atl.nom_atelier }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="form-group" id="nouveauAtelier" style="display:none;">
+                    <label for="nouveauAtelier">Nom du nouvel Atelier:</label>
+                    <input type="text" name="nouveau_atelier" id="nouveau_atelier" value='-1' class="form-control">
+                </div>
+            </div>
+
+            <!-- Champ repère -->
+            <div class="form-group">
+                <label for="repere_vanne">Repère:</label>
+                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control">
+            </div>
+            
+            <!-- Champ affectation -->
+            <div class="form-group">
+                <label for="affectation_vanne">Affectation:</label>
+                <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control">
+            </div>
+        
+            <!-- Champ numéro de commande -->
+            <div class="form-group">
+                <label for="numero_commande">Numero de la Commande:</label>
+                <input type="text" name="numero_commande" id="numero_commande" class="form-control">
+            </div>
+
+            <!--Date de la Commande-->
+            <div class="form-group">
+                <label for="id_repere">Date de la Commande:</label>
+                <input type="date" name="date_de_la_commande" id="id_repere" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="type_vanne">Type de vanne:</label>
+                <select name="type_vanne" id="type_vanne" class="form-control">
+                    <option value="1">TOR</option>
+                    <option value="2">REG</option>
+                </select>
+            </div>
+
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+
+
+    
 
 {% endblock %}

@@ -2,6 +2,47 @@
 <link
   rel="stylesheet"
   href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
+
+<style>
+  table {
+    margin-bottom: 20px;
+  }
+  .debutLigne {
+    background-color: rgba(0, 0, 255, 0.5);
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 5px;
+  }
+
+  .ligne {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px;
+  }
+  #tableauGeneral {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #tableauGeneral table {
+    width: 100%; /* Cela garantit que le tableau prend toute la largeur du div #tableauGeneral */
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  table td,tr
+  {
+    border: 1px solid black;
+
+  }
+
+  .ligneFin {
+    text-align: center;
+  }
+</style>
+
 {% endblock %} {% block main %}
 
 <!--
@@ -137,7 +178,7 @@
     <tbody>
         <tr>
             <td class="debutLigne">TYPE</td>
-            <td class="ligneFin">{{vanne.id_actionneur.type_actionneur}}</td>
+            <td class="ligneFin">{{vanne.id_corps.type_corps}}</td>
             <td class="debutLigne">NUM. SÉRIE</td>
             <td class="ligneFin">{{vanne.id_actionneur.num_serie_actionneur}}</td>
             <td class="debutLigne">CDE MANUELLE</td>

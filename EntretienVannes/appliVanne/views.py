@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from appliVanne.models import Vanne
-from appliVanne.models import Vanne, ACTIONNEUR, CORPS, POSITIONNEUR, TYPEPOSITIONNEUR, FOURNISSEUR
+from appliVanne.models import *
+from appliVanne.forms import *
 from django.http import JsonResponse
 from django.core import serializers
 from django.db.models import Q
@@ -95,4 +95,71 @@ def recover(request, id_vanne):
     vanne.save() 
     return redirect('vannes')
 
+def ajoutVanne(request):
+    LesVannes  = Vanne.objects.all()
+    LesAtelier  = ATELIER.objects.all()
+    lesFournisseur = FOURNISSEUR.objects.all() 
+    
+    
+    return render(request, "appliVanne/creationVanne.html", {"listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur})
+    
+def traitementAjoutVanne(request):
+    if request.method == "POST":
+        form = VanneForm(request.POST)
+        if form.is_valid():
+            
+            print(form.cleaned_data['type_vanne'])
+            print(form.cleaned_data['id_atelier'])
+            
+            num_atelier = form.cleaned_data['id_atelier']
+            nouveau_atelier = form.cleaned_data['nouveau_atelier']
+            
+            try : 
+                if num_atelier.id_atelier == 14 and nouveau_atelier:
+                    print("Création d'un nouvel atelier")
+                    atelier, created = ATELIER.objects.get_or_create(nom_atelier=nouveau_atelier)
+                    #atelier.save()
+                    atelier = ATELIER.objects.get(nom_atelier=nouveau_atelier)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    atelier = num_atelier
+           
+            except ATELIER.DoesNotExist:
+            
+                print("L'atelier n'existe pas")    
+            
+            if form.cleaned_data['type_vanne'] == '1':
+                type_vannes = 'TOR'
+            else:
+                type_vannes = 'REG'
+                
+            
+            print(atelier)
+            
+            # Créer l'objet Vanne sans sauvegarder immédiatement
+            van = Vanne(repere_vanne=request.POST.get('repere_vanne'), 
+                        affectation_vanne=request.POST.get('affectation_vanne'),
+                        type_vannes=type_vannes, 
+                        numero_commande=request.POST.get('numero_commande'),
+                        id_atelier=atelier,
+                        date_achat=request.POST.get('date_de_la_commande'),
+                        )  # Assigner l'instance d'ATELIER directement
+            
+            # Sauvegarder l'objet Vanne
+            van.save() # pas pendant les tests a SUPPRIMER
+            
+                
+            
+            
+            
+        
+            
+
+
+           
+        
+            return redirect('ajoutVanne')  # Assurez-vous que cet URL name est correct
+    print(form.errors)
+    # Si la méthode n'est pas POST, redirigez vers 'positionneur'
+    return redirect('positionneur')
 
