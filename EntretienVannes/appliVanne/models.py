@@ -5,7 +5,7 @@ class ATELIER(models.Model):
     class Meta:
         db_table = 'ATELIER'
          
-    id_atelier = models.IntegerField(primary_key=True, unique=True)
+    id_atelier = models.AutoField(primary_key=True, unique=True)
     nom_atelier = models.CharField(max_length=45, default='a remplir', unique=True)
    
 class COMMANDE(models.Model): 
@@ -20,7 +20,7 @@ class FOURNISSEUR(models.Model):
     class Meta:
         db_table = 'FOURNISSEUR'
         
-    id_fournisseur = models.IntegerField(primary_key=True, unique=True)
+    id_fournisseur = models.AutoField(primary_key=True, unique=True)
     nom_fournisseur = models.CharField(max_length=255)
     email_fournisseur = models.EmailField()
     tel_fournisseur = models.CharField(max_length=255)
@@ -31,7 +31,7 @@ class ACTIONNEUR(models.Model):
     class Meta:
         db_table = 'ACTIONNEUR'
         
-    id_actionneur = models.IntegerField(primary_key=True, unique=True)
+    id_actionneur = models.AutoField(primary_key=True, unique=True)
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
     num_serie_actionneur = models.CharField(max_length=255, null=True)
     type_actionneur = models.CharField(max_length=255, null=True)
@@ -48,7 +48,7 @@ class CORPS(models.Model):
     class Meta:
         db_table = 'CORPS'
         
-    id_corps = models.IntegerField(primary_key=True, unique=True)
+    id_corps = models.AutoField(primary_key=True, unique=True, )
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
     type_corps = models.CharField(max_length=255)
     num_serie_corps = models.CharField(max_length=255)
@@ -70,7 +70,7 @@ class TYPEPOSITIONNEUR(models.Model):
     class Meta:
         db_table = 'TYPEPOSITIONNEUR'
         
-    id_fonctionnement_postionneur = models.IntegerField(primary_key=True, unique=True)
+    id_fonctionnement_postionneur = models.AutoField(primary_key=True, unique=True)
     description_type_positionneur = models.CharField(max_length=255)
     type_positionneur = models.CharField(max_length=255)
 
@@ -80,7 +80,7 @@ class POSITIONNEUR(models.Model):
     class Meta:
         db_table = 'POSITIONNEUR'
         
-    id_positionneur = models.IntegerField(primary_key=True, unique=True)
+    id_positionneur = models.AutoField(primary_key=True, unique=True)
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
     fonctionnement_positionneur = models.ForeignKey('TYPEPOSITIONNEUR', to_field='id_fonctionnement_postionneur', on_delete=models.CASCADE)
     num_serie_positionneur = models.CharField(max_length=255, null=True)
@@ -88,8 +88,8 @@ class POSITIONNEUR(models.Model):
     signal_sortie = models.IntegerField(null=True)
     repere_came = models.IntegerField(null=True)
     face_came = models.IntegerField(null=True)
-    sens_action = models.IntegerField(null=True)
-    femer_a = models.IntegerField(null=True)
+    sens_action = models.CharField(max_length=255, null=True)
+    fermer_a = models.IntegerField(null=True)
     ouvert_a = models.IntegerField(null=True)
     type_positionneur = models.CharField(max_length=255, null=True)
     presion_positionneur = models.CharField(max_length=255, null=True)
@@ -102,7 +102,7 @@ class Vanne(models.Model):
     """
     class Meta:
         db_table = 'VANNES'
-    id_vanne = models.IntegerField(primary_key=True, unique=True)
+    id_vanne = models.AutoField(primary_key=True, unique=True)
     id_atelier = models.ForeignKey('ATELIER', to_field='id_atelier', on_delete=models.CASCADE, null=True)
     repere_vanne = models.CharField(max_length=255, null=True)
     affectation_vanne = models.CharField(max_length=255, null=True)

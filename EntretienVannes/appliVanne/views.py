@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from appliVanne.models import *
 from appliVanne.forms import *
@@ -5,6 +6,8 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
+from datetime import datetime
+
 # Create your views here.
 
 
@@ -99,13 +102,24 @@ def ajoutVanne(request):
     LesVannes  = Vanne.objects.all()
     LesAtelier  = ATELIER.objects.all()
     lesFournisseur = FOURNISSEUR.objects.all() 
+    typePos = TYPEPOSITIONNEUR.objects.all()
     
-    
-    return render(request, "appliVanne/creationVanne.html", {"listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur})
+    return render(request, "appliVanne/creationVanne.html", {"listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
     
 def traitementAjoutVanne(request):
+    save = True
+    
+    LesVannes  = Vanne.objects.all()
+    LesAtelier  = ATELIER.objects.all()
+    lesFournisseur = FOURNISSEUR.objects.all() 
+    typePos = TYPEPOSITIONNEUR.objects.all()
+    
+    
     if request.method == "POST":
         form = VanneForm(request.POST)
+        now = datetime.now()
+
+
         if form.is_valid():
             
             print(form.cleaned_data['type_vanne'])
@@ -113,6 +127,58 @@ def traitementAjoutVanne(request):
             
             num_atelier = form.cleaned_data['id_atelier']
             nouveau_atelier = form.cleaned_data['nouveau_atelier']
+            
+            num_fournisseur = form.cleaned_data['id_fournisseur']
+            nouveau_fournisseur = form.cleaned_data['nouveau_fournisseur']
+            
+            num_fournisseur_actionneur = form.cleaned_data['id_fournisseur_actionneur']
+            nouveau_fournisseur_actionneur = form.cleaned_data['nouveau_fournisseur_actionneur']
+            
+            tempsRev = form.cleaned_data['tempsRev']
+            
+            #CORPS
+            taille_corps = form.cleaned_data['taille_corps']
+            code_corps = form.cleaned_data['code_corps']
+            type_corps = form.cleaned_data['type_corps']
+            pn_corps = form.cleaned_data['pn_corps']
+            cv_corps = form.cleaned_data['cv_corps']
+            numero_serie_corps = form.cleaned_data['numero_serie_corps']
+            corps_corps = form.cleaned_data['corps_corps']
+            norme_bride_corps = form.cleaned_data['norme_bride_corps']
+            garniture_corps = form.cleaned_data['garniture_corps']
+            type_garniture = form.cleaned_data['type_garniture']
+            matiere_arbre = form.cleaned_data['matiere_arbre']
+            matiere_siege = form.cleaned_data['matiere_siege']
+            matiere_organe_reglant = form.cleaned_data['matiere_organe_reglant']
+            
+            #ACTIONNEUR
+            taille_actionneur = form.cleaned_data['taille_actionneur']
+            type_actionneur = form.cleaned_data['type_actionneur']
+            numero_serie_actionneur = form.cleaned_data['numero_serie_actionneur']
+            commande_manuelle_actionneur = form.cleaned_data['commande_manuelle_actionneur']
+            sens_actionneur = form.cleaned_data['sens_actionneur']
+            pression_alimentation = form.cleaned_data['pression_alimentation']
+            type_contact = form.cleaned_data['type_contact']
+            type_effet = form.cleaned_data['type_effet']
+            type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
+            
+            #POSITIONNEUR
+            num_fournisseur_positionneur = form.cleaned_data['id_fournisseur_positionneur']
+            nouveau_fournisseur_positionneur = form.cleaned_data['nouveau_fournisseur_positionneur']
+            id_fonctionnement_positionneur = form.cleaned_data['id_fonctionnement_positionneur']
+            type_positionneur = form.cleaned_data['type_positionneur']
+            numero_serie_positionneur = form.cleaned_data['numero_serie_positionneur']
+            signal_sortie_positionneur = form.cleaned_data['signal_sortie_positionneur']
+            signal_entree_positionneur = form.cleaned_data['signal_entree_positionneur']
+            repere_came_positionneur = form.cleaned_data['repere_came_positionneur']
+            face_came_positionneur = form.cleaned_data['face_came_positionneur']
+            sens_action = form.cleaned_data['sens_action']
+            fermee_a_positionneur = form.cleaned_data['fermee_a_positionneur']
+            ouverte_a_positionneur = form.cleaned_data['ouverte_a_positionneur']
+            pression_alimentation_positionneur = form.cleaned_data['alimentation_positionneur']
+            loi_pos = form.cleaned_data['loi_commande_positionneur']
+            
+            presence_positionneur = form.cleaned_data['presence_positionneur']
             
             try : 
                 if num_atelier.id_atelier == 14 and nouveau_atelier:
@@ -133,33 +199,184 @@ def traitementAjoutVanne(request):
             else:
                 type_vannes = 'REG'
                 
+            if type_effet == '1':
+                type_effet = 'SIMPLE'
+            else:
+                type_effet = 'DOUBLE'
             
-            print(atelier)
+            if type_contact_actionneur == '1':
+                type_contact_actionneur = 'OUVERTURE'
+            elif type_contact_actionneur == '2':
+                type_contact_actionneur = 'FERMETURE'
+            else:
+                type_contact_actionneur = 'OUVERTURE + FERMETURE'
+                
+            if commande_manuelle_actionneur == '1':
+                commande_manuelle_actionneur = 'OUI'
+            else:
+                commande_manuelle_actionneur = 'NON'
             
-            # Créer l'objet Vanne sans sauvegarder immédiatement
-            van = Vanne(repere_vanne=request.POST.get('repere_vanne'), 
-                        affectation_vanne=request.POST.get('affectation_vanne'),
-                        type_vannes=type_vannes, 
-                        numero_commande=request.POST.get('numero_commande'),
-                        id_atelier=atelier,
-                        date_achat=request.POST.get('date_de_la_commande'),
-                        )  # Assigner l'instance d'ATELIER directement
+            if sens_actionneur == '1':
+                sens_actionneur = 'OMA'
+            else:
+                sens_actionneur = 'FMA'
             
-            # Sauvegarder l'objet Vanne
-            van.save() # pas pendant les tests a SUPPRIMER
-            
+            if sens_action == '1':
+                sens_action = 'DIRECT'
+            else:
+                sens_action = 'INVERSE'
                 
             
+                
+            print(atelier)
             
-            
-        
-            
-
-
+            try : 
+                if num_fournisseur_actionneur.id_fournisseur == 45 and nouveau_fournisseur_actionneur:
+                    print("fournisseur actionneur n'existe pas")
+                    frn_act, created = FOURNISSEUR.objects.get_or_create(nom_fournisseur=nouveau_fournisseur_actionneur)
+                    #atelier.save()
+                    frn_act = FOURNISSEUR.objects.get(nom_fournisseur=nouveau_fournisseur_actionneur)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    frn_act = num_fournisseur_actionneur
            
+            except FOURNISSEUR.DoesNotExist:
+                print("Le fournisseur n'existe pas")
+                
+            try : 
+                if num_fournisseur.id_fournisseur == 45 and nouveau_fournisseur:
+                    print("fournisseur corps n'existe pas")
+                    frn, created = FOURNISSEUR.objects.get_or_create(nom_fournisseur=nouveau_fournisseur)
+                    #atelier.save()
+                    frn = FOURNISSEUR.objects.get(nom_fournisseur=nouveau_fournisseur)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    frn = num_fournisseur
+           
+            except FOURNISSEUR.DoesNotExist:
+                print("Le fournisseur n'existe pas")
+            
+            try : 
+                if num_fournisseur_positionneur.id_fournisseur == 45 and nouveau_fournisseur_positionneur:
+                    print("fournisseur positionneur n'existe pas")
+                    frn_pos, created = FOURNISSEUR.objects.get_or_create(nom_fournisseur=nouveau_fournisseur_positionneur)
+                    #atelier.save()
+                    frn_pos = FOURNISSEUR.objects.get(nom_fournisseur=nouveau_fournisseur_positionneur)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    frn_pos = num_fournisseur
         
-            return redirect('ajoutVanne')  # Assurez-vous que cet URL name est correct
-    print(form.errors)
-    # Si la méthode n'est pas POST, redirigez vers 'positionneur'
-    return redirect('positionneur')
+            except FOURNISSEUR.DoesNotExist:
+                print("Le fournisseur n'existe pas")
+                
+                
+        
+            # Sauvegarder l'objet Vanne
+            
+           # Sauvegarder l'objet CORPS d'abord
+            corps = CORPS(
+                id_fournisseur=frn,
+                dn_corps=taille_corps, 
+                code_corps=code_corps, 
+                type_corps=type_corps, 
+                pn_corps=pn_corps, 
+                cv_corps=cv_corps, 
+                num_serie_corps=numero_serie_corps, 
+                corps_corps=corps_corps, 
+                norme_bride_corps=norme_bride_corps, 
+                matiere_garnitures_corps=garniture_corps,
+                type_garniture_corps=type_garniture, 
+                matiere_arbre_corps=matiere_arbre, 
+                matiere_siege_corps=matiere_siege, 
+                matiere_org_reglant_corps=matiere_organe_reglant
+            )
+             # Sauvegardez l'objet CORPS avant de l'assigner à Vanne
 
+            # Ensuite, sauvegarder l'objet ACTIONNEUR
+            actionneur = ACTIONNEUR(
+                id_fournisseur=frn_act,
+                type_actionneur=type_actionneur, 
+                num_serie_actionneur=numero_serie_actionneur, 
+                taille_actionneur=taille_actionneur, 
+                type_contact_actionneur=type_contact_actionneur, 
+                pression_alimentation=pression_alimentation, 
+                sens_actionneur=sens_actionneur, 
+                contact_ouv_ferm_actionneur=type_contact, 
+                actionneur_simpl_double_effet=type_effet, 
+                commande_manuel=commande_manuelle_actionneur
+            )
+            
+            pos = POSITIONNEUR(
+                id_fournisseur=frn_pos,
+                fonctionnement_positionneur=id_fonctionnement_positionneur,
+                type_positionneur=type_positionneur, 
+                num_serie_positionneur=numero_serie_positionneur, 
+                signal_sortie=signal_sortie_positionneur, 
+                signal_entre_positionneur=signal_entree_positionneur, 
+                repere_came=repere_came_positionneur, 
+                face_came = face_came_positionneur, 
+                sens_action=sens_action,
+                presion_positionneur=pression_alimentation_positionneur,
+                fermer_a = fermee_a_positionneur,
+                ouvert_a = ouverte_a_positionneur,
+                loi_positionneur = loi_pos
+            )
+
+            # Créer l'objet Vanne avec les objets liés déjà sauvegardés
+            van = Vanne(
+                id_corps=corps,
+                id_actionneur=actionneur,
+                id_positionneur = pos,
+                voir_en= now.replace(year=now.year + tempsRev),
+                repere_vanne=request.POST.get('repere_vanne'), 
+                affectation_vanne=request.POST.get('affectation_vanne'),
+                type_vannes=type_vannes, 
+                numero_commande=request.POST.get('numero_commande'),
+                id_atelier=atelier,
+                date_achat=request.POST.get('date_de_la_commande'),
+            )
+            
+            vanSansPos = Vanne(
+                id_corps=corps,
+                id_actionneur=actionneur,
+                voir_en= now.replace(year=now.year + tempsRev),
+                repere_vanne=request.POST.get('repere_vanne'), 
+                affectation_vanne=request.POST.get('affectation_vanne'),
+                type_vannes=type_vannes, 
+                numero_commande=request.POST.get('numero_commande'),
+                id_atelier=atelier,
+                date_achat=request.POST.get('date_de_la_commande'),
+            )
+            corps.full_clean()
+            actionneur.full_clean()
+            pos.full_clean()
+            
+            if save:
+                corps.save()
+                actionneur.save() 
+                
+                
+                if presence_positionneur == '1':
+                    pos.save()
+                    van.save()
+                else:
+                    vanSansPos.save()
+            success = True
+            #return render(request, 'appliVanne/creationVanne.html', {sucess: sucess})
+            form.save()
+            LesVannes  = Vanne.objects.all()
+            return render(request, "appliVanne/vannes.html", {"sucess": success, "listeVannes": LesVannes})
+        else:
+            # Le formulaire n'est pas valide, renvoyez le formulaire avec les erreurs
+            return render(request, 'appliVanne/creationVanne.html', {
+                'form': form, "listVannes": LesVannes, "listAtelier": LesAtelier,
+                "listFournisseur": lesFournisseur, "listTypePos": typePos
+            })
+    else:
+        # Si la requête n'est pas un POST, initialisez un formulaire vide et renvoyez-le
+        form = VanneForm()
+        return render(request, 'appliVanne/creationVanne.html', {
+            'form': form, "listVannes": LesVannes, "listAtelier": LesAtelier,
+            "listFournisseur": lesFournisseur, "listTypePos": typePos
+        })
+        # Si la requête n'est pas un POST, affichez simplement le formulaire vide

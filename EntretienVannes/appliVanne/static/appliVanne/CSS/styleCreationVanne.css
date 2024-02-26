@@ -50,7 +50,9 @@ button[type="submit"]:hover {
 /* Styles pour les conteneurs principaux du formulaire */
 #infoGeneral,
 #infoCorps,
-#infoActionneur {
+#infoActionneur,
+#infoPositionneur,
+#infoPositionneurBIS {
     background-color: #f9f9f9; /* Couleur de fond */
     padding: 20px; /* Espace intérieur */
     border-radius: 8px; /* Coins arrondis */
