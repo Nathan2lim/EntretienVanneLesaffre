@@ -30,9 +30,11 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/detail', views.detailVanne, name='detail_vanne'),
     path('vanne/<int:id_vanne>/delete', views.delete, name='delete'),
     path('vanne/<int:id_vanne>/recover', views.recover, name='recover'),
+    path('vanne/<int:id_vanne>/edit', views.edit, name='edit'),
     path("historique/", views.historiqueVanne, name="historique"),
     path("ajoutVanne/", views.ajoutVanne, name="ajoutVanne"),
-    path("ajoutVanne/trtVanne/", views.traitementAjoutVanne, name="traitementVanne"),
-    
+    path("ajoutVanne/traitementAjoutVanne/", views.traitementAjoutVanne, name="traitementAjoutVanne"),
+    path("ajoutVanne/traitementModifVanne/", views.traitementModifVanne, name="traitementModifVanne"),
+
 
 ]

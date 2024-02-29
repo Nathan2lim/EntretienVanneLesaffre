@@ -7,7 +7,7 @@ from django.core import serializers
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from datetime import datetime
-
+from dateutil.relativedelta import relativedelta
 # Create your views here.
 
 
@@ -109,7 +109,7 @@ def ajoutVanne(request):
 def traitementAjoutVanne(request):
     save = True
     
-    LesVannes  = Vanne.objects.all()
+    LesVannes = Vanne.objects.all().order_by('-id_vanne').filter(en_service_vanne=1)
     LesAtelier  = ATELIER.objects.all()
     lesFournisseur = FOURNISSEUR.objects.all() 
     typePos = TYPEPOSITIONNEUR.objects.all()
@@ -179,6 +179,7 @@ def traitementAjoutVanne(request):
             loi_pos = form.cleaned_data['loi_commande_positionneur']
             
             presence_positionneur = form.cleaned_data['presence_positionneur']
+            infoRevisionBIS = form.cleaned_data['infoRevisionBIS']
             
             try : 
                 if num_atelier.id_atelier == 14 and nouveau_atelier:
@@ -226,8 +227,15 @@ def traitementAjoutVanne(request):
             else:
                 sens_action = 'INVERSE'
                 
+            if infoRevisionBIS == '1':
+                revision = now + relativedelta(years=tempsRev)
+                revision = revision.year
+            else:
+                revision = None
+            print(tempsRev)
+            print(infoRevisionBIS)
+            print(revision)
             
-                
             print(atelier)
             
             try : 
@@ -264,7 +272,7 @@ def traitementAjoutVanne(request):
                     frn_pos = FOURNISSEUR.objects.get(nom_fournisseur=nouveau_fournisseur_positionneur)
                 else:
                     # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
-                    frn_pos = num_fournisseur
+                    frn_pos = num_fournisseur_positionneur
         
             except FOURNISSEUR.DoesNotExist:
                 print("Le fournisseur n'existe pas")
@@ -327,7 +335,8 @@ def traitementAjoutVanne(request):
                 id_corps=corps,
                 id_actionneur=actionneur,
                 id_positionneur = pos,
-                voir_en= now.replace(year=now.year + tempsRev),
+                freq_revision = tempsRev,
+                voir_en = revision,
                 repere_vanne=request.POST.get('repere_vanne'), 
                 affectation_vanne=request.POST.get('affectation_vanne'),
                 type_vannes=type_vannes, 
@@ -339,7 +348,8 @@ def traitementAjoutVanne(request):
             vanSansPos = Vanne(
                 id_corps=corps,
                 id_actionneur=actionneur,
-                voir_en= now.replace(year=now.year + tempsRev),
+                freq_revision = tempsRev,
+                voir_en = revision,
                 repere_vanne=request.POST.get('repere_vanne'), 
                 affectation_vanne=request.POST.get('affectation_vanne'),
                 type_vannes=type_vannes, 
@@ -351,7 +361,7 @@ def traitementAjoutVanne(request):
             actionneur.full_clean()
             pos.full_clean()
             
-            if save:
+            if save == True:
                 corps.save()
                 actionneur.save() 
                 
@@ -361,10 +371,16 @@ def traitementAjoutVanne(request):
                     van.save()
                 else:
                     vanSansPos.save()
-            success = True
+                
+                success = True
+            else:
+                success = False
+            
+            print(success)
+            
             #return render(request, 'appliVanne/creationVanne.html', {sucess: sucess})
-            form.save()
-            LesVannes  = Vanne.objects.all()
+            #form.save()
+            #LesVannes  = Vanne.objects.all()
             return render(request, "appliVanne/vannes.html", {"sucess": success, "listeVannes": LesVannes})
         else:
             # Le formulaire n'est pas valide, renvoyez le formulaire avec les erreurs
@@ -380,3 +396,89 @@ def traitementAjoutVanne(request):
             "listFournisseur": lesFournisseur, "listTypePos": typePos
         })
         # Si la requête n'est pas un POST, affichez simplement le formulaire vide
+
+
+def edit(request, id_vanne):
+    LesVannes  = Vanne.objects.all()
+    LesAtelier  = ATELIER.objects.all()
+    lesFournisseur = FOURNISSEUR.objects.all() 
+    typePos = TYPEPOSITIONNEUR.objects.all()
+    
+    lavanne = Vanne.objects.get(id_vanne=id_vanne)
+    return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
+from django.shortcuts import get_object_or_404, render, redirect
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+def traitementModifVanne(request):
+    if request.method == "POST":
+        id_vanne = request.POST.get('id_vanne')
+        vanne = get_object_or_404(Vanne, id_vanne=id_vanne)  # Utilise get_object_or_404 pour simplifier
+        form = VanneForm(request.POST, instance=vanne)
+
+        if form.is_valid():
+            # Extraction des données du formulaire déjà validé
+            num_fournisseur_positionneur = form.cleaned_data['id_fournisseur_positionneur']
+            nouveau_fournisseur_positionneur = form.cleaned_data['nouveau_fournisseur_positionneur']
+            presence_positionneur = request.POST.get('presence_positionneur')
+            
+            demanderevison = form.cleaned_data['infoRevisionBIS']
+            tempsRev = form.cleaned_data['tempsRev']
+            
+            if demanderevison == '1':
+                revision = datetime.now() + relativedelta(years=tempsRev)
+                vanne.voir_en = revision.year
+            else:
+                vanne.voir_en = None
+            
+            # Gestion du fournisseur positionneur
+            if num_fournisseur_positionneur.id_fournisseur == 45 and nouveau_fournisseur_positionneur:
+                frn_pos, created = FOURNISSEUR.objects.get_or_create(nom_fournisseur=nouveau_fournisseur_positionneur)
+            else:
+                frn_pos = num_fournisseur_positionneur
+
+            # Mise à jour ou création du positionneur selon la présence
+            if presence_positionneur == '1':
+                positionneur_data = {
+                    'id_fournisseur': frn_pos,
+                    'fonctionnement_positionneur': form.cleaned_data['id_fonctionnement_positionneur'],
+                    'type_positionneur': form.cleaned_data['type_positionneur'],
+                    'num_serie_positionneur': form.cleaned_data['numero_serie_positionneur'],
+                    'signal_sortie': form.cleaned_data['signal_sortie_positionneur'],
+                    'signal_entre_positionneur': form.cleaned_data['signal_entree_positionneur'],
+                    'repere_came': form.cleaned_data['repere_came_positionneur'],
+                    'face_came': form.cleaned_data['face_came_positionneur'],
+                    'sens_action': form.cleaned_data['sens_action'],
+                    'presion_positionneur': form.cleaned_data['alimentation_positionneur'],
+                    'fermer_a': form.cleaned_data['fermee_a_positionneur'],
+                    'ouvert_a': form.cleaned_data['ouverte_a_positionneur'],
+                    'loi_positionneur': form.cleaned_data['loi_commande_positionneur'],
+                }
+                if vanne.id_positionneur:
+                    for key, value in positionneur_data.items():
+                        setattr(vanne.id_positionneur, key, value)
+                    vanne.id_positionneur.save()
+                else:
+                    positionneur = POSITIONNEUR(**positionneur_data)
+                    positionneur.save()
+                    vanne.id_positionneur = positionneur
+            else:
+                vanne.id_positionneur = None  # Enlève le positionneur si non présent
+
+            vanne.save()
+
+            # Rediriger vers la liste des vannes après la mise à jour
+            return redirect('vannes')
+        else:
+            # Le formulaire n'est pas valide, afficher à nouveau avec erreurs
+            context = {
+                'form': form,
+                "listVannes": Vanne.objects.all(),
+                "listAtelier": ATELIER.objects.all(),
+                "listFournisseur": FOURNISSEUR.objects.all(),
+                "listTypePos": TYPEPOSITIONNEUR.objects.all()
+            }
+            return render(request, 'appliVanne/creationVanne.html', context)
+    else:
+        # Si pas POST, rediriger vers la page de modification/ajout
+        return redirect('url_vers_page_modification_ou_ajout')

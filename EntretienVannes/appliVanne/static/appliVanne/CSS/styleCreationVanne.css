@@ -35,6 +35,9 @@ button[type="submit"] {
     border-radius: 4px; /* Coins arrondis */
     cursor: pointer; /* Curseur de la souris en forme de main */
     margin: 0 auto 60px auto;
+    width: 90%;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;
 }
 
 /* Changement de couleur au survol du bouton */

@@ -13,7 +13,7 @@
 
 {% block main %}
 
-    <h1>Ajouter une vanne</h1>
+    <h1>Ajout Vannes</h1>
     {% if form.errors %}
     <div class="alert alert-danger">
         <strong>Erreur(s) lors de la soumission du formulaire :</strong>
@@ -29,7 +29,7 @@
     </div>
     {% endif %}
 
-    <form action="{% url 'traitementAjoutVanne' %}" method="POST"> <!-- Assurez-vous que l'URL est correcte -->
+    <form action="{% url 'traitementVanne' %}" method="POST"> <!-- Assurez-vous que l'URL est correcte -->
         {% csrf_token %}
 
         <div id="infoGeneral">
@@ -81,17 +81,8 @@
                 </select>
             </div>
 
-            
             <!--Frequence de revision-->
             <div class="form-group">
-                <label>Cette vanne à besoin d'une revision ? </label>
-                <select name="infoRevisionBIS" id="infoRevisionBIS" class="form-control">
-                    <option value='0' {% if request.POST.revision == '0' %} selected {% endif %}>NON</option>
-                    <option value='1' {% if request.POST.revision == '1' %} selected {% endif %}>OUI</option>
-                </select>
-            </div>
-                
-            <div class="form-group" id="tempsRevision" style="display: none;">
                 <label for="tempsRev">À réviser tout les :</label>
                 <input type="number" name="tempsRev" id="tempsRev" class="form-control" value="{{ request.POST.tempsRev|default_if_none:'' }}">
                 ans

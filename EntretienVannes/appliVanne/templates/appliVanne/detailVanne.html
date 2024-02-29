@@ -14,6 +14,7 @@
 
   option pour voir en detail, mettre à jour et supprimer la vanne
 -->
+<a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
 
 <!-- INFO VANNES -->
 
@@ -41,6 +42,10 @@
       <tr class="ligne">
         <td class="debutLigne">DATE DE LA COMMANDE :</td>
         <td class="ligneFin">{{ vanne.date_achat }}</td>
+      </tr>
+      <tr class="ligne">
+        <td class="debutLigne">Prochaine revision :</td>
+        <td class="ligneFin">{{ vanne.voir_en}}</td>
       </tr>
       <tr class="ligne">
         <td class="debutLigne">TYPE DE VANNE :</td>
@@ -221,7 +226,7 @@
             <td class="debutLigne">REPERE CAME</td>
             <td class="ligneFin">{{vanne.id_positionneur.repere_came}}</td>
             <td class="debutLigne">FERME A</td>
-            <td class="ligneFin">{{vanne.id_positionneur.femer_aS}}</td>
+            <td class="ligneFin">{{vanne.id_positionneur.fermer_a}}</td>
         </tr>
 
         <tr>
@@ -251,25 +256,4 @@
 </div> <!-- <div id="tableauGeneral">-->
 
 
-
-
-<!-- INFO ACTIONNEUR -->
-
 {% endblock %}
-
-<tr class="ligne">
-  <td class="debutLigne">TYPE DE CORPS :</td>
-  <td class="ligneFin">{{ vanne.affectation_vanne }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">NUMÉRO DE SÉRIE :</td>
-  <td class="ligneFin">{{ vanne.numero_commande }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">DN :</td>
-  <td class="ligneFin">{{ vanne.date_achat }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">PN :</td>
-  <td class="ligneFin">{{ vanne.type_vannes }}</td>
-</tr>
