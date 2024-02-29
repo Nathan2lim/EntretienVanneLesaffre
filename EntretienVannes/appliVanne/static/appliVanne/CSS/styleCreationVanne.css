@@ -26,25 +26,44 @@ select {
     box-sizing: border-box; /* Inclut les bordures et le rembourrage dans la largeur et la hauteur totales */
 }
 
-/* Styles pour les boutons */
-button[type="submit"] {
-    background-color: #4CAF50; /* Couleur de fond du bouton */
-    color: white; /* Couleur du texte */
-    padding: 10px 20px; /* Espace à l'intérieur du bouton */
-    border: none; /* Pas de bordure */
-    border-radius: 4px; /* Coins arrondis */
-    cursor: pointer; /* Curseur de la souris en forme de main */
-    margin: 0 auto 60px auto;
-    width: 90%;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center;
+
+
+#editVanne {
+    width: 70%; /* Prend 70% de l'espace de son conteneur */
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacement entre les éléments */
+    float: center;
 }
 
-/* Changement de couleur au survol du bouton */
-button[type="submit"]:hover {
-    background-color: #45a049; /* Couleur de fond au survol */
+.btn-btn-primary, .btn-btn-primary-secondaire {
+    width: 100%; /* Les boutons prennent toute la largeur disponible */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center; /* Centre le texte dans le bouton */
+    display: block; /* Assure que le lien se comporte comme un bloc */
+    text-decoration: none; /* Supprime le soulignement du lien */
+    color: white; /* Texte blanc pour une meilleure lisibilité */
 }
 
+.btn-btn-primary {
+    background-color: #4CAF50; /* Vert */
+}
+
+.btn-btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-btn-primary-secondaire {
+    background-color: #f44336; /* Rouge */
+}
+
+.btn-btn-primary-secondaire:hover {
+    background-color: #da190b;
+}
 /* Styles pour les conteneurs de groupe */
 .form-group {
     margin-bottom: 20px; /* Ajoute un espace en bas de chaque groupe de champs */
@@ -55,14 +74,14 @@ button[type="submit"]:hover {
 #infoCorps,
 #infoActionneur,
 #infoPositionneur,
-#infoPositionneurBIS {
+#infoPositionneurBIS,
+#editVanne {
     background-color: #f9f9f9; /* Couleur de fond */
     padding: 20px; /* Espace intérieur */
     border-radius: 8px; /* Coins arrondis */
     margin-bottom: 20px; /* Ajoute un espace en bas */
     border: 2px solid #000; /* Ajoute une bordure noire de 2px */
-    margin-left: 20px; /* Ajoute un espace à gauche */
-    margin-right: 20px; /* Ajoute un espace à droite */
+    width: 90%;
 }
 
 /* Styles pour les divs contenant les champs "Autre" */
@@ -104,3 +123,17 @@ button[type="submit"]:hover {
     border: 1px solid #ddd; /* Bordure */
     padding: 8px; /* Espace intérieur */
 }
+
+#leformulaire
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+#infoPositionneurBIS
+{
+    width: 100%;
+}
+

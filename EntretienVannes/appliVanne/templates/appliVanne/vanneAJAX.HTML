@@ -1,15 +1,16 @@
 {% extends "appliVanne/base.html" %}
 {% block title %} Rechercher... {% endblock %}
 {% block main %}
-    <input type="text" id="searchInput" placeholder="Rechercher...">
-    <div id="searchResults"></div>
-
+<div class="mt-2 mb-3 d-flex flex-column">
+    <input type="text" id="searchInput" class="rounded-pill px-2" placeholder="Rechercher...">
+    <span id="countResults" class="text-center"></span>
+</div>
 
 <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col"> <a href="?tri=id_vanne&ordre={% if request.GET.tri == 'id_vanne' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Identifiant</a></th>
-        <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% if request.GET.tri == 'id_atelier__nom_atelier' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Atelier</a></th>
+      <tr class="text-center">
+        <th scope="col" data-order="asc" data-col="id">Identifiant</th>
+        <th scope="col" data-order="asc" data-col="atelier">Atelier</th>
         <th scope="col">Repere Vannes </th>
         <th scope="col">Affectation </th>
         <th scope="col">Type de vanne </th>
@@ -28,16 +29,17 @@
 
         $(document).ready(function() {
             $('#searchInput').keyup(function() {
-                var searchTerm = $(this).val();
+                var searchTerm = $(this).val().split(' ');
                 $.ajax({
                     type: 'GET',
-                    url: '{% url 'dump' %}',
+                    url: "{% url 'dump' %}",
                     data: {
                         term: searchTerm
                     },
                     dataType: 'json', // Assure-toi d'ajouter cette ligne pour que jQuery parse le JSON automatiquement
                     success: function(response) {
                         displayResults(response);
+                        $('#countResults').text(response.results.length + ' résultat(s) trouvé(s)');
                     }
                 });
             });
@@ -67,7 +69,7 @@
                             //console.log("reco");
                         }
                         
-                        var row = '<tr>' +
+                        var row = '<tr class="text-center">' +
                             '<td>' + result.id_vanne + '</td>' +
                             '<td>' + result.id_atelier__nom_atelier + '</td>' +
                             '<td>' + result.repere_vanne + '</td>' +
@@ -86,12 +88,40 @@
                     });
                 }
             }
-            
-            
+
+            $('table th').click(function() {
+                var table = $(this).parents('table').eq(0);
+                var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+
+                this.asc = !this.asc;
+                if (!this.asc) {
+                rows = rows.reverse();
+                }
+                for (var i = 0; i < rows.length; i++) {
+                table.append(rows[i]);
+                }
+            });
+
+            function comparer(index) {
+                return function(a, b) {
+                    var valA = getCellValue(a, index),
+                    valB = getCellValue(b, index);
+                    return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
+                };
+            }
+
+            function getCellValue(row, index) {
+                return $(row).children('td').eq(index).text();
+            }
         });
         
     </script>
 
+<style>
+    th {
+        cursor: pointer;
+    }
+</style>
 
 
 

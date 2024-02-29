@@ -7,11 +7,7 @@ h2 {
     min-height: 100vh;
     display: flex;
     height: 100%;
-  }
-  
-  footer {
-    position: absolute;
-    bottom: 0;
+    align-items: center;
   }
   
   .logo {
@@ -21,13 +17,12 @@ h2 {
   
   footer {
     font-size: 10px;
-    padding: auto;
     text-align: center;
     position: fixed;
-    left: 0;
     right: 0;
     bottom: 0;
-  }
+    width: 100%;
+}
 
   .detdel
   {
@@ -39,3 +34,5 @@ h2 {
     border-radius: 5px;
     color: white;
   }
+
+

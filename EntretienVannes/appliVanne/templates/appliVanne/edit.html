@@ -1,4 +1,4 @@
-{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Ajout Vannes {% endblock %}
+{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Modifier Vanne {% endblock %}
 
 {% block extra_css%}
 <link
@@ -29,9 +29,10 @@
     </div>
     {% endif %}
 
-    <form action="{% url 'traitementModifVanne' %}" method="POST"> <!-- Assurez-vous que l'URL est correcte -->
+    <form action="{% url 'traitementModifVanne' %}" method="POST" id="leformulaire"> <!-- Assurez-vous que l'URL est correcte -->
         {% csrf_token %}
         <input type="hidden" name="id_vanne" value="{{ vanne.id_vanne }}">
+
         <div id="infoGeneral">
 
             <div class="form-group">
@@ -155,7 +156,7 @@
         
                 <table>
                     <tr>
-                        <th>Corps corps</th>
+                        <th>Matière corps</th>
                         <th>Norme bride corps</th>
                         <th>Garniture corps</th>
                         <th>Type garniture</th>
@@ -364,11 +365,37 @@
             </div>
         </div>
         
-        
-        <button type="submit" class="btn btn-primary">ENREGISTRER LA VANNE</button>
+        <div id="editVanne">
+            <button type="submit" class="btn-btn-primary">ENREGISTRER LA VANNE</button>
+            <a href="/vanne/{{vanne.id_vanne}}/supprimerTotal" class="btn-btn-primary-secondaire">SUPPRIMER TOTALEMENT LA VANNE</a>
+        </div>
 
     </form>
-        
+
+    <script>
+        // Attendez que le DOM soit entièrement chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélectionnez le lien par sa classe
+            var deleteLink = document.querySelector('.btn-btn-primary-secondaire');
+    
+            // Ajoutez un écouteur d'événements pour le clic
+            deleteLink.addEventListener('click', function(event) {
+                // Empêchez l'action par défaut (la redirection) de se produire immédiatement
+                event.preventDefault();
+    
+                // Affichez une boîte de dialogue de confirmation
+                var userConfirmation = confirm('Êtes-vous sûr de vouloir supprimer totalement cette vanne ?');
+    
+                // Si l'utilisateur clique sur "OK" dans la boîte de confirmation
+                if (userConfirmation) {
+                    // Redirigez l'utilisateur vers l'URL spécifiée dans l'attribut href du lien
+                    window.location.href = this.href;
+                }
+                // Si l'utilisateur clique sur "Annuler", l'action est simplement annulée et rien ne se passe
+            });
+        });
+    </script>
+    
 
 
         

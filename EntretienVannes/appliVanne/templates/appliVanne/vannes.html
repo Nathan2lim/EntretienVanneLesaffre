@@ -37,7 +37,7 @@
         <th scope="col">Repere Vannes </th>
         <th scope="col">Affectation </th>
         <th scope="col">Type de vanne </th>
-        <th scope="col"> Prochaine maintenance</th>
+        <th scope="col"> Maintenance</th>
         <th scope="col">PLUS</th>
   
       </tr>
@@ -52,7 +52,9 @@
         <td>{{ vanne.type_vannes }}</td> 
         <td>{{ vanne.voir_en }}</td>
         <td><a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL </a>/ 
-            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/delete"> DELETE</a>
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/delete"> DETRUIRE</a> /
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/rechange">  RECHANGE</a>
+
         </td>
         
       </tr>

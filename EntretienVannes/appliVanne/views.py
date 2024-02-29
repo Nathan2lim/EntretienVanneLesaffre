@@ -40,29 +40,39 @@ def listeVanne(request):
 
 def rechercheVanne(request):
     if request.method == 'GET':
-        search_query = request.GET.get('term', '')
-        query = Q(id_vanne__icontains=search_query) | \
-                Q(id_atelier__nom_atelier__icontains=search_query) | \
-                Q(repere_vanne__icontains=search_query) | \
-                Q(affectation_vanne__icontains=search_query) | \
-                Q(type_vannes__icontains=search_query) | \
-                Q(voir_en__icontains=search_query) | \
-                Q(id_positionneur__fonctionnement_positionneur__description_type_positionneur__icontains=search_query)
-                
-        if search_query.isdigit():
-            query |= Q(en_service_vanne=int(search_query))
+        # Je récupère plusieurs données sous term[] avec term[] : 'niveau' et term[] : 'reg'
+        search_queries = request.GET.getlist('term[]')
+        vannes = Vanne.objects.all()
 
-        vannes = Vanne.objects.filter(query).values('id_vanne', 'id_atelier__nom_atelier', 'repere_vanne', 'affectation_vanne', 'type_vannes', 'voir_en', 'en_service_vanne', 'id_positionneur__fonctionnement_positionneur__description_type_positionneur')
+        for query_str in search_queries:
+            print('Query: ' + query_str)
+            query = Q(id_vanne__icontains=query_str) | \
+                    Q(id_atelier__nom_atelier__icontains=query_str) | \
+                    Q(repere_vanne__icontains=query_str) | \
+                    Q(affectation_vanne__icontains=query_str) | \
+                    Q(type_vannes__icontains=query_str) | \
+                    Q(voir_en__icontains=query_str) | \
+                    Q(id_positionneur__fonctionnement_positionneur__description_type_positionneur__icontains=query_str)
+                    
+            if query_str.isdigit():
+                query |= Q(en_service_vanne=int(query_str))
+
+            vannes = vannes.filter(query)
+
+        vannes = vannes.values(
+            'id_vanne', 'id_atelier__nom_atelier', 'repere_vanne',
+            'affectation_vanne', 'type_vannes', 'voir_en',
+            'en_service_vanne', 'id_positionneur__fonctionnement_positionneur__description_type_positionneur'
+        )
 
         response_data = {
             'results': list(vannes),
             'status': 'OK'
         }
 
-        return JsonResponse(response_data, safe=False)
+        return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
-
     
 def rechercheAJAX(request):
     
@@ -90,11 +100,28 @@ def delete(request, id_vanne):
     vanne.en_service_vanne = 0
     vanne.save() 
     
-    return redirect('historique')
+    return redirect('vannes')
+
+def rechange(request, id_vanne):
+    vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+    atelierREG = ATELIER.objects.get(nom_atelier="Rechange REG")
+    atelierTOR = ATELIER.objects.get(nom_atelier="Rechange TOR")
+    if vanne.type_vannes == 'TOR':
+        vanne.id_atelier = atelierTOR
+    else:
+        vanne.id_atelier = atelierREG
+    vanne.repere_vanne = None
+    vanne.affectation_vanne = None
+    vanne.numero_commande = None
+    vanne.save() 
+    
+    return redirect('vannes')
+
 
 def recover(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     vanne.en_service_vanne = 1
+    vanne.voir_en 
     vanne.save() 
     return redirect('vannes')
 
@@ -151,6 +178,8 @@ def traitementAjoutVanne(request):
             matiere_siege = form.cleaned_data['matiere_siege']
             matiere_organe_reglant = form.cleaned_data['matiere_organe_reglant']
             
+            
+
             #ACTIONNEUR
             taille_actionneur = form.cleaned_data['taille_actionneur']
             type_actionneur = form.cleaned_data['type_actionneur']
@@ -219,8 +248,10 @@ def traitementAjoutVanne(request):
             
             if sens_actionneur == '1':
                 sens_actionneur = 'OMA'
-            else:
+            elif sens_actionneur == '2':
                 sens_actionneur = 'FMA'
+            else:
+                sens_actionneur = 'Aucune de caractéritiques'
             
             if sens_action == '1':
                 sens_action = 'DIRECT'
@@ -416,6 +447,62 @@ def traitementModifVanne(request):
         now = datetime.now()
         
         if form.is_valid():
+            num_atelier = form.cleaned_data['id_atelier']
+            nouveau_atelier = form.cleaned_data['nouveau_atelier']
+            
+            try : 
+                if num_atelier.id_atelier == 14 and nouveau_atelier:
+                    print("Création d'un nouvel atelier")
+                    atelier, created = ATELIER.objects.get_or_create(nom_atelier=nouveau_atelier)
+                    #atelier.save()
+                    atelier = ATELIER.objects.get(nom_atelier=nouveau_atelier)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    atelier = num_atelier
+           
+            except ATELIER.DoesNotExist:
+                print("erreur")
+            
+            vanne.id_atelier = atelier
+                
+            commande_manuelle_actionneur = form.cleaned_data['commande_manuelle_actionneur']
+            sens_actionneur = form.cleaned_data['sens_actionneur']
+            type_effet = form.cleaned_data['type_effet']
+            type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
+            sens_action = form.cleaned_data['sens_action']
+            if form.cleaned_data['type_vanne'] == '1':
+                vanne.type_vannes = 'TOR'
+            else:
+                vanne.type_vannes = 'REG'
+            if type_effet == '1':
+                vanne.type_effet = 'SIMPLE'
+            else:
+                vanne.type_effet = 'DOUBLE'
+            
+            if type_contact_actionneur == '1':
+                vanne.type_contact_actionneur = 'OUVERTURE'
+            elif type_contact_actionneur == '2':
+                vanne.type_contact_actionneur = 'FERMETURE'
+            else:
+                vanne.type_contact_actionneur = 'OUVERTURE + FERMETURE'
+                
+            if commande_manuelle_actionneur == '1':
+                vanne.commande_manuelle_actionneur = 'OUI'
+            else:
+                vanne.commande_manuelle_actionneur = 'NON'
+            
+            if sens_actionneur == '1':
+                vanne.sens_actionneur = 'OMA'
+            elif sens_actionneur == '2':
+                vanne.sens_actionneur = 'FMA'
+            else:
+                vanne.sens_actionneur = 'Aucune de caractéritiques'
+            
+            print(sens_action)
+            if sens_action == '1':
+                vanne.sens_action = 'DIRECT'
+            else:
+                vanne.sens_action = 'INVERSE'
             # Extraction des données du formulaire déjà validé
             num_fournisseur_positionneur = form.cleaned_data['id_fournisseur_positionneur']
             nouveau_fournisseur_positionneur = form.cleaned_data['nouveau_fournisseur_positionneur']
@@ -464,7 +551,8 @@ def traitementModifVanne(request):
                     vanne.id_positionneur = positionneur
             else:
                 vanne.id_positionneur = None  # Enlève le positionneur si non présent
-
+            form.save()
+            vanne.id_actionneur.save()
             vanne.save()
 
             # Rediriger vers la liste des vannes après la mise à jour
@@ -482,3 +570,15 @@ def traitementModifVanne(request):
     else:
         # Si pas POST, rediriger vers la page de modification/ajout
         return redirect('url_vers_page_modification_ou_ajout')
+
+
+def supressionTOTAL (request, id_vanne):
+    vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+    if vanne.id_positionneur != None:
+        vanne.id_actionneur.delete()
+    if vanne.id_corps != None:
+        vanne.id_corps.delete()
+    if vanne.id_positionneur != None:
+        vanne.id_positionneur.delete()
+    vanne.delete()
+    return redirect('vannes')

@@ -29,7 +29,7 @@
     </div>
     {% endif %}
 
-    <form action="{% url 'traitementAjoutVanne' %}" method="POST"> <!-- Assurez-vous que l'URL est correcte -->
+    <form action="{% url 'traitementAjoutVanne' %}" method="POST" id = "leformulaire"> <!-- Assurez-vous que l'URL est correcte -->
         {% csrf_token %}
 
         <div id="infoGeneral">
@@ -235,6 +235,8 @@
                             <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">
                                 <option value="1" {% if request.POST.sens_actionneur == '1' %} selected {% endif %}>OMA</option>
                                 <option value="2" {% if request.POST.sens_actionneur == '2' %} selected {% endif %}>FMA</option>
+                                <option value="3" {% if request.POST.sens_actionneur == '1' %} selected {% endif %}>Aucune de caractéritiques</option>
+
                             </select>
                         </td>
                     </tr>
@@ -365,10 +367,21 @@
             </div>
         </div>
         
-        
-        <button type="submit" class="btn btn-primary">ENREGISTRER LA VANNE</button>
+        <div id="editVanne">
+            <button type="submit" class="btn-btn-primary">ENREGISTRER LA VANNE</button>
+        </div>
 
     </form>
+
+    <script>
+        $('#leformulaire').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
         
 
 
