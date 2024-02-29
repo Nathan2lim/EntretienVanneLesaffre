@@ -33,15 +33,15 @@ class ACTIONNEUR(models.Model):
         
     id_actionneur = models.AutoField(primary_key=True, unique=True)
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
-    num_serie_actionneur = models.CharField(max_length=255, null=True)
-    type_actionneur = models.CharField(max_length=255, null=True)
-    taille_actionneur = models.IntegerField(null=True)
-    type_contact_actionneur = models.CharField(max_length=255, null=True)
-    pression_alimentation = models.CharField(max_length=255, null=True)
-    sens_actionneur = models.CharField(max_length=255, null=True)
-    contact_ouv_ferm_actionneur = models.CharField(max_length=255, null=True)
-    actionneur_simpl_double_effet = models.CharField(max_length=255, null=True)
-    commande_manuel = models.CharField(max_length=255, null=True)
+    num_serie_actionneur = models.CharField(max_length=255, null=True, blank=True)
+    type_actionneur = models.CharField(max_length=255, null=True, blank=True)
+    taille_actionneur = models.IntegerField(null=True, blank=True)
+    type_contact_actionneur = models.CharField(max_length=255, null=True, blank=True)
+    pression_alimentation = models.CharField(max_length=255, null=True, blank=True)
+    sens_actionneur = models.CharField(max_length=255, null=True, blank=True)
+    contact_ouv_ferm_actionneur = models.CharField(max_length=255, null=True, blank=True)
+    actionneur_simpl_double_effet = models.CharField(max_length=255, null=True, blank=True)
+    commande_manuel = models.CharField(max_length=255, null=True, blank=True)
 
   
 class CORPS(models.Model): 

@@ -312,7 +312,7 @@
         
             <div class="form-group">
                 <label for="type_actionneur"> Type positionneur:</label>
-                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ vanne.id_positionneur.type_positionneur }}" class="form-control">
+                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ vanne.id_positionneur.type_positionneur|default:'0' }}" class="form-control">
             </div>
         
             <div class="table-container">
@@ -323,9 +323,9 @@
                         <th>Alimentation</th>
                     </tr>
                     <tr>
-                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ vanne.id_positionneur.num_serie_positionneur }}" class="form-control"></td>
-                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{vanne.id_positionneur.signal_entre_positionneur }}" class="form-control"></td>
-                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{vanne.id_positionneur.presion_positionneur }}" class="form-control"></td>
+                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ vanne.id_positionneur.num_serie_positionneur |default:'0'}}" class="form-control"></td>
+                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{vanne.id_positionneur.signal_entre_positionneur|default:'0' }}" class="form-control"></td>
+                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{vanne.id_positionneur.presion_positionneur|default:'0' }}" class="form-control"></td>
                     </tr>
                 </table>
         
@@ -336,9 +336,9 @@
                         <th>Face Came</th>
                     </tr>
                     <tr>
-                        <td><input type="number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ vanne.id_positionneur.signal_sortie }}" class="form-control"></td>
-                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ vanne.id_positionneur.repere_came }}" class="form-control"></td>
-                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ vanne.id_positionneur.face_came }}" class="form-control"></td>
+                        <td><input type="number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ vanne.id_positionneur.signal_sortie|default:'0' }}" class="form-control"  ></td>
+                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ vanne.id_positionneur.repere_came |default:'0'}}" class="form-control"></td>
+                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ vanne.id_positionneur.face_came |default:'0'}}" class="form-control"></td>
                     </tr>
                 </table>
         
@@ -356,9 +356,9 @@
                                 <option value="2" {% if vanne.id_positionneur.sens_action == 'INVERSE' %}selected{% endif %}>INVERSE</option>
                             </select>
                         </td>
-                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ vanne.id_positionneur.fermer_a }}" class="form-control"></td>
-                        <td><input type="number" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ vanne.id_positionneur.ouvert_a }}" class="form-control"></td>
-                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ vanne.id_positionneur.loi_positionneur }}" class="form-control"></td>
+                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ vanne.id_positionneur.fermer_a | default:'0'  }}" class="form-control"></td>
+                        <td><input type="number" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ vanne.id_positionneur.ouvert_a |default:'0'}}" class="form-control"></td>
+                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ vanne.id_positionneur.loi_positionneur |default:'0' }}" class="form-control"></td>
                     </tr>
                 </table>
             </div>
