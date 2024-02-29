@@ -7,7 +7,7 @@ from django.core import serializers
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
+
 # Create your views here.
 
 
@@ -228,7 +228,7 @@ def traitementAjoutVanne(request):
                 sens_action = 'INVERSE'
                 
             if infoRevisionBIS == '1':
-                revision = now + relativedelta(years=tempsRev)
+                revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
                 revision = revision.year
             else:
                 revision = None
@@ -406,16 +406,15 @@ def edit(request, id_vanne):
     
     lavanne = Vanne.objects.get(id_vanne=id_vanne)
     return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
-from django.shortcuts import get_object_or_404, render, redirect
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
+
 
 def traitementModifVanne(request):
     if request.method == "POST":
         id_vanne = request.POST.get('id_vanne')
         vanne = get_object_or_404(Vanne, id_vanne=id_vanne)  # Utilise get_object_or_404 pour simplifier
         form = VanneForm(request.POST, instance=vanne)
-
+        now = datetime.now()
+        
         if form.is_valid():
             # Extraction des données du formulaire déjà validé
             num_fournisseur_positionneur = form.cleaned_data['id_fournisseur_positionneur']
@@ -426,7 +425,8 @@ def traitementModifVanne(request):
             tempsRev = form.cleaned_data['tempsRev']
             
             if demanderevison == '1':
-                revision = datetime.now() + relativedelta(years=tempsRev)
+                revision = datetime.now() + now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
+
                 vanne.voir_en = revision.year
             else:
                 vanne.voir_en = None
