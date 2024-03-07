@@ -98,7 +98,7 @@ def formulaireAjoutVanne(request):
 
 def historiqueVanne(request):
     LesVannes = Vanne.objects.filter(en_service_vanne=0)
-    lesREv = REVISON.objects.all()
+    lesREv = REVISON.objects.all().order_by('-date_revision')
     return render(request, "appliVanne/historique.html", {"listeVannes": LesVannes, "listeRev": lesREv})
 
 def delete(request, id_vanne):
@@ -112,6 +112,9 @@ def rechange(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     atelierREG = ATELIER.objects.get(nom_atelier="Rechange REG")
     atelierTOR = ATELIER.objects.get(nom_atelier="Rechange TOR")
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).last()
+
+    
     if vanne.repere_vanne != None and vanne.affectation_vanne != None:
         com = "Rechange de la vanne, sont affectation et son repère ont été supprimés, ils étaient : " + vanne.repere_vanne + " et " + vanne.affectation_vanne 
     elif vanne.repere_vanne != None:
@@ -131,12 +134,19 @@ def rechange(request, id_vanne):
     vanne.save() 
     
     
+    if infoRev == None:
+        numREV = 1
+    else:
+        numREV = infoRev.id_revision_vanne + 1
+        
     rev = REVISON(
-        rev_id_vanne = vanne,
-        date_revision = datetime.now(),
-        type_revision = 'Rechange',
-        commentaire_revision =  com
+        rev_id_vanne=vanne,
+        date_revision=datetime.now(),
+        id_revision_vanne = numREV,
+        type_revision = "Rechange",
+        commentaire_revision=com
     )
+    rev.full_clean()
     rev.save()
     
     return redirect('vannes')
