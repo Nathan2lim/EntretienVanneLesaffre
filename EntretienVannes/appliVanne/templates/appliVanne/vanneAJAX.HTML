@@ -1,0 +1,131 @@
+{% extends "appliVanne/base.html" %}
+{% block title %} Rechercher... {% endblock %}
+{% block main %}
+<div class="mt-2 mb-3 d-flex flex-column">
+    <input type="text" id="searchInput" class="rounded-pill px-2" placeholder="Rechercher...">
+    <span id="countResults" class="text-center"></span>
+</div>
+
+<table class="table table-striped">
+    <thead>
+      <tr class="text-center">
+        <th scope="col" data-order="asc" data-col="id">Identifiant</th>
+        <th scope="col" data-order="asc" data-col="atelier">Atelier</th>
+        <th scope="col">Repere Vannes</th>
+        <th scope="col">Affectation</th>
+        <th scope="col">Type de vanne</th>
+        <th scope="col">Taille(DN)</th>
+        <th scope="col">Prochaine maintenance</th>
+        <th scope="col">Fonctionnement</th>
+        <th scope="col">PLUS</th>
+      </tr>
+    </thead>
+
+    <tbody id="vannesContainer">
+    </tbody>
+
+</table>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var searchTerm = $(this).val().split(' ');
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'dump' %}",
+                    data: {
+                        term: searchTerm
+                    },
+                    dataType: 'json', // Assure-toi d'ajouter cette ligne pour que jQuery parse le JSON automatiquement
+                    success: function(response) {
+                        displayResults(response);
+                        $('#countResults').text(response.results.length + ' résultat(s) trouvé(s)');
+                    }
+                });
+            });
+        
+            function displayResults(response) {
+                var tableBody = $('#vannesContainer');
+                tableBody.empty();
+                
+                if (response.results.length === 0) {
+                    // Si aucun résultat n'est trouvé, affichez un message
+                    var noResultsRow = '<tr><td colspan="8">Aucun résultat</td></tr>';
+                    tableBody.append(noResultsRow);
+                }
+                else
+                {
+                    response.results.forEach(function(result) {
+                        var deleteRecoverLink;
+                        var deleteRecoverText;
+                        
+                        if (parseInt(result.en_service_vanne) === 1) {
+                            deleteRecoverLink = "/delete";
+                            deleteRecoverText = "SUPPRIMER";
+                            //console.log("del");
+                        } else {
+                            deleteRecoverLink = "/recoverBIS";
+                            deleteRecoverText = "METTRE EN SERVICE";
+                            //console.log("reco");
+                        }
+                        
+                        var row = '<tr class="text-center">' +
+                            '<td>' + result.id_vanne + '</td>' +
+                            '<td>' + result.id_atelier__nom_atelier + '</td>' +
+                            '<td>' + result.repere_vanne + '</td>' +
+                            '<td>' + result.affectation_vanne + '</td>' +
+                            '<td>' + result.type_vannes + '</td>' +
+                            '<td>' + result.id_corps__dn_corps + '</td>' +
+                            '<td>' + result.voir_en + '</td>' +
+                            '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
+                            '<td>' + 
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL / </a>' +
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + '/rechange">RECHANGE / </a>' +
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + deleteRecoverLink + '">' + deleteRecoverText + '</a>' +
+                            '</td>'+
+                            '</tr>';
+                            
+                            
+                        tableBody.append(row);
+                    });
+                }
+            }
+
+            $('table th').click(function() {
+                var table = $(this).parents('table').eq(0);
+                var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+
+                this.asc = !this.asc;
+                if (!this.asc) {
+                rows = rows.reverse();
+                }
+                for (var i = 0; i < rows.length; i++) {
+                table.append(rows[i]);
+                }
+            });
+
+            function comparer(index) {
+                return function(a, b) {
+                    var valA = getCellValue(a, index),
+                    valB = getCellValue(b, index);
+                    return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
+                };
+            }
+
+            function getCellValue(row, index) {
+                return $(row).children('td').eq(index).text();
+            }
+        });
+        
+    </script>
+
+<style>
+    th {
+        cursor: pointer;
+    }
+</style>
+
+
+
+{% endblock %}

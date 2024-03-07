@@ -1,0 +1,66 @@
+{% extends "appliVanne/base.html" %} {% block title %} Vannes HORS SERVICE {% endblock %}
+{% block main %}
+<h1> Vannes hors service </h1>
+<table class="table table-striped" style="margin-bottom:20px">
+    <thead>
+      <tr>
+        <th scope="col"> <a href="?tri=id_vanne&ordre={% if request.GET.tri == 'id_vanne' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Identifiant</a></th>
+        <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% if request.GET.tri == 'id_atelier__nom_atelier' and request.GET.ordre == 'asc' %}desc{% else %}asc{% endif %}"> Atelier</a></th>
+        <th scope="col">Repere Vannes </th>
+        <th scope="col">Affectation </th>
+        <th scope="col">Type de vanne </th>
+        <th scope="col"> Prochaine maintenance</th>
+        <th scope="col">PLUS</th>
+  
+      </tr>
+    </thead>
+
+    {% for vanne in listeVannes %}
+      <tr>
+        <td>{{ vanne.id_vanne}}</td>
+        <td>{{ vanne.id_atelier.nom_atelier}}</td>
+        <td>{{ vanne.repere_vanne }}</td>
+        <td>{{ vanne.affectation_vanne }}</td> 
+        <td>{{ vanne.type_vannes }}</td> 
+        <td>{{ vanne.voir_en }}</td>
+        <td>
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL</a> 
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/recover"> METTRE EN SERVICE </a> 
+        </td>
+        
+      </tr>
+    {% endfor %}
+  </table>
+
+
+<h1>Historique des modifications majeurs</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"> Id révision</a></th>
+        <th scope="col"> Id de la vanne</th>
+        <th scope="col"> Date révision </a></th>
+        <th scope="col">Type de révision </th>
+        <th scope="col">Commentaire </th>
+        <th scope="col">Nom du technicien</th>
+        <th scope="col">PLUS</th>
+      </tr>
+    </thead>
+
+    {% for rev in listeRev %}
+      <tr>
+        <td>{{ rev.id_revision_vanne}}</td>
+        <td>{{ rev.rev_id_vanne_id}}</td>
+        <td>{{ rev.date_revision }}</td>
+        <td>{{ rev.type_revision }}</td> 
+        <td>{{ rev.commentaire_revision }}</td> 
+        <td>{{ rev.nom_technicien}}</td>
+        <td>
+          <a class="detdel"  href="/vanne/{{ rev.rev_id_vanne_id }}/detail">ALLER À LA VANNE</a> 
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  
+{% endblock %}
