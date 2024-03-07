@@ -1,6 +1,8 @@
 # SQLEditor export: Python Django Model
 from django.db import models
-  
+import datetime
+from django.utils import formats
+
 class ATELIER(models.Model):
     class Meta:
         db_table = 'ATELIER'
@@ -107,12 +109,16 @@ class Vanne(models.Model):
     id_fournisseur_vannes = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE, default=0, null=True)
     type_vannes = models.CharField(max_length=255, null=True, blank=True)
     organe_reglant = models.CharField(max_length=255, null=True, blank=True)
-    date_achat = models.CharField(max_length=255, null=True, blank=True)
     freq_revision = models.IntegerField(null=True, blank=True)
     derniere_revision = models.IntegerField(null=True, blank=True)
     voir_en = models.IntegerField(null=True, blank=True)
     en_service_vanne = models.IntegerField(default=1, blank=True)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
+    date_commande = models.DateField(default=datetime.date(2001, 1, 1), null=True, blank=True)
 
+
+    def formatted_date_commande(self):
+        return self.date_commande.strftime('%Y-%m-%d')
+    
     #une méthode de type "toString"
    #def __str__(self) -> str:
        #return 'vannes' + self.nom_pizza + '(prix : ' + str(self.prixPizza) + '€)'

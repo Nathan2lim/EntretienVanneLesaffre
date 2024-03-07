@@ -86,6 +86,7 @@ def rechercheAJAX(request):
 def detailVanne(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
     infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
+
     return render(request, "appliVanne/detailVanne.html", {"vanne": vanne, "infoRevision":infoRev })
 
 def formulaireAjoutVanne(request): 
@@ -390,7 +391,7 @@ def traitementAjoutVanne(request):
                 type_vannes=type_vannes, 
                 numero_commande=request.POST.get('numero_commande'),
                 id_atelier=atelier,
-                date_achat=request.POST.get('date_de_la_commande'),
+                date_commande= form.cleaned_data['date_de_la_commande']
             )
             
             vanSansPos = Vanne(
@@ -403,7 +404,7 @@ def traitementAjoutVanne(request):
                 type_vannes=type_vannes, 
                 numero_commande=request.POST.get('numero_commande'),
                 id_atelier=atelier,
-                date_achat=request.POST.get('date_de_la_commande'),
+                date_commande=form.cleaned_data['date_de_la_commande']
             )
             corps.full_clean()
             actionneur.full_clean()
@@ -634,6 +635,7 @@ def revision(request, id_vanne):
     tempsRev = vanne.freq_revision
     revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
     vanne.voir_en = revision.year
+    vanne.derniere_revision = now.year
     vanne.save()
 
 

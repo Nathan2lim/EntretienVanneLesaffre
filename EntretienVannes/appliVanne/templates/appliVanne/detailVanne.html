@@ -21,7 +21,7 @@
 
 <div>
   <a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
-  {%if vanne.voir_en != None %}
+  {%if vanne.freq_revision != None %}
    <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary" > Révision effectué </a>
   {% endif %}
   <a href="/vanne/{{vanne.id_vanne}}/print" class="btn btn-primary" > Imprimer</a>
@@ -51,11 +51,16 @@
       </tr>
       <tr class="ligne">
         <td class="debutLigne">DATE DE LA COMMANDE :</td>
-        <td class="ligneFin">{{ vanne.date_achat }}</td>
+        <td class="ligneFin">{{ vanne.date_commande }}</td>
       </tr>
       <tr class="ligne">
         <td class="debutLigne">Prochaine / Fréquence / Dernière revision:</td>
-        <td class="ligneFin">{{ vanne.voir_en}} / {{vanne.freq_revision}} ans / {{vanne.derniere_revision}}</td>
+        <td class="ligneFin">
+          {%if vanne.voir_en == None and vanne.freq_revision == None and vanne.derniere_revision == None  %}
+          Pas de revision 
+          {% else %}
+          {{ vanne.voir_en}} / {{vanne.freq_revision}} ans / {{vanne.derniere_revision}}</td>
+          {% endif %}
 
       </tr>
       <tr class="ligne">

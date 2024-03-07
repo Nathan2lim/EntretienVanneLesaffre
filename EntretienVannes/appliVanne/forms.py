@@ -2,6 +2,9 @@ from django import forms
 from django.forms import ModelForm
 from appliVanne.models import *
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+
+import datetime
 
 
 class VanneForm(ModelForm):
@@ -13,7 +16,7 @@ class VanneForm(ModelForm):
     id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Sélectionnez un atelier", required=False)
     type_vanne = forms.ChoiceField(choices=(('1', 'TOR'), ('2', 'REG')), label="Type de vanne", required=False)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
-    
+    date_de_la_commande = forms.DateField(label="Date de la commande", required=False)
     #CORPS
     nouveau_atelier = forms.CharField(label="Nouvel Atelier", required=False)
     id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
@@ -91,5 +94,9 @@ class VanneForm(ModelForm):
             if isinstance(value, str) and value.strip() == '':
                 cleaned_data[field_name] = None
             # Ajoutez ici toute autre condition spécifique pour d'autres types de champs si nécessaire
-
+            
+        date_commande = cleaned_data.get("date_de_la_commande")
+        if not date_commande:
+            cleaned_data['date_de_la_commande'] = timezone.now().date()
+        
         return cleaned_data
