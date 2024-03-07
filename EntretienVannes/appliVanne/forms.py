@@ -19,12 +19,12 @@ class VanneForm(ModelForm):
     id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur = forms.CharField(label="Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
     taille_corps = forms.IntegerField(label="Taille du corps",required=False)
-    code_corps = forms.CharField(label="Code du corps",required=True) 
+    code_corps = forms.CharField(label="Code du corps",required=False) 
     type_corps = forms.CharField(label="Type de corps",required=False)
     pn_corps = forms.CharField(label="PN Corps", required=False)
     cv_corps = forms.CharField(label="CV Corps", required=False)
     numero_serie_corps = forms.CharField(label="Numéro de série corps", required=False)
-    corps_corps = forms.CharField(label="Corps corps", required=False)
+    corps_corps = forms.CharField(label="Matière du corps", required=False)
     norme_bride_corps = forms.CharField(label="Norme bride corps", required=False)
     garniture_corps = forms.CharField(label="Garniture corps", required=False)
     type_garniture = forms.CharField(label="Type Ganiture corps", required=False)    
@@ -68,6 +68,11 @@ class VanneForm(ModelForm):
     class Meta:
         model = Vanne
         fields = ['repere_vanne', 'affectation_vanne', 'numero_commande']
+        widgets = {
+            'repere_vanne': forms.TextInput(attrs={'required': 'required'}),
+            'affectation_vanne': forms.TextInput(attrs={'required': 'required'}),
+            'numero_commande': forms.TextInput(attrs={'required': 'required'}),
+        }
 
     
     def clean(self):

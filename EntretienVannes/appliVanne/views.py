@@ -16,14 +16,17 @@ def vannes(request) :
     LesVannes = Vanne.objects.all() 
     return render(request, "appliVanne/vannes.html", {"vannes": LesVannes})
 
-def positionneur(request) :
-    LesPositionneur = POSITIONNEUR.objects.all() 
-    return render(request, "appliVanne/positionneur.html", {"listePos": LesPositionneur})
+def rechangeREG(request) :
+    lesVannes = Vanne.objects.all().filter(en_service_vanne=2)
+    return render(request, "appliVanne/rechangeREG.html", {"listeVanne": lesVannes})
+
+def rechangeTOR(request) :
+    lesVannes = Vanne.objects.all().filter(en_service_vanne=3)
+    return render(request, "appliVanne/rechangeTOR.html", {"listeVanne": lesVannes})
 
 def actionneur(request) :
     LesActionneurs = ACTIONNEUR.objects.all() 
     return render(request, "appliVanne/actionneur.html", {"listeAct": LesActionneurs})
-
 
 def listeVanne(request):
     tri = request.GET.get('tri', 'id_vanne')  # Le champ par défaut pour le tri
@@ -32,7 +35,7 @@ def listeVanne(request):
     if ordre == 'asc':
         tri = f'-{tri}'
     
-    print(f'Tri : {tri}, Ordre : {ordre}')
+    #print(f'Tri : {tri}, Ordre : {ordre}')
     
     lesVannes = Vanne.objects.all().order_by(tri).filter(en_service_vanne=1)
 
@@ -42,16 +45,18 @@ def rechercheVanne(request):
     if request.method == 'GET':
         # Je récupère plusieurs données sous term[] avec term[] : 'niveau' et term[] : 'reg'
         search_queries = request.GET.getlist('term[]')
-        vannes = Vanne.objects.all()
+        vannes = Vanne.objects.all() 
+        
 
         for query_str in search_queries:
-            print('Query: ' + query_str)
+            #print('Query: ' + query_str)
             query = Q(id_vanne__icontains=query_str) | \
                     Q(id_atelier__nom_atelier__icontains=query_str) | \
                     Q(repere_vanne__icontains=query_str) | \
                     Q(affectation_vanne__icontains=query_str) | \
                     Q(type_vannes__icontains=query_str) | \
                     Q(voir_en__icontains=query_str) | \
+                    Q(id_corps__dn_corps__icontains=query_str) | \
                     Q(id_positionneur__fonctionnement_positionneur__description_type_positionneur__icontains=query_str)
                     
             if query_str.isdigit():
@@ -62,7 +67,7 @@ def rechercheVanne(request):
         vannes = vannes.values(
             'id_vanne', 'id_atelier__nom_atelier', 'repere_vanne',
             'affectation_vanne', 'type_vannes', 'voir_en',
-            'en_service_vanne', 'id_positionneur__fonctionnement_positionneur__description_type_positionneur'
+            'en_service_vanne','id_corps__dn_corps', 'id_positionneur__fonctionnement_positionneur__description_type_positionneur'
         )
 
         response_data = {
@@ -73,16 +78,15 @@ def rechercheVanne(request):
         return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
-    
+
 def rechercheAJAX(request):
     
         return render(request, "appliVanne/vanneAJAX.html")
-    
 
 def detailVanne(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
-    return render(request, "appliVanne/detailVanne.html", {"vanne": vanne})
-
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
+    return render(request, "appliVanne/detailVanne.html", {"vanne": vanne, "infoRevision":infoRev })
 
 def formulaireAjoutVanne(request): 
 
@@ -90,7 +94,7 @@ def formulaireAjoutVanne(request):
             request,
             'appliVanne/creationVanne.html',
         )
-    
+
 def historiqueVanne(request):
     LesVannes = Vanne.objects.filter(en_service_vanne=0)
     return render(request, "appliVanne/historique.html", {"listeVannes": LesVannes})
@@ -106,6 +110,8 @@ def rechange(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     atelierREG = ATELIER.objects.get(nom_atelier="Rechange REG")
     atelierTOR = ATELIER.objects.get(nom_atelier="Rechange TOR")
+    com = "Rechange de la vanne, sont affectation et son repère ont été supprimés, ils étaient : " + vanne.repere_vanne + " et " + vanne.affectation_vanne 
+
     if vanne.type_vannes == 'TOR':
         vanne.id_atelier = atelierTOR
     else:
@@ -115,15 +121,31 @@ def rechange(request, id_vanne):
     vanne.numero_commande = None
     vanne.save() 
     
+    
+    rev = REVISON(
+        id_vanne = vanne,
+        date_revision = datetime.now(),
+        type_revision = 'Rechange',
+        commentaire_revision =  com
+    )
+    rev.save()
+    
     return redirect('vannes')
-
 
 def recover(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     vanne.en_service_vanne = 1
     vanne.voir_en 
     vanne.save() 
+    if vanne.id_atelier.id_atelier == 12 or vanne.id_atelier.id_atelier == 13:
+        return redirect('edit', id_vanne) 
     return redirect('vannes')
+
+def recoverBIS(request, id_vanne):
+    vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+    vanne.en_service_vanne = 1
+    vanne.save() 
+    return edit(request, id_vanne)
 
 def ajoutVanne(request):
     LesVannes  = Vanne.objects.all()
@@ -132,7 +154,7 @@ def ajoutVanne(request):
     typePos = TYPEPOSITIONNEUR.objects.all()
     
     return render(request, "appliVanne/creationVanne.html", {"listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
-    
+
 def traitementAjoutVanne(request):
     save = True
     
@@ -149,8 +171,7 @@ def traitementAjoutVanne(request):
 
         if form.is_valid():
             
-            print(form.cleaned_data['type_vanne'])
-            print(form.cleaned_data['id_atelier'])
+            
             
             num_atelier = form.cleaned_data['id_atelier']
             nouveau_atelier = form.cleaned_data['nouveau_atelier']
@@ -263,12 +284,8 @@ def traitementAjoutVanne(request):
                 revision = revision.year
             else:
                 revision = None
-            print(tempsRev)
-            print(infoRevisionBIS)
-            print(revision)
-            
-            print(atelier)
-            
+           
+                        
             try : 
                 if num_fournisseur_actionneur.id_fournisseur == 45 and nouveau_fournisseur_actionneur:
                     print("fournisseur actionneur n'existe pas")
@@ -407,7 +424,7 @@ def traitementAjoutVanne(request):
             else:
                 success = False
             
-            print(success)
+
             
             #return render(request, 'appliVanne/creationVanne.html', {sucess: sucess})
             #form.save()
@@ -428,7 +445,6 @@ def traitementAjoutVanne(request):
         })
         # Si la requête n'est pas un POST, affichez simplement le formulaire vide
 
-
 def edit(request, id_vanne):
     LesVannes  = Vanne.objects.all()
     LesAtelier  = ATELIER.objects.all()
@@ -437,7 +453,6 @@ def edit(request, id_vanne):
     
     lavanne = Vanne.objects.get(id_vanne=id_vanne)
     return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
-
 
 def traitementModifVanne(request):
     if request.method == "POST":
@@ -450,6 +465,8 @@ def traitementModifVanne(request):
             num_atelier = form.cleaned_data['id_atelier']
             nouveau_atelier = form.cleaned_data['nouveau_atelier']
             
+            vanne.id_actionneur.id_fournisseur = choixFournisseur(form.cleaned_data['id_fournisseur_actionneur'], form.cleaned_data['nouveau_fournisseur_actionneur'])
+            vanne.id_corps.id_fournisseur = choixFournisseur(form.cleaned_data['id_fournisseur'], form.cleaned_data['nouveau_fournisseur'])
             try : 
                 if num_atelier.id_atelier == 14 and nouveau_atelier:
                     print("Création d'un nouvel atelier")
@@ -464,59 +481,65 @@ def traitementModifVanne(request):
                 print("erreur")
             
             vanne.id_atelier = atelier
+            
+            infoRevisionBIS = form.cleaned_data['infoRevisionBIS']
+            tempsRev = form.cleaned_data['tempsRev']
+            
+            if infoRevisionBIS == '1':
+                revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
+                revision = revision.year
+            else:
+                revision = None
+                
+            vanne.voir_en = revision
+            vanne.freq_revision = tempsRev
                 
             commande_manuelle_actionneur = form.cleaned_data['commande_manuelle_actionneur']
             sens_actionneur = form.cleaned_data['sens_actionneur']
             type_effet = form.cleaned_data['type_effet']
             type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
             sens_action = form.cleaned_data['sens_action']
+            
             if form.cleaned_data['type_vanne'] == '1':
                 vanne.type_vannes = 'TOR'
             else:
                 vanne.type_vannes = 'REG'
+                
+                
             if type_effet == '1':
-                vanne.type_effet = 'SIMPLE'
+                vanne.id_actionneur.actionneur_simpl_double_effet = 'SIMPLE'
             else:
-                vanne.type_effet = 'DOUBLE'
+                vanne.id_actionneur.actionneur_simpl_double_effet = 'DOUBLE'
+            
             
             if type_contact_actionneur == '1':
-                vanne.type_contact_actionneur = 'OUVERTURE'
+                vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE'
             elif type_contact_actionneur == '2':
-                vanne.type_contact_actionneur = 'FERMETURE'
+                vanne.id_actionneur.contact_ouv_ferm_actionneur = 'FERMETURE'
             else:
-                vanne.type_contact_actionneur = 'OUVERTURE + FERMETURE'
+                vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE + FERMETURE'
+                
+                
+                
+                
                 
             if commande_manuelle_actionneur == '1':
-                vanne.commande_manuelle_actionneur = 'OUI'
+                vanne.id_actionneur.commande_manuel = 'OUI'
             else:
-                vanne.commande_manuelle_actionneur = 'NON'
+                vanne.id_actionneur.commande_manuel = 'NON'
             
             if sens_actionneur == '1':
-                vanne.sens_actionneur = 'OMA'
+                vanne.id_actionneur.sens_actionneur = 'OMA'
             elif sens_actionneur == '2':
-                vanne.sens_actionneur = 'FMA'
+                vanne.id_actionneur.sens_actionneur = 'FMA'
             else:
-                vanne.sens_actionneur = 'Aucune de caractéritiques'
+                vanne.id_actionneur.sens_actionneur = 'Aucune de caractéritiques'
             
-            print(sens_action)
-            if sens_action == '1':
-                vanne.sens_action = 'DIRECT'
-            else:
-                vanne.sens_action = 'INVERSE'
+
             # Extraction des données du formulaire déjà validé
             num_fournisseur_positionneur = form.cleaned_data['id_fournisseur_positionneur']
             nouveau_fournisseur_positionneur = form.cleaned_data['nouveau_fournisseur_positionneur']
             presence_positionneur = request.POST.get('presence_positionneur')
-            
-            demanderevison = form.cleaned_data['infoRevisionBIS']
-            tempsRev = form.cleaned_data['tempsRev']
-            
-            if demanderevison == '1':
-                revision = datetime.now() + now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
-
-                vanne.voir_en = revision.year
-            else:
-                vanne.voir_en = None
             
             # Gestion du fournisseur positionneur
             if num_fournisseur_positionneur.id_fournisseur == 45 and nouveau_fournisseur_positionneur:
@@ -526,6 +549,10 @@ def traitementModifVanne(request):
 
             # Mise à jour ou création du positionneur selon la présence
             if presence_positionneur == '1':
+                if form.cleaned_data['sens_action'] == '1':
+                    sensPos = 'DIRECT'
+                else:
+                    sensPos = 'INVERSE'
                 positionneur_data = {
                     'id_fournisseur': frn_pos,
                     'fonctionnement_positionneur': form.cleaned_data['id_fonctionnement_positionneur'],
@@ -535,7 +562,7 @@ def traitementModifVanne(request):
                     'signal_entre_positionneur': form.cleaned_data['signal_entree_positionneur'],
                     'repere_came': form.cleaned_data['repere_came_positionneur'],
                     'face_came': form.cleaned_data['face_came_positionneur'],
-                    'sens_action': form.cleaned_data['sens_action'],
+                    'sens_action': sensPos,
                     'presion_positionneur': form.cleaned_data['alimentation_positionneur'],
                     'fermer_a': form.cleaned_data['fermee_a_positionneur'],
                     'ouvert_a': form.cleaned_data['ouverte_a_positionneur'],
@@ -551,8 +578,9 @@ def traitementModifVanne(request):
                     vanne.id_positionneur = positionneur
             else:
                 vanne.id_positionneur = None  # Enlève le positionneur si non présent
-            form.save()
+
             vanne.id_actionneur.save()
+            vanne.id_corps.save()
             vanne.save()
 
             # Rediriger vers la liste des vannes après la mise à jour
@@ -571,7 +599,6 @@ def traitementModifVanne(request):
         # Si pas POST, rediriger vers la page de modification/ajout
         return redirect('url_vers_page_modification_ou_ajout')
 
-
 def supressionTOTAL (request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     if vanne.id_positionneur != None:
@@ -582,3 +609,51 @@ def supressionTOTAL (request, id_vanne):
         vanne.id_positionneur.delete()
     vanne.delete()
     return redirect('vannes')
+
+def choixFournisseur(num_fournisseur, nouveau_fournisseur):
+
+    try : 
+        if num_fournisseur.id_fournisseur == 45 and nouveau_fournisseur:
+            print("fournisseur actionneur n'existe pas")
+            frn_act, created = FOURNISSEUR.objects.get_or_create(nom_fournisseur=nouveau_fournisseur)
+            #atelier.save()
+            frn_act = FOURNISSEUR.objects.get(nom_fournisseur=nouveau_fournisseur)
+        else:
+            # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+            frn_act = num_fournisseur
+    
+    except FOURNISSEUR.DoesNotExist:
+        frn_act = "Le fournisseur n'existe pas"
+        print("Le fournisseur n'existe pas")
+    return frn_act
+
+def revision(request, id_vanne):
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).last()
+    vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+    now = datetime.now()
+    tempsRev = vanne.freq_revision
+    revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
+    vanne.voir_en = revision.year
+    vanne.save()
+
+
+    if infoRev == None:
+        numREV = 1
+    else:
+        numREV = infoRev.id_revision_vanne + 1
+        
+    rev = REVISON(
+        rev_id_vanne=vanne,
+        date_revision=now,
+        id_revision_vanne = numREV,
+        type_revision = "Révision",
+        commentaire_revision="Révion effectuée"
+    )
+    rev.full_clean()
+    rev.save()
+    return redirect('detail_vanne', id_vanne=id_vanne)
+
+def print(request, id_vanne):
+    vanne = Vanne.objects.get(id_vanne=id_vanne)
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
+    return render(request, "appliVanne/print.html", {"vanne": vanne, "infoRevision":infoRev })

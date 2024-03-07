@@ -1,49 +1,55 @@
-{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Détail Vannes n°{{vanne.id_vanne}} {% endblock %} {% block extra_css %}
-<link
-  rel="stylesheet"
-  href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
+{% load static %} 
 
 <style>
-  table {
-    margin-bottom: 20px;
-  }
-  .debutLigne {
-    background-color: rgba(0, 0, 255, 0.5);
-    font-weight: bold;
-    border: 1px solid black;
-    padding: 5px;
-  }
-
-  .ligne {
-    border-radius: 5px;
-    border: 1px solid black;
-    padding: 5px;
-  }
-  #tableauGeneral {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #tableauGeneral table {
-    width: 100%; /* Cela garantit que le tableau prend toute la largeur du div #tableauGeneral */
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: collapse;
-    border: 1px solid black;
-  }
-  table td,tr
-  {
-    border: 1px solid black;
-
-  }
-
-  .ligneFin {
-    text-align: center;
-  }
+    body {
+        font-family: 'Arial', sans-serif;
+        font-size: 15px; /* Taille de police réduite */
+        margin: 5px; /* Marge réduite pour le corps du document */
+    }
+    #tableauGeneral {
+        width: 100%; /* Utilisez toute la largeur disponible */
+        max-width: 100%; /* Assurez-vous qu'il ne dépasse pas */
+        margin: 0 auto; /* Centrage et suppression des marges */
+        padding: 10px; /* Padding réduit */
+        box-sizing: border-box;
+    }
+    h2 {
+        font-size: 20px; /* Taille de police réduite pour les titres */
+        margin: 8px 0; /* Espacement réduit autour des titres */
+    }
+    h4
+    {
+        font-size: 17px; /* Taille de police réduite pour les titres */
+        margin: 8px 0; /* Espacement réduit autour des titres */
+    }
+    table {
+        width: 100%; /* Largeur complète pour les tableaux */
+        border-collapse: collapse; /* Supprime l'espacement entre les bordures */
+        margin-bottom: 10px; /* Espacement réduit entre les tableaux */
+        border: 2px solid black; /* Bordures fines */
+    }
+    th, td {
+        font-size: 10px; /* Taille de police réduite pour le contenu des tableaux */
+        border: 1px solid #ddd; /* Bordures fines */
+        padding: 4px; /* Padding réduit */
+        text-align: right; /* Alignement du texte */
+    }
+    th {
+        background-color: #f2f2f2; /* Couleur d'arrière-plan pour les en-têtes de tableaux */
+    }
+    .debutLigne {
+        background-color: #007bff; /* Couleur d'arrière-plan pour les lignes de début */
+        color: #fff; /* Couleur du texte pour un meilleur contraste */
+        font-weight: bold; /* Texte en gras */
+    }
+    .ligneFin {
+        text-align: left; /* Alignement du texte à droite pour les lignes finales */
+    }
+    .information-section {
+        margin-bottom: 10px; /* Espacement réduit entre les sections */
+    }
 </style>
 
-{% endblock %} {% block main %}
 
 <!--
   Tableau avec liste des vanne  et le info suivante : 
@@ -57,9 +63,12 @@
 -->
 
 <!-- INFO VANNES -->
-
+<div id="infoFiche" style="text-align: center;" >
+  <img src="{% static 'appliVanne/IMG/logoSimple.png' %}" alt="logo" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
+  <h1> FICHE DE VIE DE LA VANNE N°{{vanne.id_vanne}}</h1>
+</div>
 <div id="tableauGeneral">
-  <p>Information générale de la vanne :</p>
+  <h4>Informations générales de la vanne :</h4>
 
   <table>
     <tbody>
@@ -91,7 +100,7 @@
   </table>
 
   <!-- INFO CORPS -->
-  <p>Information sur le corps :</p>
+  <h4>Informations sur le corps :</h4>
   <table>
     <tbody>
       <tr class="ligne">
@@ -153,7 +162,7 @@
   </table>
 
   <!-- INFO ACTIONNEUR -->
-  <p>Information sur l'actionneur :</p>
+  <h4>Informations sur l'actionneur :</h4>
   <table>
     <tbody>
       <tr class="ligne">
@@ -220,11 +229,11 @@
 
   {% if vanne.id_positionneur is null %}
 
-  <p> aucun positionneur pour cette vanne </p>
+  <h4> Aucun positionneur pour cette vanne </h4>
     
   {% else %}
 
-  <p>Information sur le positionneur :</p>
+  <h4>Informations sur le positionneur :</h4>
   <table>
     <tbody>
       <tr class="ligne">
@@ -285,32 +294,15 @@
     </tbody>
   </table>
 
+  
   {% endif %}
 
+  <script>
+    console.log("demarage impression")
+    window.print();
+    console.log(" impression terminé")
 
+    window.location.href = '/vanne/{{vanne.id_vanne}}/detail';
+  </script>
 
 </div> <!-- <div id="tableauGeneral">-->
-
-
-
-
-<!-- INFO ACTIONNEUR -->
-
-{% endblock %}
-
-<tr class="ligne">
-  <td class="debutLigne">TYPE DE CORPS :</td>
-  <td class="ligneFin">{{ vanne.affectation_vanne }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">NUMÉRO DE SÉRIE :</td>
-  <td class="ligneFin">{{ vanne.numero_commande }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">DN :</td>
-  <td class="ligneFin">{{ vanne.date_achat }}</td>
-</tr>
-<tr class="ligne">
-  <td class="debutLigne">PN :</td>
-  <td class="ligneFin">{{ vanne.type_vannes }}</td>
-</tr>

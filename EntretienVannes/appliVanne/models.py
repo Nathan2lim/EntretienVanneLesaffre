@@ -7,13 +7,6 @@ class ATELIER(models.Model):
          
     id_atelier = models.AutoField(primary_key=True, unique=True)
     nom_atelier = models.CharField(max_length=45, default='a remplir', unique=True)
-   
-class COMMANDE(models.Model): 
-    class Meta:
-        db_table = 'COMMANDE'
-        
-    id_commande = models.CharField(primary_key=True, unique=True, max_length=255)
-    date_commandee = models.CharField(max_length=3)
 
   
 class FOURNISSEUR(models.Model): 
@@ -35,7 +28,7 @@ class ACTIONNEUR(models.Model):
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
     num_serie_actionneur = models.CharField(max_length=255, null=True, blank=True)
     type_actionneur = models.CharField(max_length=255, null=True, blank=True)
-    taille_actionneur = models.IntegerField(null=True, blank=True)
+    taille_actionneur = models.CharField(max_length=255, null=True, blank=True)
     type_contact_actionneur = models.CharField(max_length=255, null=True, blank=True)
     pression_alimentation = models.CharField(max_length=255, null=True, blank=True)
     sens_actionneur = models.CharField(max_length=255, null=True, blank=True)
@@ -52,9 +45,9 @@ class CORPS(models.Model):
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE)
     type_corps = models.CharField(max_length=255,null=True, blank=True)
     num_serie_corps = models.CharField(max_length=255,null=True, blank=True)
-    dn_corps = models.IntegerField(null=True, blank=True)
-    pn_corps = models.IntegerField(null=True, blank=True)
-    cv_corps = models.IntegerField(null=True, blank=True)
+    dn_corps = models.CharField(max_length=255,null=True, blank=True)
+    pn_corps = models.CharField(max_length=255,null=True, blank=True)
+    cv_corps = models.CharField(max_length=255,null=True, blank=True)
     norme_bride_corps = models.CharField(max_length=255,null=True, blank=True)
     code_corps = models.CharField(max_length=255,null=True, blank=True)
     matiere_arbre_corps = models.CharField(max_length=255,null=True, blank=True)
@@ -119,7 +112,18 @@ class Vanne(models.Model):
     derniere_revision = models.IntegerField(null=True, blank=True)
     voir_en = models.IntegerField(null=True, blank=True)
     en_service_vanne = models.IntegerField(default=1, blank=True)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
-    
+
     #une méthode de type "toString"
    #def __str__(self) -> str:
        #return 'vannes' + self.nom_pizza + '(prix : ' + str(self.prixPizza) + '€)'
+
+class REVISON(models.Model):
+    class Meta:
+        db_table = 'REVISION'
+    id_revision = models.AutoField(primary_key=True, unique=True)
+    id_revision_vanne =  models.IntegerField(null=True, blank=True, default=0)
+    rev_id_vanne = models.ForeignKey('Vanne', to_field='id_vanne', on_delete=models.CASCADE)
+    date_revision = models.DateField(default='2022-01-01')
+    type_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun type')
+    commentaire_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun commentaire')
+    nom_technicien = models.CharField(max_length=255, null=True, blank=True, default='Aucun technicien')

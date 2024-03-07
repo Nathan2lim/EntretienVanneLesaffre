@@ -87,13 +87,13 @@
                 <label>Cette vanne à besoin d'une revision ? </label>
                 <select name="infoRevisionBIS" id="infoRevisionBIS" class="form-control">
                     <option value='0' {% if vanne.voir_en == null %} selected {% endif %}>NON</option>
-                    <option value='1' {% if request.voir_en != null %} selected {% endif %}>OUI</option>
+                    <option value='1' {% if vanne.voir_en != null %} selected {% endif %}>OUI</option>
                 </select>
             </div>
                 
             <div class="form-group" id="tempsRevision" style="display: none;">
                 <label for="tempsRev">À réviser tout les :</label>
-                <input type="number" name="tempsRev" id="tempsRev" class="form-control" value="{{ request.POST.tempsRev|default_if_none:'' }}">
+                <input type="number" name="tempsRev" id="tempsRev" class="form-control" value="{{ vanne.freq_revision|default_if_none:'' }}">
                 ans
             </div>
 
@@ -227,9 +227,10 @@
                         <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ vanne.id_actionneur.num_serie_actionneur }}"></td>
                         <td>
                             <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
-                                <option value="1" {% if vanne.id_actionneur.commande_manuel == '1' %} selected {% endif %}>OUI</option>
-                                <option value="2" {% if vanne.id_actionneur.commande_manuel == '0' %} selected {% endif %}>NON</option>
+                                <option value="1" {% if vanne.id_actionneur.commande_manuel == 1 %}selected{% endif %}>OUI</option>
+                                <option value="2" {% if vanne.id_actionneur.commande_manuel == 0 %}selected{% endif %}>NON</option>
                             </select>
+                            
                         </td>
                         <td>
                             <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">

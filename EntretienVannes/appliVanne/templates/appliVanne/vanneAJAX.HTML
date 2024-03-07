@@ -11,11 +11,12 @@
       <tr class="text-center">
         <th scope="col" data-order="asc" data-col="id">Identifiant</th>
         <th scope="col" data-order="asc" data-col="atelier">Atelier</th>
-        <th scope="col">Repere Vannes </th>
-        <th scope="col">Affectation </th>
-        <th scope="col">Type de vanne </th>
-        <th scope="col"> Prochaine maintenance</th>
-        <th scope="col"> Fonctionnement</th>
+        <th scope="col">Repere Vannes</th>
+        <th scope="col">Affectation</th>
+        <th scope="col">Type de vanne</th>
+        <th scope="col">Taille(DN)</th>
+        <th scope="col">Prochaine maintenance</th>
+        <th scope="col">Fonctionnement</th>
         <th scope="col">PLUS</th>
       </tr>
     </thead>
@@ -61,11 +62,11 @@
                         
                         if (parseInt(result.en_service_vanne) === 1) {
                             deleteRecoverLink = "/delete";
-                            deleteRecoverText = "DELETE";
+                            deleteRecoverText = "SUPPRIMER";
                             //console.log("del");
                         } else {
-                            deleteRecoverLink = "/recover";
-                            deleteRecoverText = "RECOVER";
+                            deleteRecoverLink = "/recoverBIS";
+                            deleteRecoverText = "METTRE EN SERVICE";
                             //console.log("reco");
                         }
                         
@@ -75,10 +76,12 @@
                             '<td>' + result.repere_vanne + '</td>' +
                             '<td>' + result.affectation_vanne + '</td>' +
                             '<td>' + result.type_vannes + '</td>' +
+                            '<td>' + result.id_corps__dn_corps + '</td>' +
                             '<td>' + result.voir_en + '</td>' +
                             '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
                             '<td>' + 
                                 '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL / </a>' +
+                                '<a class="detdel"  href="/vanne/' + result.id_vanne + '/rechange">RECHANGE / </a>' +
                                 '<a class="detdel"  href="/vanne/' + result.id_vanne + deleteRecoverLink + '">' + deleteRecoverText + '</a>' +
                             '</td>'+
                             '</tr>';

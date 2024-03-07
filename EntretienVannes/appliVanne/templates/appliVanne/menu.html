@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:darkred" >
   <div class="container-fluid">
     <img src="{%static 'appliVanne/IMG/logoLong.ico' %}" class="logo" />
 
@@ -15,29 +15,33 @@
       <span class="navbar-toggler-icon"> </span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class=" navbar-collapse" id="navbarText" style="color:white">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
         <li class="nav-item">
-          <a class="nav-link" href="/vannes/">Vannes</a>
+          <a class="nav-link" href="/vannes/" style="color:white">LES VANNES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/positionneur/">Positionneur</a>
+          <a class="nav-link" href="/rechangeREG/" style="color:white">RECHANGE REG</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/actionneur/">Actionneur</a>
+          <a class="nav-link" href="/rechangeTOR/" style="color:white">RECHANGE TOR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="/historique/" >Historique</a>
+          <a class="nav-link"  href="/historique/" style="color:white" >HISTORIQUE</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="/ajoutVanne/" >Ajouter une vanne</a>
+          <a class="nav-link"  href="/ajoutVanne/" style="color:white" >AJOUTER UNE VANNE</a>
         </li>
       </ul>
     </div>
 
-    <div>
-      <a class="navbar-brand" href="/recherche/"> RECHERCHE </a>
-      <img src="{% static 'appliVanne/IMG/recherche.ico' %}" href="/recherche/" alt="Rechercher..." class="logo" />
+
+
+      
+      <a class="navbar-brand" href="/recherche/">RECHERCHE</a>
+      <a href="/recherche/">
+         <img src="{% static 'appliVanne/IMG/recherche.ico' %}" alt="Rechercher..." class="logo" />
+      </a>
     </div>
 
   </div>

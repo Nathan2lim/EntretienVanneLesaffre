@@ -2,7 +2,11 @@
 <link
   rel="stylesheet"
   href="{% static 'appliVanne/CSS/styleVanneDetail.css' %}" />
-{% endblock %} {% block main %}
+
+  
+{% endblock %} 
+
+{% block main %}
 
 <!--
   Tableau avec liste des vanne  et le info suivante : 
@@ -14,12 +18,18 @@
 
   option pour voir en detail, mettre à jour et supprimer la vanne
 -->
-<a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
 
+<div>
+  <a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
+  {%if vanne.voir_en != None %}
+   <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary" > Révision effectué </a>
+  {% endif %}
+  <a href="/vanne/{{vanne.id_vanne}}/print" class="btn btn-primary" > Imprimer</a>
+
+</div>
 <!-- INFO VANNES -->
-
 <div id="tableauGeneral">
-  <p>Information générale de la vanne :</p>
+  <h3>Informations générales de la vanne :</h3>
 
   <table>
     <tbody>
@@ -44,8 +54,9 @@
         <td class="ligneFin">{{ vanne.date_achat }}</td>
       </tr>
       <tr class="ligne">
-        <td class="debutLigne">Prochaine revision :</td>
-        <td class="ligneFin">{{ vanne.voir_en}}</td>
+        <td class="debutLigne">Prochaine revision / Fréquence révision:</td>
+        <td class="ligneFin">{{ vanne.voir_en}} / {{vanne.freq_revision}} ans</td>
+
       </tr>
       <tr class="ligne">
         <td class="debutLigne">TYPE DE VANNE :</td>
@@ -55,7 +66,7 @@
   </table>
 
   <!-- INFO CORPS -->
-  <p>Information sur le corps :</p>
+  <h3>Informations sur le corps :</h3>
   <table>
     <tbody>
       <tr class="ligne">
@@ -117,7 +128,7 @@
   </table>
 
   <!-- INFO ACTIONNEUR -->
-  <p>Information sur l'actionneur :</p>
+  <h3>Informations sur l'actionneur :</h3>
   <table>
     <tbody>
       <tr class="ligne">
@@ -184,11 +195,11 @@
 
   {% if vanne.id_positionneur is null %}
 
-  <p> aucun positionneur pour cette vanne </p>
+  <h3> Aucun positionneur pour cette vanne </h3>
     
   {% else %}
 
-  <p>Information sur le positionneur :</p>
+  <h3>Informations sur le positionneur :</h3>
   <table>
     <tbody>
       <tr class="ligne">
@@ -239,7 +250,7 @@
         </tr>
         <tr>
             <td class="debutLigne">SENS ACTION</td>
-            <td class="ligneFin">{{vanne.id_positionneur.sens_actionneur}}</td>
+            <td class="ligneFin">{{vanne.id_positionneur.sens_action}}</td>
             <td class="debutLigne"></td>
             <td class="ligneFin"></td>
             <td class="debutLigne"></td>
@@ -248,9 +259,31 @@
       
     </tbody>
   </table>
-
   {% endif %}
 
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Numéro Révison </th>
+      <th scope="col">Date Révision </th>
+      <th scope="col">Type Révision</th>
+      <th scope="col">Commentaire </th>
+      <th scope="col">Nom technicien</th>
+    </tr>
+  </thead>
+
+  {% for rev in infoRevision %}
+    <tr>
+      <td>{{ rev.id_revision_vanne }}</td>
+      <td>{{ rev.date_revision }}</td>
+      <td>{{ rev.type_revision }}</td>
+      <td>{{ rev.commentaire_revision }}</td>
+      <td>{{ rev.nom_technicien }}</td> 
+    </tr>
+  {% endfor %}
+</table>
 
 
 </div> <!-- <div id="tableauGeneral">-->

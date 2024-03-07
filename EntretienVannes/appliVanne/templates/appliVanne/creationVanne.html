@@ -56,13 +56,13 @@
 
             <!-- Champ affectation -->
             <div class="form-group">
-                <label for="affectation_vanne">Affectation:</label>
+                <label for="affectation_vanne">Emplacement usine:</label>
                 <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control" value="{{ request.POST.affectation_vanne|default_if_none:'' }}">
             </div>
 
             <!-- Champ numéro de commande -->
             <div class="form-group">
-                <label for="numero_commande">Numero de la Commande:</label>
+                <label for="numero_commande">Numéro de la Commande:</label>
                 <input type="text" name="numero_commande" id="numero_commande" class="form-control" value="{{ request.POST.numero_commande|default_if_none:'' }}">
             </div>
 
@@ -110,7 +110,8 @@
                 <label for="id_fournisseur">Fournisseur:</label>
                 <select name="id_fournisseur" id="id_fournisseur" class="form-control">
                     {% for frn in listFournisseur %}
-                    <option value="{{frn.id_fournisseur}}" {% if request.POST.id_fournisseur|stringformat:"s" == frn.id_fournisseur|stringformat:"s" %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
+
+                            <option value="{{ frn.id_fournisseur }}" {% if request.POST.id_fournisseur|stringformat:"s" == frn.id_fournisseur|stringformat:"s" %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>  
                     {% endfor %}
                 </select>
             </div>
@@ -123,13 +124,13 @@
         
             <!-- Taille du corps -->
             <div class="form-group">
-                <label for="taille_corps">Taille du corps:</label>
+                <label for="taille_corps">Taille du corps (DN):</label>
                 <input type="number" name="taille_corps" id="taille_corps" class="form-control" value="{{ request.POST.taille_corps|default_if_none:'' }}">
             </div>
         
             <!-- Code du corps -->
             <div class="form-group">
-                <label for="code_corps">Code du corps:</label>
+                <label for="code_corps">Code du matériel:</label>
                 <input type="text" name="code_corps" id="code_corps" class="form-control" value="{{ request.POST.code_corps|default_if_none:'' }}">
             </div>
         
@@ -156,7 +157,7 @@
         
                 <table>
                     <tr>
-                        <th>Corps corps</th>
+                        <th>Matière du corps</th>
                         <th>Norme bride corps</th>
                         <th>Garniture corps</th>
                         <th>Type garniture</th>
@@ -193,7 +194,7 @@
                 <label for="fournisseur">Fournisseur:</label>
                 <select name="id_fournisseur_actionneur" id="id_fournisseur_actionneur" class="form-control">
                     {% for frn in listFournisseur %}
-                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur|stringformat:"s" == request.POST.id_fournisseur_actionneur|stringformat:"s" %} selected {% endif %}>{{ frn.nom_fournisseur }}</option>
+                            <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur|stringformat:"s" == request.POST.id_fournisseur_actionneur|stringformat:"s" %} selected {% endif %}>{{ frn.nom_fournisseur }}</option>
                     {% endfor %}
                 </select>
                 <!-- Nouveau Fournisseur Actionneur -->
@@ -220,7 +221,7 @@
                 <table>
                     <tr>
                         <th>Numéro de serie</th>
-                        <th>CDE. Manuelle</th>
+                        <th>Commande MANU.</th>
                         <th>Sens</th>
                     </tr>
                     <tr>
