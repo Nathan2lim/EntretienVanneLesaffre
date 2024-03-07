@@ -126,8 +126,10 @@ def rechange(request, id_vanne):
 
     if vanne.type_vannes == 'TOR':
         vanne.id_atelier = atelierTOR
+        vanne.en_service_vanne = 3
     else:
         vanne.id_atelier = atelierREG
+        vanne.en_service_vanne = 2
     vanne.repere_vanne = None
     vanne.affectation_vanne = None
     vanne.numero_commande = None
