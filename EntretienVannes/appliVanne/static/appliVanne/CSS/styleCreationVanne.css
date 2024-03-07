@@ -1,0 +1,139 @@
+/* CSS pour la page Ajout Vannes */
+
+/* Style pour le titre */
+h1 {
+    text-align: center; /* Centre le texte */
+    font-size: 24px; /* Taille de la police */
+    color: #333; /* Couleur du texte */
+}
+
+/* Styles pour les étiquettes des champs */
+label {
+    display: block; /* Affiche les étiquettes sur une nouvelle ligne */
+    margin-bottom: 5px; /* Ajoute un espace en bas de chaque étiquette */
+    font-weight: bold; /* Met en gras le texte des étiquettes */
+}
+
+/* Styles pour les champs de saisie */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Occupe toute la largeur disponible */
+    padding: 8px; /* Espace à l'intérieur du champ */
+    margin-bottom: 10px; /* Ajoute un espace en bas de chaque champ */
+    border: 1px solid #ccc; /* Bordure de couleur gris clair */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclut les bordures et le rembourrage dans la largeur et la hauteur totales */
+}
+
+
+
+#editVanne {
+    width: 70%; /* Prend 70% de l'espace de son conteneur */
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacement entre les éléments */
+    float: center;
+}
+
+.btn-btn-primary, .btn-btn-primary-secondaire {
+    width: 100%; /* Les boutons prennent toute la largeur disponible */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center; /* Centre le texte dans le bouton */
+    display: block; /* Assure que le lien se comporte comme un bloc */
+    text-decoration: none; /* Supprime le soulignement du lien */
+    color: white; /* Texte blanc pour une meilleure lisibilité */
+}
+
+.btn-btn-primary {
+    background-color: #4CAF50; /* Vert */
+}
+
+.btn-btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-btn-primary-secondaire {
+    background-color: #f44336; /* Rouge */
+}
+
+.btn-btn-primary-secondaire:hover {
+    background-color: #da190b;
+}
+/* Styles pour les conteneurs de groupe */
+.form-group {
+    margin-bottom: 20px; /* Ajoute un espace en bas de chaque groupe de champs */
+}
+
+/* Styles pour les conteneurs principaux du formulaire */
+#infoGeneral,
+#infoCorps,
+#infoActionneur,
+#infoPositionneur,
+#infoPositionneurBIS,
+#editVanne {
+    background-color: #f9f9f9; /* Couleur de fond */
+    padding: 20px; /* Espace intérieur */
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 20px; /* Ajoute un espace en bas */
+    border: 2px solid #000; /* Ajoute une bordure noire de 2px */
+    width: 90%;
+}
+
+/* Styles pour les divs contenant les champs "Autre" */
+#nouveauFournisseur,
+#nouveauAtelier {
+    margin-top: 10px; /* Ajoute un espace en haut */
+}
+
+/* Style pour les messages en gras */
+.bold {
+    font-weight: bold; /* Texte en gras */
+}
+
+/* Styles pour les conteneurs de tableau */
+.table-container {
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+    margin-bottom: 20px; /* Ajoute un espace en bas */
+    text-align: center; /* Centre le contenu du conteneur */
+
+}
+
+
+/* Styles pour les tableaux */
+.table-container table {
+    width: 100%; /* Ajuste la largeur pour qu'elle occupe 100% de la largeur du conteneur */
+    margin: 0 auto; /* Centre le tableau horizontalement si moins large que le conteneur */
+    border-collapse: collapse; /* Fusionne les bordures des cellules */
+}
+
+/* Styles pour les en-têtes de tableau */
+.table-container th {
+    background-color: #f2f2f2; /* Couleur de fond */
+    border: 1px solid #ddd; /* Bordure */
+    padding: 8px; /* Espace intérieur */
+}
+
+/* Styles pour les cellules de tableau */
+.table-container td {
+    border: 1px solid #ddd; /* Bordure */
+    padding: 8px; /* Espace intérieur */
+}
+
+#leformulaire
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+#infoPositionneurBIS
+{
+    width: 100%;
+}
+

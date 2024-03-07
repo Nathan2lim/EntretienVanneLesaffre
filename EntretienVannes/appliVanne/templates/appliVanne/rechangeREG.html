@@ -1,0 +1,59 @@
+{% extends "appliVanne/base.html" %} {% block title %} Rechange REG {% endblock %}
+{% block main %}
+
+<h2>Nombre de rechange REGULATION :  {{listeVanne|length}}</h2>
+  
+
+
+<!--
+
+  Tableau avec liste des vanne  et le info suivante : 
+    - numéro de la vanne
+    - nom de l'atelier
+    - repere de la vanne
+    - affectation de la vanne
+    - type de vanne
+
+  option pour voir en detail, mettre à jour et supprimer la vanne
+
+  <thead>
+  <tr>
+    <th scope="col"><a href="?tri=id_vanne&ordre={% cycle 'asc' 'desc' %}">Identifiant</a></th>
+    <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% cycle 'asc' 'desc' %}">Atelier</a></th>
+    <th scope="col"><a href="?tri=repere_vanne&ordre={% cycle 'asc' 'desc' %}">Repere Vannes</a></th>
+ 
+
+-->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"> Identifiant</th>
+        <th scope="col">Fournisseur du corps</th>
+        <th scope="col">Fournisseur de l'actionneur </th>
+        <th scope="col">Fournisseur du positionneur </th>
+        <th scope="col">taille(DN) </th>
+        <th scope="col">Type </th>
+        <th scope="col">PLUS </th>
+      </tr>
+    </thead>
+
+    {% for van in listeVanne %}
+      <tr>
+        <td>{{ van.id_vanne}}</td>
+        <td>{{ van.id_corps.id_fournisseur.nom_fournisseur}}</td>
+        <td>{{ van.id_actionneur.id_fournisseur.nom_fournisseur}}</td>
+        <td>{{ van.id_positionneur.id_fournisseur.nom_fournisseur}}</td>
+        <td>{{ van.id_corps.dn_corps }}</td>
+        <td>{{ van.type_vannes }}</td>
+        <td>
+          <a class="detdel"  href="/vanne/{{van.id_vanne}}/detail">DETAIL </a>/
+          <a class="detdel"  href="/vanne/{{van.id_vanne}}/recoverBIS" > RE-AFFECTER </a>
+        </td>
+        
+      </tr>
+    {% endfor %}
+  </table>
+
+
+
+{% endblock %}
