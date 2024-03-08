@@ -34,5 +34,9 @@ h2 {
     border-radius: 5px;
     color: white;
   }
-
+  .table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.5); /* Bleu avec 50% de transparence */
+    cursor: pointer; /* Indique que la ligne est interactive */
+  }
+  
 

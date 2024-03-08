@@ -21,7 +21,7 @@
 
 <div>
   <a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
-  {%if vanne.freq_revision != None %}
+  {%if vanne.voir_en != None %}
    <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary" > Révision effectué </a>
   {% endif %}
   <a href="/vanne/{{vanne.id_vanne}}/print" class="btn btn-primary" > Imprimer</a>
@@ -29,7 +29,7 @@
 </div>
 <!-- INFO VANNES -->
 <div id="tableauGeneral">
-  <h3>Informations générales de la vanne :</h3>
+  <h3>Informations générales de la vanne n°{{vanne.id_vanne}}:</h3>
 
   <table>
     <tbody>

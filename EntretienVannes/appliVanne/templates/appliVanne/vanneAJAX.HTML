@@ -1,4 +1,5 @@
 {% extends "appliVanne/base.html" %}
+{%load static%}
 {% block title %} Rechercher... {% endblock %}
 {% block main %}
 <div class="mt-2 mb-3 d-flex flex-column">
@@ -9,15 +10,15 @@
 <table class="table table-striped">
     <thead>
       <tr class="text-center">
-        <th scope="col" data-order="asc" data-col="id">Identifiant</th>
-        <th scope="col" data-order="asc" data-col="atelier">Atelier</th>
-        <th scope="col">Repere Vannes</th>
-        <th scope="col">Affectation</th>
-        <th scope="col">Type de vanne</th>
-        <th scope="col">Taille(DN)</th>
-        <th scope="col">Prochaine maintenance</th>
-        <th scope="col">Fonctionnement</th>
-        <th scope="col">PLUS</th>
+        <th scope="col">Identifiant <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"> </th>
+        <th scope="col">Atelier  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Repere Vannes  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Affectation  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Type de vanne  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Taille(DN)  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Prochaine maintenance  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">Fonctionnement  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
+        <th scope="col">PLUS  <img src="{% static 'appliVanne/IMG/iconeFiltre.png' %}" alt="Filtrer" style="height: 20px;"></th>
       </tr>
     </thead>
 
@@ -89,6 +90,21 @@
                             
                         tableBody.append(row);
                     });
+
+                    $('tbody tr').on('click', function() {
+                        // Supprime la classe highlighted-row de toutes les autres lignes
+                        $('tbody tr').not(this).removeClass('highlighted-row');
+                        
+                        // Applique la classe highlighted-row à la ligne cliquée
+                        $(this).toggleClass('highlighted-row');
+                        
+                        // Redirection vers la page de détail de la vanne
+                        // Assurez-vous que l'URL de redirection est correcte et sécurisée
+                        var idVanne = $(this).find('td:first-child').text();
+                        window.location.href = "/vanne/" + idVanne + "/detail";
+                    });
+
+                    
                 }
             }
 
@@ -117,12 +133,20 @@
                 return $(row).children('td').eq(index).text();
             }
         });
-        
     </script>
 
 <style>
     th {
         cursor: pointer;
+    }
+    .highlighted-row {
+        background-color: red; /* Couleur de fond pour mise en évidence */
+        cursor: pointer; /* Change le curseur en pointeur pour indiquer que la ligne est cliquable */
+    }
+
+    tbody tr:hover {
+        background-color: rgba(0, 120, 215, 0.5); /* Couleur de fond pour mise en évidence lors du survol */
+        cursor: pointer; /* Change le curseur en pointeur pour indiquer que la ligne est cliquable */
     }
 </style>
 
