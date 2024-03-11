@@ -7,7 +7,8 @@ from django.core import serializers
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from datetime import datetime
-
+from django.forms import formset_factory
+from .forms import CommentForm
 # Create your views here.
 
 
@@ -98,13 +99,24 @@ def formulaireAjoutVanne(request):
 
 def historiqueVanne(request):
     LesVannes = Vanne.objects.filter(en_service_vanne=0)
-    lesREv = REVISON.objects.all().order_by('-date_revision')
+    lesREv = REVISON.objects.all().order_by('-id_revision')
     return render(request, "appliVanne/historique.html", {"listeVannes": LesVannes, "listeRev": lesREv})
 
 def delete(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     vanne.en_service_vanne = 0
-    vanne.save() 
+    vanne.save()
+
+    rev = REVISON(
+        rev_id_vanne=id_vanne,
+        date_revision=datetime.now(),
+        id_revision_vanne = numRev(id_vanne),
+        type_revision = "Suppression",
+        commentaire_revision="Suppression de la vanne"
+    )
+    
+    rev.full_clean()
+    rev.save()
     
     return redirect('vannes')
 
@@ -135,16 +147,11 @@ def rechange(request, id_vanne):
     vanne.numero_commande = None
     vanne.save() 
     
-    
-    if infoRev == None:
-        numREV = 1
-    else:
-        numREV = infoRev.id_revision_vanne + 1
-        
+
     rev = REVISON(
-        rev_id_vanne=vanne,
+        rev_id_vanne=id_vanne,
         date_revision=datetime.now(),
-        id_revision_vanne = numREV,
+        id_revision_vanne = numRev(id_vanne),
         type_revision = "Rechange",
         commentaire_revision=com
     )
@@ -158,6 +165,17 @@ def recover(request, id_vanne):
     vanne.en_service_vanne = 1
     vanne.voir_en 
     vanne.save() 
+    
+    rev = REVISON(
+        rev_id_vanne=id_vanne,
+        date_revision=datetime.now(),
+        id_revision_vanne = numRev(id_vanne),
+        type_revision = "Reprise",
+        commentaire_revision="Reprise de la vanne"
+    )
+    rev.full_clean()
+    rev.save()
+
     if vanne.id_atelier.id_atelier == 12 or vanne.id_atelier.id_atelier == 13:
         return redirect('edit', id_vanne) 
     return redirect('vannes')
@@ -166,6 +184,16 @@ def recoverBIS(request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     vanne.en_service_vanne = 1
     vanne.save() 
+    
+    rev = REVISON(
+        rev_id_vanne=get_object_or_404(Vanne, id_vanne=id_vanne),
+        date_revision=datetime.now(),
+        id_revision_vanne = numRev(id_vanne),
+        type_revision = "Reprise",
+        commentaire_revision="Reprise de la vanne"
+    )
+    rev.full_clean()
+    rev.save()
     return edit(request, id_vanne)
 
 def ajoutVanne(request):
@@ -622,6 +650,18 @@ def traitementModifVanne(request):
 
 def supressionTOTAL (request, id_vanne):
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+    
+    rev = REVISON(
+        rev_id_vanne= id_vanne,
+        date_revision=datetime.now(),
+        id_revision_vanne = numRev(id_vanne),
+        type_revision = "Suppression",
+        commentaire_revision="Suppression TOTAL de la vanne, pas d'historique disponible"
+    )
+    rev.full_clean()
+    rev.save()
+    
+    
     if vanne.id_positionneur != None:
         vanne.id_actionneur.delete()
     if vanne.id_corps != None:
@@ -629,6 +669,9 @@ def supressionTOTAL (request, id_vanne):
     if vanne.id_positionneur != None:
         vanne.id_positionneur.delete()
     vanne.delete()
+    
+   
+    
     return redirect('vannes')
 
 def choixFournisseur(num_fournisseur, nouveau_fournisseur):
@@ -649,7 +692,6 @@ def choixFournisseur(num_fournisseur, nouveau_fournisseur):
     return frn_act
 
 def revision(request, id_vanne):
-    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).last()
     vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
     now = datetime.now()
     tempsRev = vanne.freq_revision
@@ -659,15 +701,11 @@ def revision(request, id_vanne):
     vanne.save()
 
 
-    if infoRev == None:
-        numREV = 1
-    else:
-        numREV = infoRev.id_revision_vanne + 1
-        
+
     rev = REVISON(
-        rev_id_vanne=vanne,
+        rev_id_vanne=id_vanne,
         date_revision=now,
-        id_revision_vanne = numREV,
+        id_revision_vanne = numRev(id_vanne),
         type_revision = "Révision",
         commentaire_revision="Révion effectuée"
     )
@@ -679,3 +717,35 @@ def print(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
     infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
     return render(request, "appliVanne/print.html", {"vanne": vanne, "infoRevision":infoRev })
+
+def numRev(id_vanne):
+    
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).last()
+    
+    if infoRev == None:
+        numREV = 1
+    else:
+        numREV = infoRev.id_revision_vanne + 1
+        
+    return numREV
+
+def commente(request, id_vanne):
+    CommentFormSet = formset_factory(CommentForm, extra=1)
+    if request.method == 'POST':
+        formset = CommentFormSet(request.POST)
+        if formset.is_valid():
+            # Traitez les commentaires validés
+            for form in formset:
+                form.save()
+            # Redirigez ou affichez un message de succès
+    else:
+        formset = CommentFormSet()
+    return render(request, 'appliVanne/commente.html', {'formset': formset})
+
+
+
+def handler404(request, exception):
+    return render(request, '404.html', status=404)
+
+def handler500(request):
+    return render(request, '500.html', status=500)

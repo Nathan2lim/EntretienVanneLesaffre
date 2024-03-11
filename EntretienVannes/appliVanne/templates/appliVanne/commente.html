@@ -1,0 +1,90 @@
+{% extends "appliVanne/base.html" %}
+{% block title %}
+    Rechange REG
+{% endblock %}
+
+{% block main %}
+<style>
+    /* Style pour le formulaire */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    /* Style pour chaque champ de formulaire */
+    form div {
+        margin-bottom: 15px;
+    }
+
+    /* Style pour les étiquettes des champs de formulaire */
+    form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Style pour les champs de saisie */
+    form input[type="text"],
+    form select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Style pour les boutons */
+    form button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: #45a049;
+    }
+</style>
+    <form method="post">
+        {{ formset.management_form }}
+        <div id="formset">
+            {% for form in formset %}
+                <div>
+                    {{ form.non_field_errors }}
+                    {{ form.as_p }}
+                    <select name="select{{ forloop.counter }}">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" id="add-comment">Ajouter un commentaire</button>
+        <button type="submit">Valider les commentaires</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formset = document.getElementById('formset');
+            const addCommentButton = document.getElementById('add-comment');
+
+            addCommentButton.addEventListener('click', function() {
+                const totalForms = parseInt(document.getElementById('id_form-TOTAL_FORMS').value);
+                const newCommentHtml = `<div>${totalForms + 1}. {{ formset.empty_form.as_p }}<select name="select${totalForms + 1}">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select></div>`;
+                formset.insertAdjacentHTML('beforeend', newCommentHtml);
+                document.getElementById('id_form-TOTAL_FORMS').value = totalForms + 1;
+            });
+        });
+    </script>
+{% endblock %}

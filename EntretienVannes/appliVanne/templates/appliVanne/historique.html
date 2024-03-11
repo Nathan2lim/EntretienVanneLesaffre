@@ -49,14 +49,14 @@
 
     {% for rev in listeRev %}
       <tr>
-        <td>{{ rev.id_revision_vanne}}</td>
-        <td>{{ rev.rev_id_vanne_id}}</td>
+        <td>{{ rev.id_revision}}</td>
+        <td>{{ rev.rev_id_vanne}}</td>
         <td>{{ rev.date_revision }}</td>
         <td>{{ rev.type_revision }}</td> 
         <td>{{ rev.commentaire_revision }}</td> 
         <td>{{ rev.nom_technicien}}</td>
         <td>
-          <a class="detdel"  href="/vanne/{{ rev.rev_id_vanne_id }}/detail">ALLER À LA VANNE</a> 
+          <a class="detdel"  href="/vanne/{{ rev.rev_id_vanne }}/detail">ALLER À LA VANNE</a> 
         </td>
       </tr>
     {% endfor %}

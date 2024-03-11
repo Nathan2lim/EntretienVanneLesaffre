@@ -11,40 +11,42 @@ class VanneForm(ModelForm):
     #information general à la vannes
     
     id_vanne = forms.IntegerField(label="ID Vanne", required=False)
-
-    nouveau_atelier = forms.CharField(label="Nouvel Atelier", required=False)
-    id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Sélectionnez un atelier", required=False)
+    nouveau_atelier = forms.CharField(label="Information générales : Nouvel Atelier", required=False)
+    id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Information générales : Sélectionnez un atelier", required=False)
     type_vanne = forms.ChoiceField(choices=(('1', 'TOR'), ('2', 'REG')), label="Type de vanne", required=False)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
-    date_de_la_commande = forms.DateField(label="Date de la commande", required=False)
+    date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=False)
+    
+    
+    
     #CORPS
-    nouveau_atelier = forms.CharField(label="Nouvel Atelier", required=False)
-    id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
-    nouveau_fournisseur = forms.CharField(label="Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
-    taille_corps = forms.IntegerField(label="Taille du corps",required=False)
-    code_corps = forms.CharField(label="Code du corps",required=False) 
-    type_corps = forms.CharField(label="Type de corps",required=False)
-    pn_corps = forms.CharField(label="PN Corps", required=False)
-    cv_corps = forms.CharField(label="CV Corps", required=False)
-    numero_serie_corps = forms.CharField(label="Numéro de série corps", required=False)
-    corps_corps = forms.CharField(label="Matière du corps", required=False)
-    norme_bride_corps = forms.CharField(label="Norme bride corps", required=False)
-    garniture_corps = forms.CharField(label="Garniture corps", required=False)
-    type_garniture = forms.CharField(label="Type Ganiture corps", required=False)    
-    matiere_arbre = forms.CharField(label="Matière arbre", required=False)
-    matiere_siege = forms.CharField(label="Matière siège", required=False)
-    matiere_organe_reglant = forms.CharField(label="Matière organe réglant", required=False)
+    nouveau_atelier = forms.CharField(label="Corps : Nouvel Atelier", required=False)
+    id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Corps : Sélectionnez un fournisseur",required=False,label="fournisseur")
+    nouveau_fournisseur = forms.CharField(label="Corps : Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
+    taille_corps = forms.IntegerField(label="Corps : Taille du corps",required=False)
+    code_corps = forms.CharField(label="Corps : Code du corps",required=False) 
+    type_corps = forms.CharField(label="Corps : Type de corps",required=False)
+    pn_corps = forms.CharField(label="Corps : PN Corps", required=False)
+    cv_corps = forms.CharField(label="Corps : CV Corps", required=False)
+    numero_serie_corps = forms.CharField(label="Corps : Numéro de série corps", required=False)
+    corps_corps = forms.CharField(label="Corps : Matière du corps", required=False)
+    norme_bride_corps = forms.CharField(label="Corps : Norme bride corps", required=False)
+    garniture_corps = forms.CharField(label="Corps : Garniture corps", required=False)
+    type_garniture = forms.CharField(label="Corps : Type Ganiture corps", required=False)    
+    matiere_arbre = forms.CharField(label="Corps : Matière arbre", required=False)
+    matiere_siege = forms.CharField(label="Corps : Matière siège", required=False)
+    matiere_organe_reglant = forms.CharField(label="Corps : Matière organe réglant", required=False)
 
     #ACTIONNEUR
-    id_fournisseur_actionneur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
-    nouveau_fournisseur_actionneur = forms.CharField(label="Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
-    taille_actionneur = forms.IntegerField(label="Taille de l'actionneur",required=False)
-    type_actionneur = forms.CharField(label="Type d'actionneur",required=False)
-    numero_serie_actionneur = forms.CharField(label="Numéro de serie" ,required=False)
+    id_fournisseur_actionneur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Actionneur : Sélectionnez un fournisseur",required=False,label="fournisseur")
+    nouveau_fournisseur_actionneur = forms.CharField(label="Actionneur : Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
+    taille_actionneur = forms.IntegerField(label="Actionneur : Taille de l'actionneur",required=False)
+    type_actionneur = forms.CharField(label="Actionneur : Type d'actionneur",required=False)
+    numero_serie_actionneur = forms.CharField(label="Actionneur : Numéro de serie" ,required=False)
     commande_manuelle_actionneur = forms.ChoiceField(choices=[(1, 'OUI'), (2, 'NON')])
     sens_actionneur = forms.ChoiceField(choices=[(1, 'OMA'), (2, 'FMA'), (3, 'Aucune de caractéritiques')])
-    pression_alimentation = forms.CharField(label="Pression Alim." ,required=False)
-    type_contact = forms.CharField(label="Type Contact" ,required=False)
+    pression_alimentation = forms.CharField(label="Actionneur : Pression Alim." ,required=False)
+    type_contact = forms.CharField(label="Actionneur : Type Contact" ,required=False)
     type_effet = forms.ChoiceField(choices=[(1, 'SIMPLE'), (2, 'DOUBLE')])
     type_contact_actionneur = forms.ChoiceField(choices=[(1, 'OUVERTURE'), (2, 'FERMETURE'), (3, 'OUVERTURE + FERMETURE')])
 
@@ -53,16 +55,16 @@ class VanneForm(ModelForm):
     id_fournisseur_positionneur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur_positionneur = forms.CharField(label="Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
     id_fonctionnement_positionneur = forms.ModelChoiceField(queryset=TYPEPOSITIONNEUR.objects.all(),required=False,label="fournisseur")
-    type_positionneur = forms.CharField(label="Type de positionneur")
-    numero_serie_positionneur = forms.CharField(label="Numéro de serie" )
-    signal_sortie_positionneur = forms.IntegerField(label="Signal de sortie" )
-    signal_entree_positionneur = forms.IntegerField(label="Signal d'entrée" )
-    repere_came_positionneur = forms.IntegerField(label="Repère de la came" )
-    face_came_positionneur = forms.IntegerField(label="Face de la came" )
+    type_positionneur = forms.CharField(label="Positionneur : Type de positionneur", required=False)
+    numero_serie_positionneur = forms.CharField(label="Positionneur : Numéro de serie" , required=False)
+    signal_sortie_positionneur = forms.IntegerField(label="Positionneur : Signal de sortie" , required=False)
+    signal_entree_positionneur = forms.IntegerField(label="Positionneur : Signal d'entrée" , required=False)
+    repere_came_positionneur = forms.IntegerField(label="Positionneur : Repère de la came" , required=False)
+    face_came_positionneur = forms.IntegerField(label="Positionneur : Face de la came" , required=False)
     sens_action = forms.ChoiceField(choices=[(1, 'DIRECT'), (2, 'INVERSE')])
-    fermee_a_positionneur = forms.CharField(label="Fermée à" )
-    ouverte_a_positionneur = forms.CharField(label="Ouverte à" )
-    alimentation_positionneur = forms.CharField(label="Alimentation" )
+    fermee_a_positionneur = forms.IntegerField(label="Positionneur : Fermée à", required=False )
+    ouverte_a_positionneur = forms.IntegerField(label="Positionneur : Ouverte à" , required=False)
+    alimentation_positionneur = forms.CharField(label="Positionneur : Alimentation" , required=False)
     loi_commande_positionneur = forms.CharField(label="Loi" , required=False )
     
     infoRevisionBIS = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])
@@ -100,3 +102,9 @@ class VanneForm(ModelForm):
             cleaned_data['date_de_la_commande'] = timezone.now().date()
         
         return cleaned_data
+    
+    
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = REVISON
+        fields = ['commentaire_revision']

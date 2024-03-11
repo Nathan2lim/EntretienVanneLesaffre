@@ -22,9 +22,12 @@
 <div>
   <a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
   {%if vanne.voir_en != None %}
-   <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary" > Révision effectué </a>
+   <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary rev" > Révision effectué </a>
   {% endif %}
   <a href="/vanne/{{vanne.id_vanne}}/print" class="btn btn-primary" > Imprimer</a>
+
+  <a href="/vanne/{{vanne.id_vanne}}/commente" class="btn btn-primary" > Ajouter un commentaire</a>
+
 
 </div>
 <!-- INFO VANNES -->
@@ -296,5 +299,29 @@
 {% endif %}
 </div> <!-- <div id="tableauGeneral">-->
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionnez le lien par sa classe
+    var deleteLink = document.querySelector('.btn.btn-primary.rev');
+    var today = new Date();
+    var formattedDate = today.toLocaleDateString();
+    // Ajoutez un écouteur d'événements pour le clic
+    deleteLink.addEventListener('click', function(event) {
+        // Empêchez l'action par défaut (la redirection) de se produire immédiatement
+        event.preventDefault();
+
+        // Affichez une boîte de dialogue de confirmation
+        var userConfirmation = confirm('Êtes-vous sûr de vouloir confirmé un révison pour ce jour (' + formattedDate +' ) ?');
+
+        // Si l'utilisateur clique sur "OK" dans la boîte de confirmation
+        if (userConfirmation) {
+            // Redirigez l'utilisateur vers l'URL spécifiée dans l'attribut href du lien
+            window.location.href = this.href;
+        }
+        // Si l'utilisateur clique sur "Annuler", l'action est simplement annulée et rien ne se passe
+    });
+});
+
+</script>
 
 {% endblock %}

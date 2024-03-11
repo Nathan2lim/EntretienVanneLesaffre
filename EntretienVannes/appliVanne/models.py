@@ -128,8 +128,9 @@ class REVISON(models.Model):
         db_table = 'REVISION'
     id_revision = models.AutoField(primary_key=True, unique=True)
     id_revision_vanne =  models.IntegerField(null=True, blank=True, default=0)
-    rev_id_vanne = models.ForeignKey('Vanne', to_field='id_vanne', on_delete=models.CASCADE)
+    rev_id_vanne = models.IntegerField(null=True, blank=True, default=0)
     date_revision = models.DateField(default='2022-01-01')
     type_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun type')
     commentaire_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun commentaire')
     nom_technicien = models.CharField(max_length=255, null=True, blank=True, default='Aucun technicien')
+    ajout_revision = models.CharField(max_length=255, null=True, blank=True, default='AUTO')
