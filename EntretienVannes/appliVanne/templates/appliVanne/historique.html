@@ -25,8 +25,7 @@
         <td>{{ vanne.voir_en }}</td>
         <td>
             <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL</a> 
-            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/recover"> METTRE EN SERVICE </a> 
-        </td>
+           {%if user.is_authenticated%} <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/recover"> METTRE EN SERVICE </a>  {%endif%}
         
       </tr>
     {% endfor %}

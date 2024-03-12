@@ -22,7 +22,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
 
-    <header>{% include "./menu.html" %}</header>
+    <header>
+      {%if user.is_authenticated%}
+      {% include "./menu.html" %}
+      {%else%}
+      {% include "./menuNonConnecter.html" %}
+      {%endif%}
+
+    </header>
 
     <main>{%block main%} {% endblock %}</main>
 

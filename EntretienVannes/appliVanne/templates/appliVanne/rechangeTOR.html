@@ -35,8 +35,8 @@
         <td>{{ van.id_corps.dn_corps }}</td>
         <td>{{ van.type_vannes }}</td>
         <td>
-          <a class="detdel"  href="/vanne/{{van.id_vanne}}/detail">DETAIL </a>/
-          <a class="detdel"  href="/vanne/{{van.id_vanne}}/recoverBIS" > RE-AFFECTER </a>
+          <a class="detdel"  href="/vanne/{{van.id_vanne}}/detail">DETAIL</a>
+          {%if user.is_authenticated%} <a class="detdel"  href="/vanne/{{van.id_vanne}}/recoverBIS" > / RE-AFFECTER </a> {%endif%}
         </td>
         
       </tr>

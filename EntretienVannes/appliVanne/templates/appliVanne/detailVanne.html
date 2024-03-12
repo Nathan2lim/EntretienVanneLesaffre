@@ -20,13 +20,16 @@
 -->
 
 <div>
+  {%if user.is_authenticated%}
+
   <a href="/vanne/{{vanne.id_vanne}}/edit" class="btn btn-primary" > Modifier</a>
   {%if vanne.voir_en != None %}
    <a href="/vanne/{{vanne.id_vanne}}/revision" class="btn btn-primary rev" > Révision effectué </a>
   {% endif %}
+  <a href="/vanne/{{vanne.id_vanne}}/commente" class="btn btn-primary" > Ajouter un commentaire</a>
+  {%endif%}
   <a href="/vanne/{{vanne.id_vanne}}/print" class="btn btn-primary" > Imprimer</a>
 
-  <a href="/vanne/{{vanne.id_vanne}}/commente" class="btn btn-primary" > Ajouter un commentaire</a>
 
 
 </div>

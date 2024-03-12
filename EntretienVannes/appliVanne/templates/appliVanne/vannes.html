@@ -51,10 +51,11 @@
         <td>{{ vanne.affectation_vanne }}</td> 
         <td>{{ vanne.type_vannes }}</td> 
         <td>{{ vanne.voir_en }}</td>
-        <td><a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL </a>/ 
-            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/delete"> DETRUIRE</a> /
+        <td><a class="detdel"  href="/vanne/{{vanne.id_vanne}}/detail">DETAIL </a>
+          {% if user.is_authenticated %}
+            <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/delete">/ DETRUIRE</a> /
             <a class="detdel"  href="/vanne/{{vanne.id_vanne}}/rechange">  RECHANGE</a>
-
+          {% endif %}
         </td>
         
       </tr>

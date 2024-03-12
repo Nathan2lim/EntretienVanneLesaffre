@@ -1,6 +1,7 @@
 import datetime
 from django.shortcuts import render
 from appliVanne.models import *
+from applicompte.models import *
 from appliVanne.forms import *
 from django.http import JsonResponse
 from django.core import serializers
@@ -112,7 +113,9 @@ def delete(request, id_vanne):
         date_revision=datetime.now(),
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Suppression",
-        commentaire_revision="Suppression de la vanne"
+        commentaire_revision="Suppression de la vanne",
+        nom_technicien = request.user.first_name + " " + request.user.last_name
+
     )
     
     rev.full_clean()
@@ -153,7 +156,9 @@ def rechange(request, id_vanne):
         date_revision=datetime.now(),
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Rechange",
-        commentaire_revision=com
+        commentaire_revision=com,
+        nom_technicien = request.user.first_name + " " + request.user.last_name
+
     )
     rev.full_clean()
     rev.save()
@@ -171,7 +176,9 @@ def recover(request, id_vanne):
         date_revision=datetime.now(),
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Reprise",
-        commentaire_revision="Reprise de la vanne"
+        commentaire_revision="Reprise de la vanne",
+        nom_technicien = request.user.first_name + " " + request.user.last_name
+
     )
     rev.full_clean()
     rev.save()
@@ -190,7 +197,9 @@ def recoverBIS(request, id_vanne):
         date_revision=datetime.now(),
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Reprise",
-        commentaire_revision="Reprise de la vanne"
+        commentaire_revision="Reprise de la vanne",
+        nom_technicien = request.user.first_name + " " + request.user.last_name
+
     )
     rev.full_clean()
     rev.save()
@@ -509,8 +518,10 @@ def traitementModifVanne(request):
         vanne = get_object_or_404(Vanne, id_vanne=id_vanne_form)  # Utilise get_object_or_404 pour simplifier
         form = VanneForm(request.POST, instance=vanne)
         now = datetime.now()
-        print("fefef",id_vanne_form)
+
         if form.is_valid():
+
+
             num_atelier = form.cleaned_data['id_atelier']
             nouveau_atelier = form.cleaned_data['nouveau_atelier']
             
@@ -555,19 +566,16 @@ def traitementModifVanne(request):
             sens_actionneur = form.cleaned_data['sens_actionneur']
             type_effet = form.cleaned_data['type_effet']
             type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
-            sens_action = form.cleaned_data['sens_action']
             
             if form.cleaned_data['type_vanne'] == '1':
                 vanne.type_vannes = 'TOR'
             else:
                 vanne.type_vannes = 'REG'
                 
-                
             if type_effet == '1':
                 vanne.id_actionneur.actionneur_simpl_double_effet = 'SIMPLE'
             else:
                 vanne.id_actionneur.actionneur_simpl_double_effet = 'DOUBLE'
-            
             
             if type_contact_actionneur == '1':
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE'
@@ -577,9 +585,6 @@ def traitementModifVanne(request):
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE + FERMETURE'
             else:
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'NC'  
-                
-                
-                
                 
             if commande_manuelle_actionneur == '1':
                 vanne.id_actionneur.commande_manuel = '1'
@@ -638,12 +643,56 @@ def traitementModifVanne(request):
                 vanne.id_positionneur = None # Enlève le positionneur si non présent
 
 
+            
+            """
+            has_changesVanne = any(vanne.tracker.has_changed(field) for field in vanne.tracker.fields)
+            has_changesAct= any(vanne.id_actionneur.tracker.has_changed(field) for field in vanne.id_actionneur.tracker.fields)
+            if has_changesVanne:
+            # Logique à exécuter si au moins un champ a été modifié
+                REVISON(
+                    rev_id_vanne=id_vanne_form,
+                    date_revision=datetime.now(),
+                    id_revision_vanne = numRev(id_vanne_form),
+                    type_revision = "Modification",
+                    commentaire_revision="Modification de la vanne",
+                    nom_technicien = request.user.first_name + " " + request.user.last_name
+                ).save()
+            if vanne.id_positionneur and any(vanne.id_positionneur.tracker.has_changed(field) for field in vanne.id_positionneur.tracker.fields):
+                REVISON(
+                    rev_id_vanne=id_vanne_form,
+                    date_revision=datetime.now(),
+                    id_revision_vanne = numRev(id_vanne_form),
+                    type_revision = "Modification",
+                    commentaire_revision="Modification du positionneur",
+                    nom_technicien = request.user.first_name + " " + request.user.last_name
+                ).save()
+            if has_changesAct:
+                REVISON(
+                    rev_id_vanne=id_vanne_form,
+                    date_revision=datetime.now(),
+                    id_revision_vanne = numRev(id_vanne_form),
+                    type_revision = "Modification",
+                    commentaire_revision="Modification de l'actionneur",
+                    nom_technicien = request.user.first_name + " " + request.user.last_name
+                ).save()
+            # Rediriger vers la liste des vannes après la mise à jour
+            """
+                    
             vanne.full_clean()
+            vanne.id_corps.full_clean()
+            vanne.id_actionneur.full_clean()
+            print(vanne.id_actionneur.id_actionneur)
+
+            print("avant save")
+            print(vanne.id_actionneur.taille_actionneur)
+
+            
             vanne.id_actionneur.save()
+            print(vanne.id_actionneur.taille_actionneur)
+            print("apres save")
             vanne.id_corps.save()
             vanne.save()
-
-            # Rediriger vers la liste des vannes après la mise à jour
+            form.save()
             return redirect('vannes')
         else:
             # Le formulaire n'est pas valide, afficher à nouveau avec erreurs
@@ -667,7 +716,9 @@ def supressionTOTAL (request, id_vanne):
         date_revision=datetime.now(),
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Suppression",
-        commentaire_revision="Suppression TOTAL de la vanne, pas d'historique disponible"
+        commentaire_revision="Suppression TOTAL de la vanne, pas d'historique disponible",
+        nom_technicien = request.user.first_name + " " + request.user.last_name
+
     )
     rev.full_clean()
     rev.save()
@@ -718,7 +769,8 @@ def revision(request, id_vanne):
         date_revision=now,
         id_revision_vanne = numRev(id_vanne),
         type_revision = "Révision",
-        commentaire_revision="Révion effectuée"
+        commentaire_revision="Révion effectuée",
+        nom_technicien = request.user.first_name + " " + request.user.last_name
     )
     rev.full_clean()
     rev.save()
@@ -752,8 +804,6 @@ def commente(request, id_vanne):
     else:
         formset = CommentFormSet()
     return render(request, 'appliVanne/commente.html', {'formset': formset})
-
-
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)

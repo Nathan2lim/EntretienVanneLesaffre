@@ -2,6 +2,9 @@
 from django.db import models
 import datetime
 from django.utils import formats
+from applicompte.models import *
+from model_utils import FieldTracker
+
 
 class ATELIER(models.Model):
     class Meta:
@@ -37,7 +40,7 @@ class ACTIONNEUR(models.Model):
     contact_ouv_ferm_actionneur = models.CharField(max_length=255, null=True, blank=True)
     actionneur_simpl_double_effet = models.CharField(max_length=255, null=True, blank=True)
     commande_manuel = models.CharField(max_length=255, null=True, blank=True)
-
+    tracker = FieldTracker()
   
 class CORPS(models.Model): 
     class Meta:
@@ -58,7 +61,7 @@ class CORPS(models.Model):
     corps_corps = models.CharField(max_length=255,null=True, blank=True)
     matiere_garnitures_corps = models.CharField(max_length=255,null=True, blank=True)
     type_garniture_corps = models.CharField(max_length=255,null=True, blank=True)
-
+    tracker = FieldTracker()
   
 class TYPEPOSITIONNEUR(models.Model): 
     
@@ -68,7 +71,6 @@ class TYPEPOSITIONNEUR(models.Model):
     id_fonctionnement_postionneur = models.AutoField(primary_key=True, unique=True)
     description_type_positionneur = models.CharField(max_length=255, blank=True)
     type_positionneur = models.CharField(max_length=255, blank=True)
-
   
 class POSITIONNEUR(models.Model): 
     
@@ -89,7 +91,7 @@ class POSITIONNEUR(models.Model):
     type_positionneur = models.CharField(max_length=255, null=True, blank=True)
     presion_positionneur = models.CharField(max_length=255, null=True, blank=True)
     loi_positionneur = models.CharField(max_length=255, null=True, blank=True)
-
+    tracker = FieldTracker()
   
 class Vanne(models.Model):
     """
@@ -114,6 +116,7 @@ class Vanne(models.Model):
     voir_en = models.IntegerField(null=True, blank=True)
     en_service_vanne = models.IntegerField(default=1, blank=True)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
     date_commande = models.DateField(default=datetime.date(2001, 1, 1), null=True, blank=True)
+    tracker = FieldTracker()
 
 
     def formatted_date_commande(self):
