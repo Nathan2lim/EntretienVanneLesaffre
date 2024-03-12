@@ -227,9 +227,11 @@
                         <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ vanne.id_actionneur.num_serie_actionneur }}"></td>
                         <td>
                             <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
-                                <option value="1" {% if vanne.id_actionneur.commande_manuel == 1 %}selected{% endif %}>OUI</option>
-                                <option value="2" {% if vanne.id_actionneur.commande_manuel == 0 %}selected{% endif %}>NON</option>
+                                <option value="1" {% if vanne.id_actionneur.commande_manuel == '1' %}selected{% endif %}>OUI</option>
+                                <option value="2" {% if vanne.id_actionneur.commande_manuel == '0' %}selected{% endif %}>NON</option>
                             </select>
+
+
                             
                         </td>
                         <td>
@@ -237,6 +239,7 @@
                                 <option value="1" {% if vanne.id_actionneur.sens_actionneur == 'OMA' %} selected {% endif %}>OMA</option>
                                 <option value="2" {% if vanne.id_actionneur.sens_actionneur == 'FMA' %} selected {% endif %}>FMA</option>
                             </select>
+
                         </td>
                     </tr>
                 </table>
@@ -253,9 +256,10 @@
                         <td><input type="text" name="type_contact" id="id_type_contact" class="form-control" value="{{ vanne.id_actionneur.type_actionneur }}"></td>
                         <td>
                             <select name="type_effet" id="id_type_effet" class="form-control">
-                                <option value="1" {% if vanne.id_actionneur.type_effet == 'SIMPLPE' %} selected {% endif %}>SIMPLE</option>
-                                <option value="2" {% if vanne.id_actionneur.type_effet == 'DOUBLE' %} selected {% endif %}>DOUBLE</option>
+                                <option value="1" {% if vanne.id_actionneur.actionneur_simpl_double_effet == 'SIMPLPE' %} selected {% endif %}>SIMPLE</option>
+                                <option value="2" {% if vanne.id_actionneur.actionneur_simpl_double_effet == 'DOUBLE' %} selected {% endif %}>DOUBLE</option>
                             </select>
+
                         </td>
                     </tr>
                 </table>
@@ -270,7 +274,11 @@
                                 <option value="1" {% if vanne.id_actionneur.type_contact_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
                                 <option value="2" {% if vanne.id_actionneur.type_contact_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
                                 <option value="3" {% if vanne.id_actionneur.type_contact_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
+                                <option value="4" {% if vanne.id_actionneur.type_contact_actionneur == 'NC' %} selected {% endif %}>Aucune des caractéristiques</option>
+                            
                             </select>
+
+                        </td>
                         </td>                        
                     </tr>
                 </table>

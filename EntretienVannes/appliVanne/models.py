@@ -105,7 +105,7 @@ class Vanne(models.Model):
     numero_commande = models.CharField(max_length=20, null=True, blank=True)
     id_actionneur = models.ForeignKey('ACTIONNEUR', to_field='id_actionneur', on_delete=models.CASCADE, null=True)
     id_corps = models.ForeignKey('CORPS', to_field='id_corps', on_delete=models.CASCADE, null=True)
-    id_positionneur = models.ForeignKey('POSITIONNEUR', to_field='id_positionneur', on_delete=models.CASCADE, null=True)
+    id_positionneur = models.ForeignKey('POSITIONNEUR', to_field='id_positionneur', on_delete=models.CASCADE, null=True, blank=True)
     id_fournisseur_vannes = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE, default=0, null=True)
     type_vannes = models.CharField(max_length=255, null=True, blank=True)
     organe_reglant = models.CharField(max_length=255, null=True, blank=True)

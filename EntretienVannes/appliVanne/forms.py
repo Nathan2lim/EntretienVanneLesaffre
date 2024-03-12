@@ -48,7 +48,7 @@ class VanneForm(ModelForm):
     pression_alimentation = forms.CharField(label="Actionneur : Pression Alim." ,required=False)
     type_contact = forms.CharField(label="Actionneur : Type Contact" ,required=False)
     type_effet = forms.ChoiceField(choices=[(1, 'SIMPLE'), (2, 'DOUBLE')])
-    type_contact_actionneur = forms.ChoiceField(choices=[(1, 'OUVERTURE'), (2, 'FERMETURE'), (3, 'OUVERTURE + FERMETURE')])
+    type_contact_actionneur = forms.ChoiceField(choices=[(1, 'OUVERTURE'), (2, 'FERMETURE'), (3, 'OUVERTURE + FERMETURE'),(4, 'NC')])
 
     #POSITIONNEUR
     presence_positionneur = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])

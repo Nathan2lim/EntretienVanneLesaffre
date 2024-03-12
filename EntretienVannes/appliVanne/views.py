@@ -439,7 +439,7 @@ def traitementAjoutVanne(request):
                 type_vannes=type_vannes, 
                 numero_commande=request.POST.get('numero_commande'),
                 id_atelier=atelier,
-                date_commande= form.cleaned_data['date_de_la_commande']
+                date_commande= datetime.now()
             )
             
             vanSansPos = Vanne(
@@ -452,7 +452,7 @@ def traitementAjoutVanne(request):
                 type_vannes=type_vannes, 
                 numero_commande=request.POST.get('numero_commande'),
                 id_atelier=atelier,
-                date_commande=form.cleaned_data['date_de_la_commande']
+                date_commande=datetime.now()
             )
             corps.full_clean()
             actionneur.full_clean()
@@ -505,11 +505,11 @@ def edit(request, id_vanne):
 
 def traitementModifVanne(request):
     if request.method == "POST":
-        id_vanne = request.POST.get('id_vanne')
-        vanne = get_object_or_404(Vanne, id_vanne=id_vanne)  # Utilise get_object_or_404 pour simplifier
+        id_vanne_form = request.POST.get('id_vanne')
+        vanne = get_object_or_404(Vanne, id_vanne=id_vanne_form)  # Utilise get_object_or_404 pour simplifier
         form = VanneForm(request.POST, instance=vanne)
         now = datetime.now()
-        
+        print("fefef",id_vanne_form)
         if form.is_valid():
             num_atelier = form.cleaned_data['id_atelier']
             nouveau_atelier = form.cleaned_data['nouveau_atelier']
@@ -525,6 +525,14 @@ def traitementModifVanne(request):
                 else:
                     # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
                     atelier = num_atelier
+                    
+                if atelier != 13 or atelier != 14:
+                    vanne.en_service_vanne = 1
+                if atelier == 13:
+                    vanne.en_service_vanne = 2
+                if atelier == 14:
+                    vanne.en_service_vanne = 3
+                
            
             except ATELIER.DoesNotExist:
                 print("erreur")
@@ -565,17 +573,18 @@ def traitementModifVanne(request):
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE'
             elif type_contact_actionneur == '2':
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'FERMETURE'
-            else:
+            elif type_contact_actionneur == '3':
                 vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE + FERMETURE'
-                
+            else:
+                vanne.id_actionneur.contact_ouv_ferm_actionneur = 'NC'  
                 
                 
                 
                 
             if commande_manuelle_actionneur == '1':
-                vanne.id_actionneur.commande_manuel = 'OUI'
+                vanne.id_actionneur.commande_manuel = '1'
             else:
-                vanne.id_actionneur.commande_manuel = 'NON'
+                vanne.id_actionneur.commande_manuel = '0'
             
             if sens_actionneur == '1':
                 vanne.id_actionneur.sens_actionneur = 'OMA'
@@ -626,8 +635,10 @@ def traitementModifVanne(request):
                     positionneur.save()
                     vanne.id_positionneur = positionneur
             else:
-                vanne.id_positionneur = None  # Enlève le positionneur si non présent
+                vanne.id_positionneur = None # Enlève le positionneur si non présent
 
+
+            vanne.full_clean()
             vanne.id_actionneur.save()
             vanne.id_corps.save()
             vanne.save()
@@ -713,7 +724,7 @@ def revision(request, id_vanne):
     rev.save()
     return redirect('detail_vanne', id_vanne=id_vanne)
 
-def print(request, id_vanne):
+def printer(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
     infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
     return render(request, "appliVanne/print.html", {"vanne": vanne, "infoRevision":infoRev })
