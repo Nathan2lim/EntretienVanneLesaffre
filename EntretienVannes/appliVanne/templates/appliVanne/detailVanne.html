@@ -270,10 +270,10 @@
 
   {% if infoRevision|length != 0 %}
 
-<table class="table table-striped" style="margin-bottom:50px;">
+<table class="table table-striped revision" style="margin-bottom:50px;">
   <thead>
     <tr>
-      <th scope="col">Numéro Révison </th>
+      <th style="display:None" scope="col">Numéro Révison </th>
       <th scope="col">Date Révision </th>
       <th scope="col">Type Révision</th>
       <th scope="col">Commentaire </th>
@@ -283,7 +283,7 @@
 
   {% for rev in infoRevision %}
     <tr>
-      <td>{{ rev.id_revision_vanne }}</td>
+      <td style="display:None" >{{ rev.id_revision }}</td>
       <td>{{ rev.date_revision }}</td>
       <td>{{ rev.type_revision }}</td>
       <td>{{ rev.commentaire_revision }}</td>

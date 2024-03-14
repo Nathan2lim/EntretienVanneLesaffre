@@ -135,5 +135,6 @@ class REVISON(models.Model):
     date_revision = models.DateField(default='2022-01-01')
     type_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun type')
     commentaire_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun commentaire')
+    detail_commentaire = models.CharField( max_length=1500000,null=True, blank=True, default='Aucun détail')
     nom_technicien = models.CharField(max_length=255, null=True, blank=True, default='Aucun technicien')
     ajout_revision = models.CharField(max_length=255, null=True, blank=True, default='AUTO')

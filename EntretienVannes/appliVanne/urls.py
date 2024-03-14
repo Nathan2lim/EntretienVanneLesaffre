@@ -17,6 +17,8 @@ urlpatterns = [
     path("actionneur/", views.actionneur, name="actionneur"),
     path("", views.listeVanne, name="home"),
     path('vanne/<int:id_vanne>/detail', views.detailVanne, name='detail_vanne'),
+    path('vanne/<int:id_vanne>/detail_vanne', views.detailVanne, name='detail_vanne'),
+
     path('vanne/<int:id_vanne>/delete', views.delete, name='delete'),
     path('vanne/<int:id_vanne>/print', views.printer, name='print'),
     path('vanne/<int:id_vanne>/rechange', views.rechange, name='rechange'),
@@ -26,11 +28,16 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/commente', views.commente, name='comment'),
 
     path('vanne/<int:id_vanne>/revision', views.revision, name='revision'),
+    path('vanne/<int:id_vanne>/traitement_revision', views.TraitementRevision, name='traitement_revision'),
+    path('vanne/<int:id_revision>/detailrevision', views.detail_revision, name='detail_revision'),
+
     path('vanne/<int:id_vanne>/supprimerTotal', views.supressionTOTAL, name='supprimerTotal'),
     path("historique/", views.historiqueVanne, name="historique"),
     path("ajoutVanne/", views.ajoutVanne, name="ajoutVanne"),
     path("ajoutVanne/traitementAjoutVanne/", views.traitementAjoutVanne, name="traitementAjoutVanne"),
     path("ajoutVanne/traitementModifVanne/", views.traitementModifVanne, name="traitementModifVanne"),
+    
+
 ]
 
 handler404 = 'appliVanne.views.handler404'

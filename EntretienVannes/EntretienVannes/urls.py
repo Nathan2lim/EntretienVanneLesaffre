@@ -11,7 +11,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('',include('appliVanne.urls')),
     path('',include('applicompte.urls')),
-
+    path('tinymce/', include('tinymce.urls')),  
 ]
 
 handler404 = 'appliVanne.views.handler404'

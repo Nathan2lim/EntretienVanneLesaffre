@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from appliVanne.models import *
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-
+from tinymce.widgets import TinyMCE
 import datetime
 
 
@@ -68,17 +68,14 @@ class VanneForm(ModelForm):
     loi_commande_positionneur = forms.CharField(label="Loi" , required=False )
     
     infoRevisionBIS = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])
-   
+    repere_vanne = forms.CharField(label="Repère de la vanne", required=True)
+    affectation_vanne = forms.CharField(label="Affectation de la vanne", required=True)
+    numero_commande = forms.CharField(label="Numéro de la commande", required=False)
     
     class Meta:
         model = Vanne
         fields = ['repere_vanne', 'affectation_vanne', 'numero_commande']
-        widgets = {
-            'repere_vanne': forms.TextInput(attrs={'required': 'required'}),
-            'affectation_vanne': forms.TextInput(attrs={'required': 'required'}),
-            'numero_commande': forms.TextInput(attrs={'required': 'required'}),
-        }
-
+      
     
     def clean(self):
         cleaned_data = super().clean()
@@ -105,6 +102,10 @@ class VanneForm(ModelForm):
     
     
 class CommentForm(forms.ModelForm):
+    
+    commentaire = forms.CharField(label="Revision" , required=True,  widget=TinyMCE(attrs={'cols': 80, 'rows': 30}) )
+
     class Meta:
         model = REVISON
-        fields = ['commentaire_revision']
+        fields = ['commentaire']
+        

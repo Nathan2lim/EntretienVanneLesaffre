@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "appliVanne",
     'applicompte',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/appliVanne/"
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/u4yuqji0ycc8q23g117hclj1pzkkb75a94jn8shw20c97jkz/tinymce/6/tinymce.min.js'
+TINYMCE_COMPRESSOR = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
