@@ -30,6 +30,7 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/revision', views.revision, name='revision'),
     path('vanne/<int:id_vanne>/traitement_revision', views.TraitementRevision, name='traitement_revision'),
     path('vanne/<int:id_revision>/detailrevision', views.detail_revision, name='detail_revision'),
+    path('vanne/<int:id_vanne>/add_commentaire', views.add_commentaire, name='add_commentaire'),
 
     path('vanne/<int:id_vanne>/supprimerTotal', views.supressionTOTAL, name='supprimerTotal'),
     path("historique/", views.historiqueVanne, name="historique"),

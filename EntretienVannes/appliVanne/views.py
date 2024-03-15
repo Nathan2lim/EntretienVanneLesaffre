@@ -1,4 +1,5 @@
 import datetime
+import re
 from django.shortcuts import render
 from appliVanne.models import *
 from applicompte.models import *
@@ -342,10 +343,6 @@ def traitementAjoutVanne(request):
                 else:
                     type_contact_actionneur = 'OUVERTURE + FERMETURE'
                     
-                if commande_manuelle_actionneur == '1':
-                    commande_manuelle_actionneur = 'OUI'
-                else:
-                    commande_manuelle_actionneur = 'NON'
                 
                 if sens_actionneur == '1':
                     sens_actionneur = 'OMA'
@@ -584,7 +581,7 @@ def traitementModifVanne(request):
                 actionneur.taille_actionneur = form.cleaned_data['taille_actionneur']
                 actionneur.type_actionneur = form.cleaned_data['type_actionneur']
                 actionneur.num_serie_actionneur = form.cleaned_data['numero_serie_actionneur']
-                actionneur.commande_manuel = form.cleaned_data['commande_manuelle_actionneur'] == '1'
+                actionneur.commande_manuel = form.cleaned_data['commande_manuelle_actionneur']
                 actionneur.sens_actionneur = form.cleaned_data['sens_actionneur']
                 actionneur.pression_alimentation = form.cleaned_data['pression_alimentation']
                 actionneur.type_contact_actionneur = form.cleaned_data['type_contact']
@@ -623,9 +620,15 @@ def traitementModifVanne(request):
                 infoRevisionBIS = form.cleaned_data['infoRevisionBIS']
                 tempsRev = form.cleaned_data['tempsRev']
                 
+                if vanne.derniere_revision == None and vanne.voir_en != None:
+                    vanne.derniere_revision = vanne.voir_en - vanne.freq_revision
+                
                 if infoRevisionBIS == '1':
-                    revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
-                    revision = revision.year
+                    if (vanne.voir_en != None):
+                        revision = vanne.derniere_revision + tempsRev
+                    else:
+                        revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
+                        revision = revision.year
                 else:
                     revision = None
                     
@@ -655,11 +658,6 @@ def traitementModifVanne(request):
                     vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE + FERMETURE'
                 else:
                     vanne.id_actionneur.contact_ouv_ferm_actionneur = 'NC'  
-                    
-                if commande_manuelle_actionneur == '1':
-                    vanne.id_actionneur.commande_manuel = '1'
-                else:
-                    vanne.id_actionneur.commande_manuel = '0'
                 
                 if sens_actionneur == '1':
                     vanne.id_actionneur.sens_actionneur = 'OMA'
@@ -686,6 +684,17 @@ def traitementModifVanne(request):
                         sensPos = 'DIRECT'
                     else:
                         sensPos = 'INVERSE'
+                        
+                    input_value = form.cleaned_data['ouverte_a_positionneur']
+
+# Utilise re.findall pour extraire tous les nombres de la chaîne
+                    numbers = re.findall(r'\d+', input_value)
+
+                    # Si vous vous attendez à un seul nombre, prenez le premier élément et convertissez-le en entier
+                    if numbers:
+                        ouvert_a_value = int(numbers[0])
+                    else:
+                        ouvert_a_value = 0 
                     positionneur_data = {
                         'id_fournisseur': frn_pos,
                         'fonctionnement_positionneur': form.cleaned_data['id_fonctionnement_positionneur'],
@@ -698,7 +707,7 @@ def traitementModifVanne(request):
                         'sens_action': sensPos,
                         'presion_positionneur': form.cleaned_data['alimentation_positionneur'],
                         'fermer_a': form.cleaned_data['fermee_a_positionneur'],
-                        'ouvert_a': form.cleaned_data['ouverte_a_positionneur'],
+                        'ouvert_a': ouvert_a_value,
                         'loi_positionneur': form.cleaned_data['loi_commande_positionneur'],
                     }
                     if vanne.id_positionneur:
@@ -713,46 +722,22 @@ def traitementModifVanne(request):
                     vanne.id_positionneur = None # Enlève le positionneur si non présent
 
 
-                
+                user = User.objects.get(username=request.user)
             
-                has_changesVanne = any(vanne.tracker.has_changed(field) for field in vanne.tracker.fields)
+                 # Créez une révision pour la vanne
+                create_revision_for_changes(vanne, "l'information général", user, vanne.id_vanne)
+                create_revision_for_changes(corps, "Corps", user, vanne.id_vanne)
+                create_revision_for_changes(actionneur, "Actionneur", user, vanne.id_vanne)
+
+                # Créez une révision pour le positionneur
+                if vanne.id_positionneur is not None:
+                    create_revision_for_changes(vanne.id_positionneur, "Positionneur", user, vanne.id_vanne)
+
+
+
                 
-                has_changesAct= any(vanne.id_actionneur.tracker.has_changed(field) for field in vanne.id_actionneur.tracker.fields)
-                
-                if has_changesVanne:
-                # Logique à exécuter si au moins un champ a été modifié
-                    REVISON(
-                        rev_id_vanne=id_vanne_form,
-                        date_revision=datetime.now(),
-                        id_revision_vanne = numRev(id_vanne_form),
-                        type_revision = "Modification",
-                        commentaire_revision="Modification de la vanne",
-                        nom_technicien = request.user.first_name + " " + request.user.last_name
-                    ).save()
-                if vanne.id_positionneur and any(vanne.id_positionneur.tracker.has_changed(field) for field in vanne.id_positionneur.tracker.fields):
-                    REVISON(
-                        rev_id_vanne=id_vanne_form,
-                        date_revision=datetime.now(),
-                        id_revision_vanne = numRev(id_vanne_form),
-                        type_revision = "Modification",
-                        commentaire_revision="Modification du positionneur",
-                        nom_technicien = request.user.first_name + " " + request.user.last_name
-                    ).save()
-                if has_changesAct:
-                    REVISON(
-                        rev_id_vanne=id_vanne_form,
-                        date_revision=datetime.now(),
-                        id_revision_vanne = numRev(id_vanne_form),
-                        type_revision = "Modification",
-                        commentaire_revision="Modification de l'actionneur",
-                        nom_technicien = request.user.first_name + " " + request.user.last_name
-                    ).save()
-                # Rediriger vers la liste des vannes après la mise à jour
-                for field in actionneur.tracker.fields:
-                    print(f"{field}: {actionneur.tracker.previous(field)} -> {getattr(actionneur, field)}")
-                print(any(vanne.id_positionneur.tracker.has_changed(field) for field in vanne.id_positionneur.tracker.fields))
-                print(has_changesAct)
-                print(has_changesVanne)
+               
+
                 vanne.full_clean()
                 vanne.id_corps.full_clean()
                 vanne.id_actionneur.full_clean()
@@ -783,6 +768,24 @@ def traitementModifVanne(request):
     else:
         return redirect('login')
 
+
+def create_revision_for_changes(obj, type_name, user,id_vanne):
+    has_changes = any(obj.tracker.has_changed(field) for field in obj.tracker.fields)
+    if has_changes:
+        detail_commentaire = "</br> ".join(
+            f"{obj._meta.get_field(field).verbose_name} a changé de <strong> {obj.tracker.previous(field)} </strong> à <strong>{getattr(obj, field)} </strong>"
+            for field in obj.tracker.fields
+            if obj.tracker.has_changed(field)
+        )
+        REVISON(
+            rev_id_vanne= id_vanne,  # Ou une autre manière de référencer votre vanne
+            date_revision=datetime.now(),
+            type_revision="Modification ",
+            commentaire_revision=f"Modification de {type_name.lower()}",
+            detail_commentaire=detail_commentaire,
+            nom_technicien=f"{user.first_name} {user.last_name}"
+        ).save()
+        
 def supressionTOTAL (request, id_vanne):
     if request.user.is_authenticated:
         vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
@@ -856,6 +859,7 @@ def TraitementRevision(request, id_vanne):
 
 
         rev = REVISON(
+            ajout_revision = "MANU",
             rev_id_vanne=id_vanne,
             date_revision=now,
             id_revision_vanne = numRev(id_vanne),
@@ -869,17 +873,15 @@ def TraitementRevision(request, id_vanne):
         return redirect('detail_vanne', id_vanne=id_vanne)
     else:
         return redirect('login')
+
 def detail_revision(request, id_revision):
     if request.user.is_authenticated:
 
         infoRev = get_object_or_404(REVISON,id_revision=id_revision)
-        print("x")
-        print(infoRev.date_revision)
         return render(request, "appliVanne/detailRevision.html", { "infoRevision":infoRev })
     else:
         return redirect('login')
-    
-    
+       
 def printer(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
     infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
@@ -915,3 +917,11 @@ def handler404(request, exception):
 def handler500(request):
     return render(request, '500.html', status=500)
 
+def add_commentaire(request, id_vanne):
+    if request.user.is_authenticated:
+        vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
+        infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
+        lesRev = REVISON.objects.all().count()
+        return render(request, "appliVanne/comentaire.html", {"vanne": vanne, "infoRevision":infoRev, "lesRev": lesRev})
+    else:
+        return redirect('login')

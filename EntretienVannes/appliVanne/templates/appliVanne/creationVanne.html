@@ -76,6 +76,7 @@
             <div class="form-group">
                 <label for="type_vanne">Type de vanne:</label>
                 <select name="type_vanne" id="type_vanne" class="form-control">
+                    <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
                     <option value="1" {% if request.POST.type_vanne == "1" %}selected{% endif %}>TOR</option>
                     <option value="2" {% if request.POST.type_vanne == "2" %}selected{% endif %}>REG</option>
                 </select>
@@ -228,8 +229,9 @@
                         <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ request.POST.numero_serie_actionneur|default:'' }}"></td>
                         <td>
                             <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
-                                <option value="1" {% if request.POST.commande_manuelle_actionneur == '1' %} selected {% endif %}>OUI</option>
-                                <option value="2" {% if request.POST.commande_manuelle_actionneur == '2' %} selected {% endif %}>NON</option>
+                                <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
+                                <option value="OUI" {% if request.POST.commande_manuelle_actionneur == 'OUI' %} selected {% endif %}>OUI</option>
+                                <option value="NON" {% if request.POST.commande_manuelle_actionneur == 'NON' %} selected {% endif %}>NON</option>
                             </select>
                         </td>
                         <td>
@@ -255,6 +257,7 @@
                         <td><input type="text" name="type_contact" id="id_type_contact" class="form-control" value="{{ request.POST.type_contact|default:'' }}"></td>
                         <td>
                             <select name="type_effet" id="id_type_effet" class="form-control">
+                                <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
                                 <option value="1" {% if request.POST.type_effet == '1' %} selected {% endif %}>SIMPLE</option>
                                 <option value="2" {% if request.POST.type_effet == '2' %} selected {% endif %}>DOUBLE</option>
                             </select>

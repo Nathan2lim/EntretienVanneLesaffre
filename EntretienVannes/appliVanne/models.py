@@ -112,15 +112,15 @@ class Vanne(models.Model):
     type_vannes = models.CharField(max_length=255, null=True, blank=True)
     organe_reglant = models.CharField(max_length=255, null=True, blank=True)
     freq_revision = models.IntegerField(null=True, blank=True)
-    derniere_revision = models.IntegerField(null=True, blank=True)
-    voir_en = models.IntegerField(null=True, blank=True)
+    derniere_revision = models.IntegerField(null=True, blank=True, verbose_name = "Date de la dernière révision")
+    voir_en = models.IntegerField(null=True, blank=True , verbose_name = "Date de la prochaine révision")
     en_service_vanne = models.IntegerField(default=1, blank=True)  # Si l'état est à 0, cela signifie que la vanne est bennée. Sinon, elle est toujours en service.
-    date_commande = models.DateField(default=datetime.date(2001, 1, 1), null=True, blank=True)
+    date_commande = models.DateField(default=datetime.date(2001, 1, 1), null=True, blank=True , verbose_name="Date de la commande")
     tracker = FieldTracker()
 
 
     def formatted_date_commande(self):
-        return self.date_commande.strftime('%Y-%m-%d')
+        return self.date_commande.strftime('%Y-%m-%d') if self.date_commande else ''
     
     #une méthode de type "toString"
    #def __str__(self) -> str:

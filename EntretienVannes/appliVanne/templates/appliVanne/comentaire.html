@@ -42,13 +42,23 @@
     /* Vous pouvez ajouter des styles personnalisés ici */
     
 </style>
+<form method="post" action="traitement_revision">
+    {% csrf_token %}
+
 <div style = "margin-bottom:70px" class="container mt-4">
     <div class="jumbotron">
         <h1 class="display-4">Commentaire n°{{lesRev}}</h1>
-        <p class="lead">Révision du <script>var today = new Date(); document.write( today.toLocaleDateString() ); </script></p>
+        <p class="lead">Commentaire du <script>var today = new Date(); document.write( today.toLocaleDateString() ); </script></p>
         <hr class="my-4">
         <p>Type d'ajout : MANUELLE</p>
-        <p>Type de commentaire: Révision</p>
+
+        <label for="type_com">Type de commentaire:</label>
+                <select name="id_atelier" id="id_atelier" class="form-control">
+                    <option value="1"> info</option>$
+                    <option value="1"> extra</option>
+
+                </select>
+        
         <p>Nom du technicien : {{ request.user.first_name }}  {{request.user.last_name }}</p>
         <p>Commentaire : Revision effectué</p>
 
@@ -59,10 +69,6 @@
             Détails de la Révision
         </div>
         <ul class="list-group list-group-flush">
-            <form method="post" action="traitement_revision">
-            {% csrf_token %}
-            <textarea id="id_commentaire" name="commentaire" rows="30"></textarea>
-            
 
         </ul>
         <button  type="submit">Enregistrer</button>

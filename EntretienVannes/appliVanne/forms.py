@@ -13,7 +13,7 @@ class VanneForm(ModelForm):
     id_vanne = forms.IntegerField(label="ID Vanne", required=False)
     nouveau_atelier = forms.CharField(label="Information générales : Nouvel Atelier", required=False)
     id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Information générales : Sélectionnez un atelier", required=False)
-    type_vanne = forms.ChoiceField(choices=(('1', 'TOR'), ('2', 'REG')), label="Type de vanne", required=False)
+    type_vanne = forms.ChoiceField(choices=(('1', 'TOR'), ('2', 'REG')), label="Type de vanne", required=True)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
     date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=False)
     
@@ -23,7 +23,7 @@ class VanneForm(ModelForm):
     nouveau_atelier = forms.CharField(label="Corps : Nouvel Atelier", required=False)
     id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Corps : Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur = forms.CharField(label="Corps : Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
-    taille_corps = forms.IntegerField(label="Corps : Taille du corps",required=False)
+    taille_corps = forms.CharField(label="Corps : Taille du corps",required=False)
     code_corps = forms.CharField(label="Corps : Code du corps",required=False) 
     type_corps = forms.CharField(label="Corps : Type de corps",required=False)
     pn_corps = forms.CharField(label="Corps : PN Corps", required=False)
@@ -40,14 +40,14 @@ class VanneForm(ModelForm):
     #ACTIONNEUR
     id_fournisseur_actionneur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Actionneur : Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur_actionneur = forms.CharField(label="Actionneur : Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
-    taille_actionneur = forms.IntegerField(label="Actionneur : Taille de l'actionneur",required=False)
+    taille_actionneur = forms.CharField(label="Actionneur : Taille de l'actionneur",required=False)
     type_actionneur = forms.CharField(label="Actionneur : Type d'actionneur",required=False)
     numero_serie_actionneur = forms.CharField(label="Actionneur : Numéro de serie" ,required=False)
-    commande_manuelle_actionneur = forms.ChoiceField(choices=[(1, 'OUI'), (2, 'NON')])
+    commande_manuelle_actionneur = forms.ChoiceField(choices=[(1, 'OUI'), (2, 'NON') ], required=False)
     sens_actionneur = forms.ChoiceField(choices=[(1, 'OMA'), (2, 'FMA'), (3, 'Aucune de caractéritiques')])
     pression_alimentation = forms.CharField(label="Actionneur : Pression Alim." ,required=False)
     type_contact = forms.CharField(label="Actionneur : Type Contact" ,required=False)
-    type_effet = forms.ChoiceField(choices=[(1, 'SIMPLE'), (2, 'DOUBLE')])
+    type_effet = forms.ChoiceField(choices=[(1, 'SIMPLE'), (2, 'DOUBLE')],required=False)
     type_contact_actionneur = forms.ChoiceField(choices=[(1, 'OUVERTURE'), (2, 'FERMETURE'), (3, 'OUVERTURE + FERMETURE'),(4, 'NC')])
 
     #POSITIONNEUR
@@ -63,7 +63,7 @@ class VanneForm(ModelForm):
     face_came_positionneur = forms.IntegerField(label="Positionneur : Face de la came" , required=False)
     sens_action = forms.ChoiceField(choices=[(1, 'DIRECT'), (2, 'INVERSE')])
     fermee_a_positionneur = forms.IntegerField(label="Positionneur : Fermée à", required=False )
-    ouverte_a_positionneur = forms.IntegerField(label="Positionneur : Ouverte à" , required=False)
+    ouverte_a_positionneur = forms.CharField(label="Positionneur : Ouverte à" , required=False)
     alimentation_positionneur = forms.CharField(label="Positionneur : Alimentation" , required=False)
     loi_commande_positionneur = forms.CharField(label="Loi" , required=False )
     
@@ -109,3 +109,13 @@ class CommentForm(forms.ModelForm):
         model = REVISON
         fields = ['commentaire']
         
+        
+class ajoutDeCom(forms.ModelForm):
+        
+        commentaire = forms.CharField(label="Commentaire" , required=True  )
+        detail_commentaire = forms.CharField(label="Commentaire" , required=True,  widget=TinyMCE(attrs={'cols': 80, 'rows': 30}) )
+        type_commentaire = forms.ChoiceField(choices=[(1, 'Commentaire'), (2, 'Révision')])
+        
+        class Meta:
+            model = REVISON
+            fields = ['commentaire']

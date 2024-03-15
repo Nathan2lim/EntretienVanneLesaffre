@@ -52,25 +52,25 @@
             <!-- Champ repère -->
             <div class="form-group">
                 <label for="repere_vanne">Repère:</label>
-                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{vanne.repere_vanne}}">
+                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{vanne.repere_vanne | default_if_none:''}}">
             </div>
 
             <!-- Champ affectation -->
             <div class="form-group">
                 <label for="affectation_vanne">Affectation:</label>
-                <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control" value="{{ vanne.affectation_vanne }}">
+                <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control" value="{{ vanne.affectation_vanne | default_if_none:'' }}">
             </div>
 
             <!-- Champ numéro de commande -->
             <div class="form-group">
                 <label for="numero_commande">Numero de la Commande:</label>
-                <input type="text" name="numero_commande" id="numero_commande" class="form-control" value="{{ vanne.numero_commande}}">
+                <input type="text" name="numero_commande" id="numero_commande" class="form-control" value="{{ vanne.numero_commande | default_if_none:''}}">
             </div>
 
             <!--Date de la Commande-->
             <div class="form-group">
                 <label for="date_de_la_commande">Date de la Commande:</label>
-                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{ vanne.formatted_date_commande }}">
+                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{ vanne.formatted_date_commande}}">
             </div>
 
             <!-- Champ type de vanne -->
@@ -227,8 +227,9 @@
                         <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ vanne.id_actionneur.num_serie_actionneur }}"></td>
                         <td>
                             <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
-                                <option value="1" {% if vanne.id_actionneur.commande_manuel == '1' %}selected{% endif %}>OUI</option>
-                                <option value="2" {% if vanne.id_actionneur.commande_manuel == '0' %}selected{% endif %}>NON</option>
+                                <option value="" {% if request.POST.type_vanne == None %}selected{% endif %}></option>
+                                <option value="OUI" {% if vanne.id_actionneur.commande_manuel == 'OUI' %}selected{% endif %}>OUI</option>
+                                <option value="NON" {% if vanne.id_actionneur.commande_manuel == 'NON' %}selected{% endif %}>NON</option>
                             </select>
 
 
@@ -236,8 +237,11 @@
                         </td>
                         <td>
                             <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">
+                                
                                 <option value="1" {% if vanne.id_actionneur.sens_actionneur == 'OMA' %} selected {% endif %}>OMA</option>
                                 <option value="2" {% if vanne.id_actionneur.sens_actionneur == 'FMA' %} selected {% endif %}>FMA</option>
+                                <option value="3" {% if vanne.id_actionneur.sens_actionneur == 'Aucune de caractéritiques' %} selected {% endif %}>FMA</option>
+
                             </select>
 
                         </td>
@@ -253,7 +257,7 @@
                     </tr>
                     <tr>
                         <td><input type="text" name="pression_alimentation" id="id_pression_alimentation" class="form-control" value="{{ vanne.id_actionneur.pression_alimentation }}"></td>
-                        <td><input type="text" name="type_contact" id="id_type_contact" class="form-control" value="{{ vanne.id_actionneur.type_actionneur }}"></td>
+                        <td><input type="text" name="type_contact_actionneur" id="type_contact_actionneur" class="form-control" value="{{ vanne.id_actionneur.type_contact_actionneur }}"></td>
                         <td>
                             <select name="type_effet" id="id_type_effet" class="form-control">
                                 <option value="1" {% if vanne.id_actionneur.actionneur_simpl_double_effet == 'SIMPLPE' %} selected {% endif %}>SIMPLE</option>
