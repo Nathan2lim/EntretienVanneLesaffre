@@ -937,8 +937,8 @@ def detail_revision(request, id_revision):
        
 def printer(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
-    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
-    return render(request, "appliVanne/print.html", {"vanne": vanne, "infoRevision":infoRev })
+    infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).order_by('-date_revision')[:45]
+    return render(request, "appliVanne/print.html", {"vanne": vanne, "listeRev":infoRev })
 
 def numRev(id_vanne):
     

@@ -225,7 +225,7 @@
 
   {% if vanne.id_positionneur is null %}
 
-  <h4> Aucun positionneur pour cette vanne </h4>
+  <h4 style="margin-bottom:220px" > Aucun positionneur pour cette vanne </h4>
     
   {% else %}
 
@@ -250,7 +250,7 @@
 
     </tbody>
   </table>
-  <table>
+  <table style="margin-bottom:75px">
     <tbody>
         <tr>
             <td class="debutLigne">Alimentation</td>
@@ -288,11 +288,41 @@
         </tr>
       
     </tbody>
-  </table>
+  </table >
+
 
   
   {% endif %}
 
+
+<h1>Historique des modifications majeurs</h1>
+<table class="table table-striped  historique-modifications">
+  <thead>
+    <tr>
+      <th scope="col"> Id révision</a></th>
+      <th scope="col"> Id de la vanne</th>
+      <th scope="col"> Date révision </a></th>
+      <th scope="col">Type de révision </th>
+      <th scope="col">Commentaire </th>
+      <th scope="col">Nom du technicien</th>
+
+    </tr>
+  </thead>
+
+  {% for rev in listeRev %}
+    <tr>
+      <td>{{ rev.id_revision}}</td>
+      <td>{{ rev.rev_id_vanne}}</td>
+      <td>{{ rev.date_revision }}</td>
+      <td>{{ rev.type_revision }}</td> 
+      <td>{{ rev.commentaire_revision }}</td> 
+      <td>{{ rev.nom_technicien}}</td>
+      
+    </tr>
+  {% endfor %}
+</table>
+
+<!---
   <script>
     console.log("demarage impression")
     window.print();
@@ -301,5 +331,5 @@
 
     window.location.href = '/vanne/{{vanne.id_vanne}}/detail';
   </script>
-
+-->
 </div> <!-- <div id="tableauGeneral">-->
