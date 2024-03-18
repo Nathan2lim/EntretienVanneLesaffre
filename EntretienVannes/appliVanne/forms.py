@@ -13,7 +13,7 @@ class VanneForm(ModelForm):
     id_vanne = forms.IntegerField(label="ID Vanne", required=False)
     nouveau_atelier = forms.CharField(label="Information générales : Nouvel Atelier", required=False)
     id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Information générales : Sélectionnez un atelier", required=False)
-    type_vanne = forms.ChoiceField(choices=(('1', 'TOR'), ('2', 'REG')), label="Type de vanne", required=True)
+    type_vanne = forms.ChoiceField(choices=(('TOR', 'TOR'), ('REG', 'REG')), label="Type de vanne", required=True)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
     date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=False)
     
@@ -43,25 +43,25 @@ class VanneForm(ModelForm):
     taille_actionneur = forms.CharField(label="Actionneur : Taille de l'actionneur",required=False)
     type_actionneur = forms.CharField(label="Actionneur : Type d'actionneur",required=False)
     numero_serie_actionneur = forms.CharField(label="Actionneur : Numéro de serie" ,required=False)
-    commande_manuelle_actionneur = forms.ChoiceField(choices=[(1, 'OUI'), (2, 'NON') ], required=False)
-    sens_actionneur = forms.ChoiceField(choices=[(1, 'OMA'), (2, 'FMA'), (3, 'Aucune de caractéritiques')])
+    commande_manuelle_actionneur = forms.ChoiceField(choices=[('OUI', 'OUI'), ('NON', 'NON') ], required=False)
+    sens_actionneur = forms.ChoiceField(choices=[('OMA', 'OMA'), ('FMA', 'FMA')],required=False)
     pression_alimentation = forms.CharField(label="Actionneur : Pression Alim." ,required=False)
     type_contact = forms.CharField(label="Actionneur : Type Contact" ,required=False)
-    type_effet = forms.ChoiceField(choices=[(1, 'SIMPLE'), (2, 'DOUBLE')],required=False)
-    type_contact_actionneur = forms.ChoiceField(choices=[(1, 'OUVERTURE'), (2, 'FERMETURE'), (3, 'OUVERTURE + FERMETURE'),(4, 'NC')])
+    type_effet = forms.ChoiceField(choices=[('SIMPLE', 'SIMPLE'), ('DOUBLE', 'DOUBLE')],required=False)
+    type_contact_actionneur = forms.ChoiceField(choices=[('OUVERTURE', 'OUVERTURE'), ('FERMETURE', 'FERMETURE'), ('FERM+OUVER', 'OUVERTURE + FERMETURE')],required=False)
 
     #POSITIONNEUR
     presence_positionneur = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])
     id_fournisseur_positionneur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur_positionneur = forms.CharField(label="Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
-    id_fonctionnement_positionneur = forms.ModelChoiceField(queryset=TYPEPOSITIONNEUR.objects.all(),required=False,label="fournisseur")
+    id_fonctionnement_positionneur = forms.ModelChoiceField(queryset=TYPEPOSITIONNEUR.objects.all(),required=False,label="fonctionnement")
     type_positionneur = forms.CharField(label="Positionneur : Type de positionneur", required=False)
     numero_serie_positionneur = forms.CharField(label="Positionneur : Numéro de serie" , required=False)
     signal_sortie_positionneur = forms.IntegerField(label="Positionneur : Signal de sortie" , required=False)
     signal_entree_positionneur = forms.IntegerField(label="Positionneur : Signal d'entrée" , required=False)
     repere_came_positionneur = forms.IntegerField(label="Positionneur : Repère de la came" , required=False)
     face_came_positionneur = forms.IntegerField(label="Positionneur : Face de la came" , required=False)
-    sens_action = forms.ChoiceField(choices=[(1, 'DIRECT'), (2, 'INVERSE')])
+    sens_action = forms.ChoiceField(choices=[('DIRECT', 'DIRECT'), ('INVERSE', 'INVERSE')],required=False)
     fermee_a_positionneur = forms.IntegerField(label="Positionneur : Fermée à", required=False )
     ouverte_a_positionneur = forms.CharField(label="Positionneur : Ouverte à" , required=False)
     alimentation_positionneur = forms.CharField(label="Positionneur : Alimentation" , required=False)
@@ -91,6 +91,8 @@ class VanneForm(ModelForm):
         for field_name, value in cleaned_data.items():
             # Vérifie si la valeur est une chaîne vide pour n'importe quel champ
             if isinstance(value, str) and value.strip() == '':
+                cleaned_data[field_name] = None
+            if isinstance(value, str) and value.strip() == 'None':
                 cleaned_data[field_name] = None
             # Ajoutez ici toute autre condition spécifique pour d'autres types de champs si nécessaire
             

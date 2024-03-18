@@ -22,10 +22,7 @@ def connexion(request):
 
             lesVanne = Vanne.objects.all()
 
-            return render(
-                request,
-                'appliVanne/vannes.html', {'listeVannes': lesVanne}
-            )
+            return redirect('vannes')
 
         else :
             return render(

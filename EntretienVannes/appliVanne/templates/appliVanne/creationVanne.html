@@ -76,9 +76,9 @@
             <div class="form-group">
                 <label for="type_vanne">Type de vanne:</label>
                 <select name="type_vanne" id="type_vanne" class="form-control">
-                    <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
-                    <option value="1" {% if request.POST.type_vanne == "1" %}selected{% endif %}>TOR</option>
-                    <option value="2" {% if request.POST.type_vanne == "2" %}selected{% endif %}>REG</option>
+                    <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}>N/C</option>
+                    <option value="TOR" {% if request.POST.type_vanne == "TOR" %}selected{% endif %}>TOR</option>
+                    <option value="REG" {% if request.POST.type_vanne == "REG" %}selected{% endif %}>REG</option>
                 </select>
             </div>
 
@@ -229,16 +229,16 @@
                         <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ request.POST.numero_serie_actionneur|default:'' }}"></td>
                         <td>
                             <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
-                                <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
+                                <option value="" {% if request.POST.commande_manuelle_actionneur == "" %}selected{% endif %}>N/C</option>
                                 <option value="OUI" {% if request.POST.commande_manuelle_actionneur == 'OUI' %} selected {% endif %}>OUI</option>
                                 <option value="NON" {% if request.POST.commande_manuelle_actionneur == 'NON' %} selected {% endif %}>NON</option>
                             </select>
                         </td>
                         <td>
                             <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">
-                                <option value="1" {% if request.POST.sens_actionneur == '1' %} selected {% endif %}>OMA</option>
-                                <option value="2" {% if request.POST.sens_actionneur == '2' %} selected {% endif %}>FMA</option>
-                                <option value="3" {% if request.POST.sens_actionneur == '1' %} selected {% endif %}>Aucune de caractéritiques</option>
+                                <option value="" {% if request.POST.sens_actionneur == '' %} selected {% endif %}>N/C</option>
+                                <option value="OMA" {% if request.POST.sens_actionneur == 'OMA' %} selected {% endif %}>OMA</option>
+                                <option value="FMA" {% if request.POST.sens_actionneur == 'FMA' %} selected {% endif %}>FMA</option>
 
                             </select>
                         </td>
@@ -257,9 +257,9 @@
                         <td><input type="text" name="type_contact" id="id_type_contact" class="form-control" value="{{ request.POST.type_contact|default:'' }}"></td>
                         <td>
                             <select name="type_effet" id="id_type_effet" class="form-control">
-                                <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}></option>
-                                <option value="1" {% if request.POST.type_effet == '1' %} selected {% endif %}>SIMPLE</option>
-                                <option value="2" {% if request.POST.type_effet == '2' %} selected {% endif %}>DOUBLE</option>
+                                <option value="" {% if request.POST.type_effet == "" %}selected{% endif %}>N/C</option>
+                                <option value="SIMPLE" {% if request.POST.type_effet == 'SIMPLE' %} selected {% endif %}>SIMPLE</option>
+                                <option value="DOUBLE" {% if request.POST.type_effet == 'DOUBLE' %} selected {% endif %}>DOUBLE</option>
                             </select>
                         </td>
                     </tr>
@@ -272,9 +272,10 @@
                     <tr>
                         <td>
                             <select name="type_contact_actionneur" id="id_type_contact_actionneur" class="form-control">
-                                <option value="1" {% if request.POST.type_contact_actionneur == '1' %} selected {% endif %}>OUVERTURE</option>
-                                <option value="2" {% if request.POST.type_contact_actionneur == '2' %} selected {% endif %}>FERMETURE</option>
-                                <option value="3" {% if request.POST.type_contact_actionneur == '3' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
+                                <option value="" {% if request.POST.type_contact_actionneur == '' %} selected {% endif %}>N/C</option>
+                                <option value="OUVERTURE" {% if request.POST.type_contact_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
+                                <option value="FERMETURE" {% if request.POST.type_contact_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
+                                <option value="FERM+OUVER" {% if request.POST.type_contact_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
                             </select>
                         </td>                        
                     </tr>
@@ -311,6 +312,7 @@
             <div class="form-group">
                 <label for="Fonctionnement positionneur"> Fonctionnement:</label>
                 <select name="id_fonctionnement_positionneur" id="id_fonctionnement_positionneur" class="form-control">
+                    <option value="" {% if pos.id_fonctionnement_postionneur == request.POST.id_fonctionnement_positionneur %}selected{% endif %}>N/C</option>
                     {% for pos in listTypePos %}
                     <option value="{{pos.id_fonctionnement_postionneur}}" {% if pos.id_fonctionnement_postionneur == request.POST.id_fonctionnement_positionneur %}selected{% endif %}>{{ pos.description_type_positionneur }}</option>
                     {% endfor %}
@@ -318,8 +320,8 @@
             </div>
         
             <div class="form-group">
-                <label for="type_actionneur"> Type positionneur:</label>
-                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ request.POST.type_positionneur|default:'0' }}" class="form-control">
+                <label for="type_positionneur"> Type positionneur:</label>
+                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ request.POST.type_positionneur|default:'' }}" class="form-control">
             </div>
         
             <div class="table-container">
@@ -330,9 +332,9 @@
                         <th>Alimentation</th>
                     </tr>
                     <tr>
-                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ request.POST.numero_serie_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{ request.POST.signal_entree_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{ request.POST.alimentation_positionneur|default:'0' }}" class="form-control"></td>
+                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ request.POST.numero_serie_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{ request.POST.signal_entree_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{ request.POST.alimentation_positionneur|default:'' }}" class="form-control"></td>
                     </tr>
                 </table>
         
@@ -343,9 +345,9 @@
                         <th>Face Came</th>
                     </tr>
                     <tr>
-                        <td><input type=" number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ request.POST.signal_sortie_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ request.POST.repere_came_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ request.POST.face_came_positionneur|default:'0' }}" class="form-control"></td>
+                        <td><input type=" number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ request.POST.signal_sortie_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ request.POST.repere_came_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ request.POST.face_came_positionneur|default:'' }}" class="form-control"></td>
                     </tr>
                 </table>
         
@@ -359,13 +361,14 @@
                     <tr>
                         <td>
                             <select name="sens_action" id="id_sens_action" class="form-control">
-                                <option value="1" {% if request.POST.sens_action == '1' %}selected{% endif %}>DIRECT</option>
-                                <option value="2" {% if request.POST.sens_action == '2' %}selected{% endif %}>INVERSE</option>
+                                <option value="" {% if request.POST.sens_action == '' %}selected{% endif %}>N/C</option>
+                                <option value="DIRECT" {% if request.POST.sens_action == 'DIRECT' %}selected{% endif %}>DIRECT</option>
+                                <option value="INVERSE" {% if request.POST.sens_action == 'INVERSE' %}selected{% endif %}>INVERSE</option>
                             </select>
                         </td>
-                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ request.POST.fermee_a_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="number" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ request.POST.ouverte_a_positionneur|default:'0' }}" class="form-control"></td>
-                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ request.POST.loi_commande_positionneur|default:'0' }}" class="form-control"></td>
+                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ request.POST.fermee_a_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ request.POST.ouverte_a_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ request.POST.loi_commande_positionneur|default:'' }}" class="form-control"></td>
                     </tr>
                 </table>
             </div>

@@ -61,7 +61,7 @@
       </tr>
       <tr class="ligne">
         <td class="debutLigne">Prochaine / Fréquence / Dernière revision:</td>
-        <td class="ligneFin">
+        <td class="ligneFin date">
           {%if vanne.voir_en == None and vanne.freq_revision == None and vanne.derniere_revision == None  %}
           Pas de revision 
           {% else %}
@@ -106,7 +106,7 @@
             <td class="debutLigne">NUM. SÉRIE</td>
             <td class="ligneFin">{{vanne.id_corps.num_serie_corps}}</td>
             <td class="debutLigne">CDE MANUELLE</td>
-            <td class="ligneFin"> {% if vanne.id_actionneur.commande_manuel == "1"%} Oui {% elif vanne.id_actionneur.commande_manuel is None  %} N/C {% else %} Non {% endif %}</td>
+            <td class="ligneFin"> {{vanne.id_actionneur.commande_manuel}}</td>
         </tr>
 
         <tr>
@@ -163,7 +163,7 @@
             <td class="debutLigne">NUM. SÉRIE</td>
             <td class="ligneFin">{{vanne.id_actionneur.num_serie_actionneur}}</td>
             <td class="debutLigne">CDE MANUELLE</td>
-            <td class="ligneFin"> {% if vanne.id_actionneur.commande_manuel == "1"%} Oui {% else %} Non {% endif %}
+            <td class="ligneFin"> {{vanne.id_actionneur.commande_manuel}}
 
           </td>
                     </tr>
@@ -320,6 +320,50 @@
     });
 });
 
+
 </script>
+<tr class="ligne">
+  <td class="debutLigne">Prochaine / Fréquence / Dernière revision:</td>
+  <td class="ligneFin date">
+      {% if vanne.voir_en == None and vanne.freq_revision == None and vanne.derniere_revision == None  %}
+          Pas de revision 
+      {% else %}
+          {{ vanne.voir_en }} / {{ vanne.freq_revision }} ans / {{ vanne.derniere_revision }}
+      {% endif %}
+  </td>
+</tr>
+
+<script>
+  // Récupérer la date actuelle
+  var currentDate = new Date();
+  var currentYear = currentDate.getFullYear();
+
+  // Récupérer la date de la cellule HTML
+  var voirEn = new Date('{{ vanne.voir_en }}');
+  var voirEnYear = voirEn.getFullYear();
+
+  // Sélection de l'élément td contenant la date
+  var dateElement = document.querySelector('.ligneFin.date');
+
+  // Vérifier si la date est égale à l'année en cours
+  if (voirEnYear === currentYear) {
+      // Si oui, appliquer la couleur orange
+      dateElement.style.backgroundColor = 'orange';
+  } else if (voirEnYear > currentYear) {
+      // Si la date est supérieure à l'année en cours, appliquer la couleur verte
+      dateElement.style.backgroundColor = 'green';
+  }
+  else if (voirEnYear < currentYear)
+  {
+      // Si la date est inférieure à l'année en cours, appliquer la couleur rouge
+      dateElement.style.backgroundColor = 'red';
+  }
+  else {
+      // Sinon, appliquer la couleur rouge
+      dateElement.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  }
+</script>
+
+
 
 {% endblock %}

@@ -78,7 +78,7 @@
                             '<td>' + result.affectation_vanne + '</td>' +
                             '<td>' + result.type_vannes + '</td>' +
                             '<td>' + result.id_corps__dn_corps + '</td>' +
-                            '<td>' + result.voir_en + '</td>' +
+                            '<td class = "voir">' + result.voir_en + '</td>' +
                             '<td>' + result.id_positionneur__fonctionnement_positionneur__description_type_positionneur + '</td>' +
                             '<td>' + 
                                 '<a class="detdel"  href="/vanne/' + result.id_vanne + '/detail">DETAIL</a>' +
@@ -89,6 +89,20 @@
                             
                             
                         tableBody.append(row);
+                    });
+
+                    $('td.voir').each(function() {
+                        var voirEnYear = new Date($(this).text()).getFullYear();
+                        var currentYear = new Date().getFullYear();
+                        var voirElement = $(this);
+            
+                        if (voirEnYear === currentYear) {
+                            voirElement.css('background-color', 'orange');
+                        } else if (voirEnYear > currentYear) {
+                            voirElement.css('background-color', 'green');
+                        } else if (voirEnYear < currentYear) {
+                            voirElement.css('background-color', 'red');
+                        }
                     });
 
                     $('tbody tr').on('click', function() {
@@ -135,6 +149,7 @@
         });
     </script>
 
+    
 <style>
     th {
         cursor: pointer;

@@ -325,36 +325,8 @@ def traitementAjoutVanne(request):
                 except ATELIER.DoesNotExist:
                 
                     print("L'atelier n'existe pas")    
+                type_vannes = form.cleaned_data['type_vanne']
                 
-                if form.cleaned_data['type_vanne'] == '1':
-                    type_vannes = 'TOR'
-                else:
-                    type_vannes = 'REG'
-                    
-                if type_effet == '1':
-                    type_effet = 'SIMPLE'
-                else:
-                    type_effet = 'DOUBLE'
-                
-                if type_contact_actionneur == '1':
-                    type_contact_actionneur = 'OUVERTURE'
-                elif type_contact_actionneur == '2':
-                    type_contact_actionneur = 'FERMETURE'
-                else:
-                    type_contact_actionneur = 'OUVERTURE + FERMETURE'
-                    
-                
-                if sens_actionneur == '1':
-                    sens_actionneur = 'OMA'
-                elif sens_actionneur == '2':
-                    sens_actionneur = 'FMA'
-                else:
-                    sens_actionneur = 'Aucune de caractéritiques'
-                
-                if sens_action == '1':
-                    sens_action = 'DIRECT'
-                else:
-                    sens_action = 'INVERSE'
                     
                 if infoRevisionBIS == '1':
                     revision = now.replace(year=now.year + tempsRev) if not (now.month == 2 and now.day == 29 and (now.year + tempsRev) % 4 != 0) else now.replace(year=now.year + tempsRev, month=3, day=1)
@@ -462,10 +434,10 @@ def traitementAjoutVanne(request):
                     id_positionneur = pos,
                     freq_revision = tempsRev,
                     voir_en = revision,
-                    repere_vanne=request.POST.get('repere_vanne'), 
-                    affectation_vanne=request.POST.get('affectation_vanne'),
+                    repere_vanne= form.cleaned_data['repere_vanne'], 
+                    affectation_vanne=form.cleaned_data['affectation_vanne'],
                     type_vannes=type_vannes, 
-                    numero_commande=request.POST.get('numero_commande'),
+                    numero_commande=form.cleaned_data['numero_commande'],
                     id_atelier=atelier,
                     date_commande= datetime.now()
                 )
@@ -475,10 +447,10 @@ def traitementAjoutVanne(request):
                     id_actionneur=actionneur,
                     freq_revision = tempsRev,
                     voir_en = revision,
-                    repere_vanne=request.POST.get('repere_vanne'), 
-                    affectation_vanne=request.POST.get('affectation_vanne'),
+                    repere_vanne= form.cleaned_data['repere_vanne'], 
+                    affectation_vanne= form.cleaned_data['affectation_vanne'],
                     type_vannes=type_vannes, 
-                    numero_commande=request.POST.get('numero_commande'),
+                    numero_commande= form.cleaned_data['numero_commande'],
                     id_atelier=atelier,
                     date_commande=datetime.now()
                 )
@@ -539,6 +511,7 @@ def edit(request, id_vanne):
     
 def traitementModifVanne(request):
     if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
 
         if request.method == "POST":
             id_vanne_form = request.POST.get('id_vanne')
@@ -586,6 +559,8 @@ def traitementModifVanne(request):
                 actionneur.pression_alimentation = form.cleaned_data['pression_alimentation']
                 actionneur.type_contact_actionneur = form.cleaned_data['type_contact']
                 actionneur.type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
+                actionneur.type_effet = form.cleaned_data['type_effet']
+                
                 # Ajoutez ici toute autre logique spécifique pour la mise à jour des champs de l'objet Actionneur
 
                 
@@ -635,36 +610,7 @@ def traitementModifVanne(request):
                 vanne.voir_en = revision
                 vanne.freq_revision = tempsRev
                     
-                commande_manuelle_actionneur = form.cleaned_data['commande_manuelle_actionneur']
-                sens_actionneur = form.cleaned_data['sens_actionneur']
-                type_effet = form.cleaned_data['type_effet']
-                type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
-                
-                if form.cleaned_data['type_vanne'] == '1':
-                    vanne.type_vannes = 'TOR'
-                else:
-                    vanne.type_vannes = 'REG'
-                    
-                if type_effet == '1':
-                    vanne.id_actionneur.actionneur_simpl_double_effet = 'SIMPLE'
-                else:
-                    vanne.id_actionneur.actionneur_simpl_double_effet = 'DOUBLE'
-                
-                if type_contact_actionneur == '1':
-                    vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE'
-                elif type_contact_actionneur == '2':
-                    vanne.id_actionneur.contact_ouv_ferm_actionneur = 'FERMETURE'
-                elif type_contact_actionneur == '3':
-                    vanne.id_actionneur.contact_ouv_ferm_actionneur = 'OUVERTURE + FERMETURE'
-                else:
-                    vanne.id_actionneur.contact_ouv_ferm_actionneur = 'NC'  
-                
-                if sens_actionneur == '1':
-                    vanne.id_actionneur.sens_actionneur = 'OMA'
-                elif sens_actionneur == '2':
-                    vanne.id_actionneur.sens_actionneur = 'FMA'
-                else:
-                    vanne.id_actionneur.sens_actionneur = 'Aucune de caractéritiques'
+
                 
 
                 # Extraction des données du formulaire déjà validé
@@ -680,21 +626,18 @@ def traitementModifVanne(request):
 
                 # Mise à jour ou création du positionneur selon la présence
                 if presence_positionneur == '1':
-                    if form.cleaned_data['sens_action'] == '1':
-                        sensPos = 'DIRECT'
-                    else:
-                        sensPos = 'INVERSE'
                         
                     input_value = form.cleaned_data['ouverte_a_positionneur']
-
-# Utilise re.findall pour extraire tous les nombres de la chaîne
-                    numbers = re.findall(r'\d+', input_value)
-
-                    # Si vous vous attendez à un seul nombre, prenez le premier élément et convertissez-le en entier
-                    if numbers:
-                        ouvert_a_value = int(numbers[0])
+                    if input_value is not None:
+                        numbers = re.findall(r'\d+', input_value)
+                        if numbers:
+                            ouvert_a_value = int(numbers[0])
+                        else:
+                            ouvert_a_value = 0 
                     else:
-                        ouvert_a_value = 0 
+                        ouvert_a_value = None
+                    # Si vous vous attendez à un seul nombre, prenez le premier élément et convertissez-le en entier
+                    
                     positionneur_data = {
                         'id_fournisseur': frn_pos,
                         'fonctionnement_positionneur': form.cleaned_data['id_fonctionnement_positionneur'],
@@ -704,7 +647,7 @@ def traitementModifVanne(request):
                         'signal_entre_positionneur': form.cleaned_data['signal_entree_positionneur'],
                         'repere_came': form.cleaned_data['repere_came_positionneur'],
                         'face_came': form.cleaned_data['face_came_positionneur'],
-                        'sens_action': sensPos,
+                        'sens_action': form.cleaned_data['sens_action'],
                         'presion_positionneur': form.cleaned_data['alimentation_positionneur'],
                         'fermer_a': form.cleaned_data['fermee_a_positionneur'],
                         'ouvert_a': ouvert_a_value,
@@ -713,6 +656,7 @@ def traitementModifVanne(request):
                     if vanne.id_positionneur:
                         for key, value in positionneur_data.items():
                             setattr(vanne.id_positionneur, key, value)
+                        create_revision_for_changes(vanne.id_positionneur, "du positionneur", user, vanne.id_vanne)
                         vanne.id_positionneur.save()
                     else:
                         positionneur = POSITIONNEUR(**positionneur_data)
@@ -722,17 +666,11 @@ def traitementModifVanne(request):
                     vanne.id_positionneur = None # Enlève le positionneur si non présent
 
 
-                user = User.objects.get(username=request.user)
             
                  # Créez une révision pour la vanne
-                create_revision_for_changes(vanne, "l'information général", user, vanne.id_vanne)
-                create_revision_for_changes(corps, "Corps", user, vanne.id_vanne)
-                create_revision_for_changes(actionneur, "Actionneur", user, vanne.id_vanne)
-
-                # Créez une révision pour le positionneur
-                if vanne.id_positionneur is not None:
-                    create_revision_for_changes(vanne.id_positionneur, "Positionneur", user, vanne.id_vanne)
-
+                create_revision_for_changes(vanne, "des informations générales", user, vanne.id_vanne)
+                create_revision_for_changes(corps, "du corps", user, vanne.id_vanne)
+                create_revision_for_changes(actionneur, "de l'actionneur", user, vanne.id_vanne)
 
 
                 
@@ -769,19 +707,138 @@ def traitementModifVanne(request):
         return redirect('login')
 
 
-def create_revision_for_changes(obj, type_name, user,id_vanne):
+def create_revision_for_changes(obj, type_name, user, id_vanne):
     has_changes = any(obj.tracker.has_changed(field) for field in obj.tracker.fields)
+    
     if has_changes:
-        detail_commentaire = "</br> ".join(
-            f"{obj._meta.get_field(field).verbose_name} a changé de <strong> {obj.tracker.previous(field)} </strong> à <strong>{getattr(obj, field)} </strong>"
-            for field in obj.tracker.fields
-            if obj.tracker.has_changed(field)
-        )
+        detail_commentaire = []
+        for field in obj.tracker.fields:
+            if obj.tracker.has_changed(field):
+                verbose_name = obj._meta.get_field(field).verbose_name
+                previous_value = obj.tracker.previous(field)
+                current_value = getattr(obj, field)
+                
+                if field == 'id_positionneur_id':
+                    print ("Champ ID positionneur")
+                    print (previous_value)
+                    print (current_value)
+                    print ("END OF PRINT")
+                    
+                    try :
+                        pos = get_object_or_404(POSITIONNEUR, id_positionneur=previous_value)
+                    
+
+                        previous_id_positionneur = pos.id_positionneur
+                        previous_fonctionnement_positionneur = pos.fonctionnement_positionneur.description_type_positionneur
+                        previous_num_serie_positionneur = pos.num_serie_positionneur
+                        previous_signal_entre_positionneur = pos.signal_entre_positionneur
+                        previous_signal_sortie = pos.signal_sortie
+                        previous_repere_came = pos.repere_came
+                        previous_face_came = pos.face_came
+                        previous_sens_action = pos.sens_action
+                        previous_fermer_a = pos.fermer_a
+                        previous_ouvert_a = pos.ouvert_a
+                        previous_type_positionneur = pos.type_positionneur
+                        previous_presion_positionneur = pos.presion_positionneur
+                        previous_loi_positionneur = pos.loi_positionneur
+
+                        # Gérer les valeurs nulles dans l'historique
+                        def handle_null_value(value):
+                            return str(value) if value is not None else "N/A"
+
+                        previous_id_positionneur_str = handle_null_value(previous_id_positionneur)
+                        previous_fonctionnement_positionneur_str = handle_null_value(previous_fonctionnement_positionneur)
+                        previous_num_serie_positionneur_str = handle_null_value(previous_num_serie_positionneur)
+                        previous_signal_entre_positionneur_str = handle_null_value(previous_signal_entre_positionneur)
+                        previous_signal_sortie_str = handle_null_value(previous_signal_sortie)
+                        previous_repere_came_str = handle_null_value(previous_repere_came)
+                        previous_face_came_str = handle_null_value(previous_face_came)
+                        previous_sens_action_str = handle_null_value(previous_sens_action)
+                        previous_fermer_a_str = handle_null_value(previous_fermer_a)
+                        previous_ouvert_a_str = handle_null_value(previous_ouvert_a)
+                        previous_type_positionneur_str = handle_null_value(previous_type_positionneur)
+                        previous_presion_positionneur_str = handle_null_value(previous_presion_positionneur)
+                        previous_loi_positionneur_str = handle_null_value(previous_loi_positionneur)
+
+                        # Concaténer les valeurs
+                        if current_value is None and previous_value is not None:
+                            detail_commentaire.append(f"Le positionneur a été supprimé le détail du positionneur était : " \
+                                    f"ID : {previous_id_positionneur_str}, </strong><br> " \
+                                    f"Fonctionnement : <strong>{previous_fonctionnement_positionneur_str},</strong><br> " \
+                                    f"Numéro de série : <strong>{previous_num_serie_positionneur_str}, </strong><br>" \
+                                    f"Signal d'entrée : <strong>{previous_signal_entre_positionneur_str},</strong><br> " \
+                                    f"Signal de sortie : <strong>{previous_signal_sortie_str}, </strong><br>" \
+                                    f"Repère de la came :<strong> {previous_repere_came_str}, </strong><br>" \
+                                    f"Face de la came :<strong> {previous_face_came_str}, </strong><br>" \
+                                    f"Sens d'action : <strong>{previous_sens_action_str},</strong><br> " \
+                                    f"Fermer à :<strong> {previous_fermer_a_str},</strong><br> " \
+                                    f"Ouvert à :<strong> {previous_ouvert_a_str}, </strong><br>" \
+                                    f"Type : <strong>{previous_type_positionneur_str}, </strong><br>" \
+                                    f"Pression : <strong>{previous_presion_positionneur_str}, </strong><br>" \
+                                    f"Loi :<strong> {previous_loi_positionneur_str}</strong><br>")
+                    except:
+                        print("Erreur")
+                if field == 'id_fournisseur_id':  # Si le champ est l'ID du fournisseur
+                    print("Champ ID fournisseur")
+                    previous_fournisseur = FOURNISSEUR.objects.get(pk=previous_value).nom_fournisseur if previous_value is not None else None
+                    current_fournisseur = FOURNISSEUR.objects.get(pk=current_value).nom_fournisseur if current_value is not None else None
+
+                    if previous_value is None:
+                        action = "ajouté(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong>{current_fournisseur}</strong>")
+                    elif current_value is None:
+                        action = "supprimé(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}")
+                    else:
+                        action = "modifié(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong> {previous_fournisseur} </strong> -> <strong>{current_fournisseur}</strong>")
+                elif field == 'id_atelier_id':  # Si le champ est l'ID du fournisseur
+                    print("Champ ID fournisseur")
+                    previous_fournisseur = ATELIER.objects.get(pk=previous_value).nom_atelier if previous_value is not None else None
+                    current_fournisseur = ATELIER.objects.get(pk=current_value).nom_atelier if current_value is not None else None
+
+                    if previous_value is None:
+                        action = "ajouté(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong>{current_fournisseur}</strong>")
+                    elif current_value is None:
+                        action = "supprimé(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}")
+                    else:
+                        action = "modifié(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong> {previous_fournisseur} </strong> -> <strong>{current_fournisseur}</strong>")
+                
+                elif field == 'fonctionnement_positionneur_id':  # Si le champ est l'ID du fournisseur
+                    print("Champ ID fournisseur")
+                    previous_fournisseur = TYPEPOSITIONNEUR.objects.get(pk=previous_value).description_type_positionneur if previous_value is not None else None
+                    current_fournisseur = TYPEPOSITIONNEUR.objects.get(pk=current_value).description_type_positionneur if current_value is not None else None
+
+                    if previous_value is None:
+                        action = "ajouté(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong>{current_fournisseur}</strong>")
+                    elif current_value is None:
+                        action = "supprimé(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}")
+                    else:
+                        action = "modifié(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong> {previous_fournisseur} </strong> -> <strong>{current_fournisseur}</strong>")
+                
+                else:
+                    if previous_value is None:
+                        action = "ajouté(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong>{current_value}</strong>")
+                    elif current_value is None:
+                        action = "supprimé(e)"
+                        detail_commentaire.append(f"{verbose_name} {action} (valeur precedente: <strong>{previous_value}</strong>)")
+                    else:
+                        action = "modifié(e)"
+                        detail_commentaire.append(f"{verbose_name} {action}: <strong> {previous_value} </strong> -> <strong>{current_value}</strong>")
+
+        detail_commentaire = "</br> ".join(detail_commentaire)
         REVISON(
             rev_id_vanne= id_vanne,  # Ou une autre manière de référencer votre vanne
             date_revision=datetime.now(),
             type_revision="Modification ",
-            commentaire_revision=f"Modification de {type_name.lower()}",
+            commentaire_revision=f"Modification {type_name.lower()}",
             detail_commentaire=detail_commentaire,
             nom_technicien=f"{user.first_name} {user.last_name}"
         ).save()
@@ -875,12 +932,8 @@ def TraitementRevision(request, id_vanne):
         return redirect('login')
 
 def detail_revision(request, id_revision):
-    if request.user.is_authenticated:
-
-        infoRev = get_object_or_404(REVISON,id_revision=id_revision)
-        return render(request, "appliVanne/detailRevision.html", { "infoRevision":infoRev })
-    else:
-        return redirect('login')
+    infoRev = get_object_or_404(REVISON,id_revision=id_revision)
+    return render(request, "appliVanne/detailRevision.html", { "infoRevision":infoRev })
        
 def printer(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)

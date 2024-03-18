@@ -17,11 +17,11 @@
       crossorigin="anonymous"
     />
     
-  </head>
-  <body>
+  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
-
+  </head>
+  <body>
     <header>
       {%if user.is_authenticated%}
       {% include "./menu.html" %}
@@ -33,6 +33,9 @@
 
     <main>{%block main%} {% endblock %}</main>
 
+    
+
+    
     <footer>{% include "./footer.html" %}</footer>
     
 

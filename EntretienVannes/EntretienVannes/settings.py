@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "fr-FR"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Paris"
 
 USE_I18N = True
 
@@ -125,3 +125,12 @@ STATIC_URL = "static/appliVanne/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Durée de la session en secondes
+SESSION_COOKIE_AGE = 1800  #en secondes
+
+# True si vous voulez que la session expire à la fermeture du navigateur
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Si True, la session sera sauvegardée à chaque requête de l'utilisateur
+SESSION_SAVE_EVERY_REQUEST = True
