@@ -285,7 +285,7 @@
     <tr>
       <td style="display:None" >{{ rev.id_revision }}</td>
       <td>{{ rev.date_revision }}</td>
-      <td>{{ rev.type_revision }}</td>
+      <td>{{ rev.type_revision.type_revision }}</td>
       <td>{{ rev.commentaire_revision }}</td>
       <td>{{ rev.nom_technicien }}</td> 
     </tr>
@@ -322,16 +322,7 @@
 
 
 </script>
-<tr class="ligne">
-  <td class="debutLigne">Prochaine / Fréquence / Dernière revision:</td>
-  <td class="ligneFin date">
-      {% if vanne.voir_en == None and vanne.freq_revision == None and vanne.derniere_revision == None  %}
-          Pas de revision 
-      {% else %}
-          {{ vanne.voir_en }} / {{ vanne.freq_revision }} ans / {{ vanne.derniere_revision }}
-      {% endif %}
-  </td>
-</tr>
+
 
 <script>
   // Récupérer la date actuelle

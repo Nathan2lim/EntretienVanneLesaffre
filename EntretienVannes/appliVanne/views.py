@@ -11,6 +11,8 @@ from django.shortcuts import get_object_or_404, redirect
 from datetime import datetime
 from django.forms import formset_factory
 from .forms import CommentForm
+from django.db.models import Case, When, Value, IntegerField
+from .models import TypeRevision
 # Create your views here.
 
 
@@ -117,7 +119,7 @@ def delete(request, id_vanne):
             rev_id_vanne=id_vanne,
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Suppression",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=2),
             commentaire_revision="Suppression de la vanne",
             nom_technicien = request.user.first_name + " " + request.user.last_name
 
@@ -164,7 +166,7 @@ def rechange(request, id_vanne):
             rev_id_vanne=id_vanne,
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Rechange",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=3),
             commentaire_revision=com,
             nom_technicien = request.user.first_name + " " + request.user.last_name
 
@@ -188,7 +190,7 @@ def recover(request, id_vanne):
             rev_id_vanne=id_vanne,
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Reprise",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=4),
             commentaire_revision="Reprise de la vanne",
             nom_technicien = request.user.first_name + " " + request.user.last_name
 
@@ -212,7 +214,7 @@ def recoverBIS(request, id_vanne):
             rev_id_vanne=get_object_or_404(Vanne, id_vanne=id_vanne),
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Reprise",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=4),
             commentaire_revision="Reprise de la vanne",
             nom_technicien = request.user.first_name + " " + request.user.last_name
 
@@ -229,6 +231,28 @@ def ajoutVanne(request):
         LesAtelier  = ATELIER.objects.all()
         lesFournisseur = FOURNISSEUR.objects.all() 
         typePos = TYPEPOSITIONNEUR.objects.all()
+        
+        id_atelier_special = 14  # Mettez l'ID spécial pour ATELIER qui doit venir en dernier
+
+        LesAtelier = ATELIER.objects.annotate(
+            sort=Case(
+                When(id_atelier=id_atelier_special, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        ).order_by('sort', 'id_atelier')
+            
+        id_fournisseur_special = 45  # Mettez l'ID spécial pour FOURNISSEUR qui doit venir en dernier
+
+        lesFournisseur = FOURNISSEUR.objects.annotate(
+            sort=Case(
+                When(id_fournisseur=id_fournisseur_special, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        ).order_by('sort', 'id_fournisseur')  # Remplacez 'id_fournisseur' par le champ d'ordonnancement souhaité
+  # Remplacez 'id_atelier' par le champ d'ordonnancement souhaité
+
         
         return render(request, "appliVanne/creationVanne.html", {"listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
     else:
@@ -503,6 +527,26 @@ def edit(request, id_vanne):
         LesAtelier  = ATELIER.objects.all()
         lesFournisseur = FOURNISSEUR.objects.all() 
         typePos = TYPEPOSITIONNEUR.objects.all()
+        
+        id_atelier_special = 14  # Mettez l'ID spécial pour ATELIER qui doit venir en dernier
+
+        LesAtelier = ATELIER.objects.annotate(
+            sort=Case(
+                When(id_atelier=id_atelier_special, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        ).order_by('sort', 'id_atelier')
+            
+        id_fournisseur_special = 45  # Mettez l'ID spécial pour FOURNISSEUR qui doit venir en dernier
+
+        lesFournisseur = FOURNISSEUR.objects.annotate(
+            sort=Case(
+                When(id_fournisseur=id_fournisseur_special, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        ).order_by('sort', 'id_fournisseur')
         
         lavanne = Vanne.objects.get(id_vanne=id_vanne)
         return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
@@ -837,7 +881,7 @@ def create_revision_for_changes(obj, type_name, user, id_vanne):
         REVISON(
             rev_id_vanne= id_vanne,  # Ou une autre manière de référencer votre vanne
             date_revision=datetime.now(),
-            type_revision="Modification ",
+            type_revision=get_object_or_404(TypeRevision, id_type_revision=5),
             commentaire_revision=f"Modification {type_name.lower()}",
             detail_commentaire=detail_commentaire,
             nom_technicien=f"{user.first_name} {user.last_name}"
@@ -851,7 +895,7 @@ def supressionTOTAL (request, id_vanne):
             rev_id_vanne= id_vanne,
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Suppression",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=2),
             commentaire_revision="Suppression TOTAL de la vanne, pas d'historique disponible",
             nom_technicien = request.user.first_name + " " + request.user.last_name
 
@@ -920,7 +964,7 @@ def TraitementRevision(request, id_vanne):
             rev_id_vanne=id_vanne,
             date_revision=now,
             id_revision_vanne = numRev(id_vanne),
-            type_revision = "Révision",
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=1),
             commentaire_revision="Révion effectuée",
             detail_commentaire = request.POST.get('commentaire'),
             nom_technicien = request.user.first_name + " " + request.user.last_name
@@ -975,6 +1019,65 @@ def add_commentaire(request, id_vanne):
         vanne = get_object_or_404(Vanne, id_vanne=id_vanne)
         infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
         lesRev = REVISON.objects.all().count()
-        return render(request, "appliVanne/comentaire.html", {"vanne": vanne, "infoRevision":infoRev, "lesRev": lesRev})
+        lesTypesRev = TypeRevision.objects.all()
+        
+        lesTypesRev = TypeRevision.objects.annotate(
+            custom_order=Case(
+                When(id_type_revision=6, then=Value(1)),
+                    default=Value(0),
+                        output_field=IntegerField(),
+                )
+).order_by('custom_order', 'id_type_revision')
+        print(lesTypesRev)
+        
+        return render(request, "appliVanne/comentaire.html", {"vanne": vanne, "infoRevision":infoRev, "lesRev": lesRev, "lesTypeRev": lesTypesRev})
     else:
         return redirect('login')
+    
+def traitement_com(request):
+    if request.user.is_authenticated:
+        form = ajoutDeCom(request.POST)
+        print("BIS1")  
+        if request.method == "POST":
+            id_vanne = request.POST.get('id_vanne')
+            if form.is_valid():
+                typeRev = form.cleaned_data['id_type_revision']
+                nouveauTypeRev = form.cleaned_data['nouveau_type_commentaire']
+
+                if typeRev.id_type_revision == 6 and nouveauTypeRev:
+                    print("Création d'un nouvel atelier")
+                    atelier, created = TypeRevision.objects.get_or_create(type_revision=nouveauTypeRev)
+                    atelier = TypeRevision.objects.get(type_revision=nouveauTypeRev)
+                else:
+                    # Assumant que num_atelier est une chaîne représentant un ID numérique valide pour un ATELIER existant
+                    atelier = typeRev
+                    
+                rev = REVISON(    
+                        rev_id_vanne= id_vanne,  # Ou une autre manière de référencer votre vanne
+                        date_revision=datetime.now(),
+                        type_revision=atelier,
+                        commentaire_revision=form.cleaned_data['object_commentaire'],
+                        detail_commentaire=form.cleaned_data['detail_commentaire'],
+                        nom_technicien=request.user.first_name + " " + request.user.last_name
+                )
+                rev.full_clean()
+                rev.save()
+                return redirect('detail_vanne', id_vanne=id_vanne)
+
+            else:
+                print(form.errors)
+                # Le formulaire n'est pas valide, afficher à nouveau avec erreurs
+                vanne = get_object_or_404(Vanne, id_vanne= id_vanne)
+                infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
+                lesRev = REVISON.objects.all().count()
+                lesTypesRev = TypeRevision.objects.all()
+                
+                context = {
+                    'form': form,
+                    "vanne": vanne, 
+                    "infoRevision":infoRev, 
+                    "lesRev": lesRev, 
+                    "lesTypeRev": lesTypesRev
+                }
+                return render(request, 'appliVanne/comentaire.html', context)
+        

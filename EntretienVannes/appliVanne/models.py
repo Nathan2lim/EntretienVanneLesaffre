@@ -128,8 +128,14 @@ class REVISON(models.Model):
     id_revision_vanne =  models.IntegerField(null=True, blank=True, default=0, verbose_name="ID de la révision de la vanne")
     rev_id_vanne = models.IntegerField(null=True, blank=True, default=0, verbose_name="ID de la vanne")
     date_revision = models.DateTimeField(null=True, blank=True, verbose_name="Date de la révision")
-    type_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun type', verbose_name="Type de révision")
+    type_revision =  models.ForeignKey('TYPEREVISION', to_field='id_type_revision', on_delete=models.CASCADE, null=True, verbose_name="ID du  type de revision")
     commentaire_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun commentaire', verbose_name="Commentaire de révision")
     detail_commentaire = models.CharField( max_length=1500000,null=True, blank=True, default='Aucun détail', verbose_name="Détail de révision")
     nom_technicien = models.CharField(max_length=255, null=True, blank=True, default='Aucun technicien', verbose_name="Nom du technicien")
     ajout_revision = models.CharField(max_length=255, null=True, blank=True, default='AUTO', verbose_name="Ajout de révision")
+
+class TypeRevision(models.Model):
+    class Meta:
+        db_table = 'TYPEREVISION'
+    id_type_revision = models.AutoField(primary_key=True, unique=True, verbose_name="ID du type de révision")
+    type_revision = models.CharField(max_length=255, blank=True, verbose_name="Type de révision")

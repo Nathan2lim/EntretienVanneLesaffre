@@ -113,11 +113,17 @@ class CommentForm(forms.ModelForm):
         
         
 class ajoutDeCom(forms.ModelForm):
+    detail_commentaire = forms.CharField(label="Commentaire", required=False, widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    id_type_revision = forms.ModelChoiceField(queryset=TypeRevision.objects.all(), empty_label="Sélectionnez un type de commentaire", required=False, label="Type de commentaire")
+    nouveau_type_commentaire = forms.CharField(label="Nouveau type de commentaire", required=False)
+    object_commentaire = forms.CharField(label="Objet", required=False)
+    
+    class Meta:
+        model = REVISON
+        fields = ['detail_commentaire', 'object_commentaire']
         
-        commentaire = forms.CharField(label="Commentaire" , required=True  )
-        detail_commentaire = forms.CharField(label="Commentaire" , required=True,  widget=TinyMCE(attrs={'cols': 80, 'rows': 30}) )
-        type_commentaire = forms.ChoiceField(choices=[(1, 'Commentaire'), (2, 'Révision')])
+    def clean(self):
+        cleaned_data = super().clean()
+        id_type_revision = cleaned_data.get("id_type_revision")
         
-        class Meta:
-            model = REVISON
-            fields = ['commentaire']
+        

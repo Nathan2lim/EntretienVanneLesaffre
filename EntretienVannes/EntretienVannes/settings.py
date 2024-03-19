@@ -127,7 +127,7 @@ STATIC_URL = "static/appliVanne/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Durée de la session en secondes
-SESSION_COOKIE_AGE = 1800  #en secondes
+SESSION_COOKIE_AGE = 900  #en secondes
 
 # True si vous voulez que la session expire à la fermeture du navigateur
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

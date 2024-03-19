@@ -25,7 +25,7 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/recover', views.recover, name='recover'),
     path('vanne/<int:id_vanne>/recoverBIS', views.recoverBIS, name='recoverBIS'),
     path('vanne/<int:id_vanne>/edit', views.edit, name='edit'),
-    path('vanne/<int:id_vanne>/commente', views.commente, name='comment'),
+
 
     path('vanne/<int:id_vanne>/revision', views.revision, name='revision'),
     path('vanne/<int:id_vanne>/traitement_revision', views.TraitementRevision, name='traitement_revision'),
@@ -37,7 +37,8 @@ urlpatterns = [
     path("ajoutVanne/", views.ajoutVanne, name="ajoutVanne"),
     path("ajoutVanne/traitementAjoutVanne/", views.traitementAjoutVanne, name="traitementAjoutVanne"),
     path("ajoutVanne/traitementModifVanne/", views.traitementModifVanne, name="traitementModifVanne"),
-    
+    path("vanne/traitement_com/", views.traitement_com, name="traitement_com"),
+
 
 ]
 
