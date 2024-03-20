@@ -122,6 +122,8 @@ class Vanne(models.Model):
     tracker = FieldTracker()
     
     def format_date_commande(self):
+        if(self.date_commande is None):
+            return "1500-01-01"
         return formats.date_format(self.date_commande, format='Y-m-d')
 
 class REVISON(models.Model):
