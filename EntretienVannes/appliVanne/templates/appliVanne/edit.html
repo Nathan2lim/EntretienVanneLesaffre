@@ -52,7 +52,7 @@
             <!-- Champ repère -->
             <div class="form-group">
                 <label for="repere_vanne">Repère:</label>
-                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{vanne.repere_vanne | default_if_none:''}}">
+                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{vanne.repere_vanne | default_if_none:'AUCUN REPERE'}}">
             </div>
 
             <!-- Champ affectation -->
