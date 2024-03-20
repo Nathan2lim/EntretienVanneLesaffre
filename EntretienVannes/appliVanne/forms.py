@@ -15,7 +15,7 @@ class VanneForm(ModelForm):
     id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Information générales : Sélectionnez un atelier", required=False)
     type_vanne = forms.ChoiceField(choices=(('TOR', 'TOR'), ('REG', 'REG')), label="Type de vanne", required=True)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
-    date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=False)
+    date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=True)
     
     
     
@@ -57,12 +57,12 @@ class VanneForm(ModelForm):
     id_fonctionnement_positionneur = forms.ModelChoiceField(queryset=TYPEPOSITIONNEUR.objects.all(),required=False,label="fonctionnement")
     type_positionneur = forms.CharField(label="Positionneur : Type de positionneur", required=False)
     numero_serie_positionneur = forms.CharField(label="Positionneur : Numéro de serie" , required=False)
-    signal_sortie_positionneur = forms.IntegerField(label="Positionneur : Signal de sortie" , required=False)
-    signal_entree_positionneur = forms.IntegerField(label="Positionneur : Signal d'entrée" , required=False)
-    repere_came_positionneur = forms.IntegerField(label="Positionneur : Repère de la came" , required=False)
-    face_came_positionneur = forms.IntegerField(label="Positionneur : Face de la came" , required=False)
+    signal_sortie_positionneur = forms.CharField(label="Positionneur : Signal de sortie" , required=False)
+    signal_entree_positionneur = forms.CharField(label="Positionneur : Signal d'entrée" , required=False)
+    repere_came_positionneur = forms.CharField(label="Positionneur : Repère de la came" , required=False)
+    face_came_positionneur = forms.CharField(label="Positionneur : Face de la came" , required=False)
     sens_action = forms.ChoiceField(choices=[('DIRECT', 'DIRECT'), ('INVERSE', 'INVERSE')],required=False)
-    fermee_a_positionneur = forms.IntegerField(label="Positionneur : Fermée à", required=False )
+    fermee_a_positionneur = forms.CharField(label="Positionneur : Fermée à", required=False )
     ouverte_a_positionneur = forms.CharField(label="Positionneur : Ouverte à" , required=False)
     alimentation_positionneur = forms.CharField(label="Positionneur : Alimentation" , required=False)
     loi_commande_positionneur = forms.CharField(label="Loi" , required=False )
@@ -124,6 +124,4 @@ class ajoutDeCom(forms.ModelForm):
         
     def clean(self):
         cleaned_data = super().clean()
-        id_type_revision = cleaned_data.get("id_type_revision")
-        
-        
+        id_type_revision = cleaned_data.get("id_type_revision")        

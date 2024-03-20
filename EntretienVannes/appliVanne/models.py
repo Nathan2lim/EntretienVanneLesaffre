@@ -7,6 +7,7 @@ from model_utils import FieldTracker
 from datetime import datetime
 
 
+
 from django.db import models
 from model_utils import FieldTracker
 
@@ -83,13 +84,13 @@ class POSITIONNEUR(models.Model):
     id_fournisseur = models.ForeignKey('FOURNISSEUR', to_field='id_fournisseur', on_delete=models.CASCADE, verbose_name="ID du fournisseur")
     fonctionnement_positionneur = models.ForeignKey('TYPEPOSITIONNEUR', to_field='id_fonctionnement_postionneur', on_delete=models.CASCADE, verbose_name="Fonctionnement du positionneur",null=True, blank=True)
     num_serie_positionneur = models.CharField(max_length=255, null=True, blank=True, verbose_name="Numéro de série du positionneur")
-    signal_entre_positionneur = models.IntegerField(null=True, blank=True, verbose_name="Signal d'entrée du positionneur")
-    signal_sortie = models.IntegerField(null=True, blank=True, verbose_name="Signal de sortie du positionneur")
-    repere_came = models.IntegerField(null=True, blank=True, verbose_name="Repère de la came du positionneur")
+    signal_entre_positionneur = models.CharField(max_length=255,null=True, blank=True, verbose_name="Signal d'entrée du positionneur")
+    signal_sortie = models.CharField(max_length=255,null=True, blank=True, verbose_name="Signal de sortie du positionneur")
+    repere_came = models.CharField(max_length=255,null=True, blank=True, verbose_name="Repère de la came du positionneur")
     face_came = models.IntegerField(null=True, blank=True, verbose_name="Face de la came du positionneur")
     sens_action = models.CharField(max_length=255, null=True, blank=True, verbose_name="Sens d'action du positionneur")
-    fermer_a = models.IntegerField(null=True, blank=True, verbose_name="Fermer à du positionneur")
-    ouvert_a = models.IntegerField(null=True, blank=True, verbose_name="Ouvert à du positionneur")
+    fermer_a = models.CharField(max_length=255,null=True, blank=True, verbose_name="Fermer à du positionneur")
+    ouvert_a = models.CharField(max_length=255,null=True, blank=True, verbose_name="Ouvert à du positionneur")
     type_positionneur = models.CharField(max_length=255, null=True, blank=True, verbose_name="Type de positionneur")
     presion_positionneur = models.CharField(max_length=255, null=True, blank=True, verbose_name="Pression du positionneur")
     loi_positionneur = models.CharField(max_length=255, null=True, blank=True, verbose_name="Loi du positionneur")
@@ -119,6 +120,9 @@ class Vanne(models.Model):
     en_service_vanne = models.IntegerField(default=1, blank=True, verbose_name="En service")
     date_commande = models.DateField(null=True, blank=True, verbose_name="Date de la commande")
     tracker = FieldTracker()
+    
+    def format_date_commande(self):
+        return formats.date_format(self.date_commande, format='Y-m-d')
 
 class REVISON(models.Model):
     class Meta:

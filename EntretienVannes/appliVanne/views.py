@@ -549,7 +549,11 @@ def edit(request, id_vanne):
         ).order_by('sort', 'id_fournisseur')
         
         lavanne = Vanne.objects.get(id_vanne=id_vanne)
-        return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos})
+        date_commande = lavanne.format_date_commande()
+
+
+
+        return render(request, "appliVanne/edit.html", {"vanne": lavanne, "listVannes": LesVannes, "listAtelier": LesAtelier, "listFournisseur": lesFournisseur, "listTypePos": typePos, "date_commande":date_commande})
     else:
         return redirect('login')
     
@@ -602,7 +606,7 @@ def traitementModifVanne(request):
                 actionneur.sens_actionneur = form.cleaned_data['sens_actionneur']
                 actionneur.pression_alimentation = form.cleaned_data['pression_alimentation']
                 actionneur.type_contact_actionneur = form.cleaned_data['type_contact']
-                actionneur.type_contact_actionneur = form.cleaned_data['type_contact_actionneur']
+                actionneur.contact_ouv_ferm_actionneur = form.cleaned_data['type_contact_actionneur']#type de contact pour l'actionneur
                 actionneur.type_effet = form.cleaned_data['type_effet']
                 
                 # Ajoutez ici toute autre logique spécifique pour la mise à jour des champs de l'objet Actionneur
@@ -671,15 +675,8 @@ def traitementModifVanne(request):
                 # Mise à jour ou création du positionneur selon la présence
                 if presence_positionneur == '1':
                         
-                    input_value = form.cleaned_data['ouverte_a_positionneur']
-                    if input_value is not None:
-                        numbers = re.findall(r'\d+', input_value)
-                        if numbers:
-                            ouvert_a_value = int(numbers[0])
-                        else:
-                            ouvert_a_value = 0 
-                    else:
-                        ouvert_a_value = None
+                    ouvert_a_value = form.cleaned_data['ouverte_a_positionneur']
+
                     # Si vous vous attendez à un seul nombre, prenez le premier élément et convertissez-le en entier
                     
                     positionneur_data = {
@@ -978,7 +975,7 @@ def TraitementRevision(request, id_vanne):
 def detail_revision(request, id_revision):
     infoRev = get_object_or_404(REVISON,id_revision=id_revision)
     return render(request, "appliVanne/detailRevision.html", { "infoRevision":infoRev })
-       
+
 def printer(request, id_vanne):
     vanne = Vanne.objects.get(id_vanne=id_vanne)
     infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne).order_by('-date_revision')[:45]
@@ -1080,4 +1077,3 @@ def traitement_com(request):
                     "lesTypeRev": lesTypesRev
                 }
                 return render(request, 'appliVanne/comentaire.html', context)
-        

@@ -70,7 +70,7 @@
             <!--Date de la Commande-->
             <div class="form-group">
                 <label for="date_de_la_commande">Date de la Commande:</label>
-                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{ vanne.formatted_date_commande}}">
+                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{ date_commande}}">
             </div>
 
             <!-- Champ type de vanne -->
@@ -256,7 +256,7 @@
                     </tr>
                     <tr>
                         <td><input type="text" name="pression_alimentation" id="id_pression_alimentation" class="form-control" value="{{ vanne.id_actionneur.pression_alimentation }}"></td>
-                        <td><input type="text" name="type_contact_actionneur" id="type_contact_actionneur" class="form-control" value="{{ vanne.id_actionneur.type_contact_actionneur }}"></td>
+                        <td><input type="text" name="type_contact" id="type_contact" class="form-control" value="{{ vanne.id_actionneur.type_contact_actionneur }}"></td>
                         <td>
                             <select name="type_effet" id="id_type_effet" class="form-control">
                                 <option value="" {% if vanne.id_actionneur.actionneur_simpl_double_effet == '' %} selected {% endif %}></option>
@@ -274,11 +274,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <select name="type_contact_actionneur" id="id_type_contact_actionneur" class="form-control">
-                                <option value="" {% if vanne.id_actionneur.type_contact_actionneur == '' %} selected {% endif %}></option>
-                                <option value="OUVERTURE" {% if vanne.id_actionneur.type_contact_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
-                                <option value="FERMETURE" {% if vanne.id_actionneur.type_contact_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
-                                <option value="FERM+OUVER" {% if vanne.id_actionneur.type_contact_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
+                            <select name="type_contact_actionneur" id="type_contact_actionneur" class="form-control">
+                                <option value="" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == '' %} selected {% endif %}></option>
+                                <option value="OUVERTURE" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
+                                <option value="FERMETURE" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
+                                <option value="FERM+OUVER" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
                                 
                             
                             </select>
@@ -307,7 +307,7 @@
                 <label for="fournisseur">Fournisseur:</label>
                 <select name="id_fournisseur_positionneur" id="id_fournisseur_positionneur" class="form-control">
                     {% for frn in listFournisseur %}
-                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == vanne.id_positionneur.id_fournisseur_positionneur %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
+                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == vanne.id_positionneur.id_fournisseur.id_fournisseur %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
                     {% endfor %}
                 </select>
                 <div class="form-group" id="nouveauFournisseurPositionneur" style="display:none;">
@@ -320,7 +320,7 @@
                 <label for="Fonctionnement positionneur"> Fonctionnement:</label>
                 <select name="id_fonctionnement_positionneur" id="id_fonctionnement_positionneur" class="form-control">
                     {% for pos in listTypePos %}
-                    <option value="{{pos.id_fonctionnement_postionneur}}" {% if pos.id_fonctionnement_postionneur == vanne.id_positionneur.fonctionnement_positionneur.id_fonctionnement_positionneur %}selected{% endif %}>{{ pos.description_type_positionneur }}</option>
+                    <option value="{{pos.id_fonctionnement_postionneur}}" {% if pos.id_fonctionnement_postionneur == vanne.id_positionneur.fonctionnement_positionneur.id_fonctionnement_postionneur %}selected{% endif %}>{{ pos.description_type_positionneur }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -339,7 +339,7 @@
                     </tr>
                     <tr>
                         <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ vanne.id_positionneur.num_serie_positionneur |default:''}}" class="form-control"></td>
-                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{vanne.id_positionneur.signal_entre_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{vanne.id_positionneur.signal_entre_positionneur|default:'' }}" class="form-control"></td>
                         <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{vanne.id_positionneur.presion_positionneur|default:'' }}" class="form-control"></td>
                     </tr>
                 </table>
@@ -372,7 +372,7 @@
                                 <option value="INVERSE" {% if vanne.id_positionneur.sens_action == 'INVERSE' %}selected{% endif %}>INVERSE</option>
                             </select>
                         </td>
-                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ vanne.id_positionneur.fermer_a | default:''  }}" class="form-control"></td>
+                        <td><input type="text" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ vanne.id_positionneur.fermer_a | default:''  }}" class="form-control"></td>
                         <td><input type="text" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ vanne.id_positionneur.ouvert_a |default:''}}" class="form-control"></td>
                         <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ vanne.id_positionneur.loi_positionneur |default:'' }}" class="form-control"></td>
                     </tr>
