@@ -138,7 +138,9 @@ class REVISON(models.Model):
     type_revision =  models.ForeignKey('TYPEREVISION', to_field='id_type_revision', on_delete=models.CASCADE, null=True, verbose_name="ID du  type de revision")
     commentaire_revision = models.CharField(max_length=255, null=True, blank=True, default='Aucun commentaire', verbose_name="Commentaire de révision")
     detail_commentaire = models.CharField( max_length=1500000,null=True, blank=True, default='Aucun détail', verbose_name="Détail de révision")
-    nom_technicien = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, null=True, verbose_name="ID du  type de revision")
+    nom_technicien =models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, null=True, verbose_name="ID du  type de revision")
+
+
     ajout_revision = models.CharField(max_length=255, null=True, blank=True, default='AUTO', verbose_name="Ajout de révision")
 
 class TypeRevision(models.Model):
