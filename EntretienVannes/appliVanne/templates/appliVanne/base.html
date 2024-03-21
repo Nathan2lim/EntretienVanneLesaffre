@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+   <!-- <meta name="viewport" content="width=device.width, initial-scale=1" />-->
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'appliVanne/CSS/styles.css' %}" />
+    <link rel="icon" href="{% static 'appliVanne/IMG/logoSimple.ico' %}" />
+    {% block extra_css %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+  </head>
+  <body>
+    <header>
+      {%if user.is_authenticated%}
+      {% include "./menu.html" %}
+      {%else%}
+      {% include "./menuNonConnecter.html" %}
+      {%endif%}
+
+    </header>
+
+    <main>{%block main%} {% endblock %}</main>
+
+    
+
+    
+    <footer>{% include "./footer.html" %}</footer>
+    
+
+  </script>
+  <script src="{% static 'appliVanne/JS/jsGeneral.js' %}"></script>
+  </body>
+</html>
+
+

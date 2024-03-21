@@ -1,0 +1,63 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: darkred;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="{%static 'appliVanne/IMG/logoLong.ico' %}" class="logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/vannes/" style="color:white">Vannes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/rechangeREG/" style="color:white">Rechange REG</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/rechangeTOR/" style="color:white">Rechange TOR</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historique/" style="color:white">Historique</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ajoutVanne/" style="color:white">Ajouter une vanne</a>
+        </li>
+      </ul>
+      
+        <a class="navbar-brand" href="/recherche/">Rechercher...</a>
+    
+        <div class="dropdown">
+            <a class="navbar-brand dropdown-toggle" href="#" role="button" id="dropdownMenuLink">
+                {{ request.user.first_name }} {{ request.user.last_name|first|upper }}.
+            </a>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
+                <li><a class="dropdown-item" href="/logout/">Déconnexion</a></li>
+            </ul>
+        </div>
+
+    
+        
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.querySelector('#dropdownMenu');
+
+      dropdownToggle.addEventListener('click', function() {
+          dropdownMenu.classList.toggle('show');
+      });
+
+      window.addEventListener('click', function(event) {
+          if (!dropdownToggle.contains(event.target)) {
+              dropdownMenu.classList.remove('show');
+          }
+      });
+  });
+</script>

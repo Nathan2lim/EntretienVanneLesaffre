@@ -1,0 +1,82 @@
+{% extends "appliVanne/base.html" %}
+{% load static %} 
+{% block title %} Révision {% endblock %}
+
+{% block main %}
+
+<form method="post" action = "{% url 'traitement_com' %}">
+    {% csrf_token %}
+<div style="margin-bottom:70px" class="container mt-4">
+    <div class="jumbotron">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Erreur(s) lors de la soumission du formulaire :</strong>
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label|capfirst }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <input type="hidden" name="id_vanne" value="{{ vanne.id_vanne }}">
+
+        
+
+        <h1 class="display-4">Commentaire n°{{lesRev}}</h1>
+        <p class="lead">Commentaire du <script>var today = new Date(); document.write(today.toLocaleDateString());</script></p>
+        <hr class="my-4">
+        <p>Type d'ajout : MANUELLE</p>
+
+        <label for="id_type_revision">Type de commentaire:</label>
+        <select name="id_type_revision" id="id_type_revision" class="form-control">
+            {% for type in lesTypeRev %}
+                <option value="{{type.id_type_revision}}">{{type.type_revision}}</option>
+            {% endfor %}
+        </select>
+        
+        <div class="form-group" id="nouveau_type_rev" style="display:none;">
+            <label for="nouveau_type_commentaire">Nouveau type de commentaire:</label>
+            <input type="text" name="nouveau_type_commentaire" id="nouveau_type_commentaire" class="form-control" value="{{ request.POST.nouveau_type_commentaire|default:'' }}">
+        </div>
+        
+        <p>Nom du technicien : {{ request.user.first_name }}  {{request.user.last_name }}</p>
+
+        <label for="object_commentaire">Objet du commentaire:</label>
+        <input type="text" name="object_commentaire" id="object_commentaire" class="form-control" value="{{ request.POST.object_commentaire|default:'' }}">
+    </div>
+
+    <div class="card">
+        <div class="card-header">Détails du commentaire</div>
+        <ul class="list-group list-group-flush">
+            <textarea id="detail_commentaire" name="detail_commentaire" rows="30"></textarea>
+        </ul>
+        <button type="submit">Enregistrer</button>
+    </div>
+</div>
+
+<script src="//cdn.tiny.cloud/1/u4yuqji0ycc8q23g117hclj1pzkkb75a94jn8shw20c97jkz/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: '#detail_commentaire'
+      // ... autres options d'initialisation ...
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectTypeCommentaire = document.getElementById('id_type_revision');
+        var divNouveauType = document.getElementById('nouveau_type_rev');
+    
+        selectTypeCommentaire.addEventListener('change', function() {
+            if(this.value === '6') { // Assurez-vous que '6' est l'ID correct pour "Autre ..."
+                divNouveauType.style.display = 'block';
+            } else {
+                divNouveauType.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}
