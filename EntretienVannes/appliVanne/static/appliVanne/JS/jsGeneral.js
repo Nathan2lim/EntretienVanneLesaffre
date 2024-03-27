@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     rows.forEach(function(row) {
       row.addEventListener('click', function() {
         // L'ID de la vanne se trouve dans la deuxième cellule (index 1)
-        var vanneId = this.cells[1].textContent.trim();
-        var detailUrl = '/vanne/' + vanneId + '/detail'; // Construit l'URL de détail
+        var vanneId = this.cells[0].textContent.trim();
+        var detailUrl = '/vanne/' + vanneId + '/detailrevision'; // Construit l'URL de détail
         window.location.href = detailUrl; // Redirige vers l'URL de détail
       });
     });

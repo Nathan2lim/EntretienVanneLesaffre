@@ -24,7 +24,7 @@ urlpatterns = [
     path('vanne/<int:id_vanne>/rechange', views.rechange, name='rechange'),
     path('vanne/<int:id_vanne>/recover', views.recover, name='recover'),
     path('vanne/<int:id_vanne>/recoverBIS', views.recoverBIS, name='recoverBIS'),
-    path('vanne/<int:id_vanne>/edit', views.edit, name='edit'),
+    path('vanne/<int:id_vanne>/edit', views.traitementModifVanne, name='edit'),
 
 
     path('vanne/<int:id_vanne>/revision', views.revision, name='revision'),

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    var selectFournisseur = document.getElementById('id_atelier');
+    var selectFournisseur = document.getElementById('id_id_atelier');
     var divAutreFournisseur = document.getElementById('nouveauAtelier');
 
     selectFournisseur.addEventListener('change', function() {

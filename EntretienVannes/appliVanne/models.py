@@ -17,7 +17,8 @@ class ATELIER(models.Model):
         db_table = 'ATELIER'
     id_atelier = models.AutoField(primary_key=True, unique=True, verbose_name="ID de l'atelier")
     nom_atelier = models.CharField(max_length=45, default='a remplir', unique=True, verbose_name="Nom de l'atelier")
-
+    def __str__(self):
+            return self.nom_atelier
 class FOURNISSEUR(models.Model): 
     class Meta:
         db_table = 'FOURNISSEUR'

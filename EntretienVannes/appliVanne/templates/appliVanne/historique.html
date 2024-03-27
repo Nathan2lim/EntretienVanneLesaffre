@@ -42,6 +42,7 @@
         <th scope="col">Type de révision </th>
         <th scope="col">Commentaire </th>
         <th scope="col">Nom du technicien</th>
+        <th scope="col">Ajout</th>
         <th scope="col">PLUS</th>
       </tr>
     </thead>
@@ -54,6 +55,7 @@
         <td>{{ rev.type_revision.type_revision }}</td> 
         <td>{{ rev.commentaire_revision }}</td> 
         <td>{{ rev.nom_technicien.first_name }} {{rev.nom_technicien.last_name}}</td>
+        <td>{{ rev.ajout_revision }}</td>
         <td>
           <a class="detdel"  href="/vanne/{{ rev.rev_id_vanne }}/detail">ALLER À LA VANNE</a> 
         </td>

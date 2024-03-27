@@ -106,7 +106,7 @@ def formulaireAjoutVanne(request):
 
 def historiqueVanne(request):
     LesVannes = Vanne.objects.filter(en_service_vanne=0)
-    lesREv = REVISON.objects.all().order_by('-id_revision')
+    lesREv = REVISON.objects.all().order_by('-ajout_revision', '-id_revision')
     return render(request, "appliVanne/historique.html", {"listeVannes": LesVannes, "listeRev": lesREv})
 
 def delete(request, id_vanne):
@@ -503,6 +503,7 @@ def traitementAjoutVanne(request):
                 #LesVannes  = Vanne.objects.all()
                 return render(request, "appliVanne/vannes.html", {"sucess": success, "listeVannes": LesVannes})
             else:
+                print(request)
                 # Le formulaire n'est pas valide, renvoyez le formulaire avec les erreurs
                 return render(request, 'appliVanne/creationVanne.html', {
                     'form': form, "listVannes": LesVannes, "listAtelier": LesAtelier,
@@ -511,6 +512,7 @@ def traitementAjoutVanne(request):
         else:
             # Si la requête n'est pas un POST, initialisez un formulaire vide et renvoyez-le
             form = VanneForm()
+            print(request)
             return render(request, 'appliVanne/creationVanne.html', {
                 'form': form, "listVannes": LesVannes, "listAtelier": LesAtelier,
                 "listFournisseur": lesFournisseur, "listTypePos": typePos
@@ -556,18 +558,15 @@ def edit(request, id_vanne):
     else:
         return redirect('login')
     
-def traitementModifVanne(request):
+def traitementModifVanne(request, id_vanne):
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
+        vanne = get_object_or_404(Vanne, id_vanne=id_vanne)  # Utilise get_object_or_404 pour simplifier
 
         if request.method == "POST":
-            id_vanne_form = request.POST.get('id_vanne')
-            vanne = get_object_or_404(Vanne, id_vanne=id_vanne_form)  # Utilise get_object_or_404 pour simplifier
             form = VanneForm(request.POST, instance=vanne)
             now = datetime.now()
             
-            
-
             if form.is_valid():
                 
                 # Mettre à jour l'objet Vanne directement
@@ -575,6 +574,7 @@ def traitementModifVanne(request):
                 vanne.affectation_vanne = form.cleaned_data['affectation_vanne']
                 vanne.numero_commande = form.cleaned_data['numero_commande']
                 vanne.date_commande = form.cleaned_data['date_de_la_commande']
+                vanne.type_vannes = form.cleaned_data['type_vanne']
                 # Ajoutez ici toute autre logique spécifique pour la mise à jour des champs de l'objet Vanne
 
 
@@ -726,23 +726,37 @@ def traitementModifVanne(request):
                 vanne.id_corps.save()
                 vanne.save()
                 
-
                 
-                return redirect('detail_vanne', id_vanne=id_vanne_form)
+                 
+                return redirect('detail_vanne', id_vanne=id_vanne)
+            
             else:
                 print(form.errors)
-                # Le formulaire n'est pas valide, afficher à nouveau avec erreurs
-                context = {
-                    'form': form,
-                    "listVannes": Vanne.objects.all(),
-                    "listAtelier": ATELIER.objects.all(),
-                    "listFournisseur": FOURNISSEUR.objects.all(),
-                    "listTypePos": TYPEPOSITIONNEUR.objects.all()
-                }
-                return render(request, 'appliVanne/creationVanne.html', context)
+                date = form.cleaned_data['date_de_la_commande']
+                date = formats.date_format(date, format='Y-m-d')
+                print(date)
+                print(form)
+                
         else:
             # Si pas POST, rediriger vers la page de modification/ajout
-            return redirect('url_vers_page_modification_ou_ajout')
+            form = VanneForm(instance=vanne)
+            date = vanne.format_date_commande
+            print(date)
+            
+
+
+        
+
+        context = {
+                'form': form,
+                'date' : date,
+                "listVannes": Vanne.objects.all(),
+                "listAtelier": ATELIER.objects.all(),
+                "listFournisseur": FOURNISSEUR.objects.all(),
+                "listTypePos": TYPEPOSITIONNEUR.objects.all(),
+                "vanne" : get_object_or_404(Vanne, id_vanne=id_vanne)
+            }
+        return render(request, "appliVanne/edit.html", context)
     else:
         return redirect('login')
 
@@ -1052,6 +1066,7 @@ def traitement_com(request):
                         rev_id_vanne= id_vanne,  # Ou une autre manière de référencer votre vanne
                         date_revision=datetime.now(),
                         type_revision=atelier,
+                        ajout_revision = "MANU",
                         commentaire_revision=form.cleaned_data['object_commentaire'],
                         detail_commentaire=form.cleaned_data['detail_commentaire'],
                         nom_technicien= get_object_or_404(User, username=request.user)
@@ -1067,6 +1082,13 @@ def traitement_com(request):
                 infoRev = REVISON.objects.filter(rev_id_vanne=id_vanne)
                 lesRev = REVISON.objects.all().count()
                 lesTypesRev = TypeRevision.objects.all()
+                
+                lesTypesRev = TypeRevision.objects.annotate(
+                custom_order=Case(
+                When(id_type_revision=6, then=Value(1)),
+                    default=Value(0),
+                        output_field=IntegerField(),
+                )).order_by('custom_order', 'id_type_revision')
                 
                 context = {
                     'form': form,

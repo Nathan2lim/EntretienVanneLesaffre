@@ -13,6 +13,8 @@ class VanneForm(ModelForm):
     id_vanne = forms.IntegerField(label="ID Vanne", required=False)
     nouveau_atelier = forms.CharField(label="Information générales : Nouvel Atelier", required=False)
     id_atelier = forms.ModelChoiceField(queryset=ATELIER.objects.all(), empty_label="Information générales : Sélectionnez un atelier", required=False)
+    id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Corps : Sélectionnez un fournisseur",required=False,label="fournisseur")
+
     type_vanne = forms.ChoiceField(choices=(('TOR', 'TOR'), ('REG', 'REG')), label="Type de vanne", required=True)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
     date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=True)
@@ -21,7 +23,6 @@ class VanneForm(ModelForm):
     
     #CORPS
     nouveau_atelier = forms.CharField(label="Corps : Nouvel Atelier", required=False)
-    id_fournisseur = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),empty_label="Corps : Sélectionnez un fournisseur",required=False,label="fournisseur")
     nouveau_fournisseur = forms.CharField(label="Corps : Nom du Nouveau Fournisseur",required=False)  # Rendre ce champ optionnel)
     taille_corps = forms.CharField(label="Corps : Taille du corps",required=False)
     code_corps = forms.CharField(label="Corps : Code du corps",required=False) 
@@ -67,7 +68,7 @@ class VanneForm(ModelForm):
     alimentation_positionneur = forms.CharField(label="Positionneur : Alimentation" , required=False)
     loi_commande_positionneur = forms.CharField(label="Loi" , required=False )
     
-    infoRevisionBIS = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])
+    infoRevisionBIS = forms.ChoiceField(choices=[(0, 'NON'), (1, 'OUI')])#a revoir
     repere_vanne = forms.CharField(label="Repère de la vanne", required=True)
     affectation_vanne = forms.CharField(label="Affectation de la vanne", required=True)
     numero_commande = forms.CharField(label="Numéro de la commande", required=False)
@@ -96,12 +97,16 @@ class VanneForm(ModelForm):
                 cleaned_data[field_name] = None
             # Ajoutez ici toute autre condition spécifique pour d'autres types de champs si nécessaire
             
-        date_commande = cleaned_data.get("date_de_la_commande")
+        date_commande = self.cleaned_data['date_de_la_commande']
+        
+
+        
         if not date_commande:
             cleaned_data['date_de_la_commande'] = timezone.now().date()
         
         return cleaned_data
-    
+
+        
     
 class CommentForm(forms.ModelForm):
     
@@ -116,7 +121,7 @@ class ajoutDeCom(forms.ModelForm):
     detail_commentaire = forms.CharField(label="Commentaire", required=False, widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     id_type_revision = forms.ModelChoiceField(queryset=TypeRevision.objects.all(), empty_label="Sélectionnez un type de commentaire", required=False, label="Type de commentaire")
     nouveau_type_commentaire = forms.CharField(label="Nouveau type de commentaire", required=False)
-    object_commentaire = forms.CharField(label="Objet", required=False)
+    object_commentaire = forms.CharField(label="Objet", required=True)
     
     class Meta:
         model = REVISON

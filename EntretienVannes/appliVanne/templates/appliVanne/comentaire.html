@@ -3,6 +3,69 @@
 {% block title %} Révision {% endblock %}
 
 {% block main %}
+<style>
+    
+
+    .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .jumbotron {
+        background-color: #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 8px 8px 0 0;
+        padding: 10px 15px;
+    }
+
+    .list-group-flush {
+        padding: 15px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 
 <form method="post" action = "{% url 'traitement_com' %}">
     {% csrf_token %}
@@ -29,30 +92,30 @@
         <h1 class="display-4">Commentaire n°{{lesRev}}</h1>
         <p class="lead">Commentaire du <script>var today = new Date(); document.write(today.toLocaleDateString());</script></p>
         <hr class="my-4">
-        <p>Type d'ajout : MANUELLE</p>
+        <p><strong>Type d'ajout :</strong> MANUELLE</p>
 
-        <label for="id_type_revision">Type de commentaire:</label>
+        <label for="id_type_revision"><strong>Type de commentaire:</strong></label>
         <select name="id_type_revision" id="id_type_revision" class="form-control">
             {% for type in lesTypeRev %}
-                <option value="{{type.id_type_revision}}">{{type.type_revision}}</option>
+                <option value="{{type.id_type_revision}}" {% if request.POST.id_type_revision|stringformat:"s" == type.id_type_revision|stringformat:"s" %}selected{% endif %}>{{ type.type_revision }}</option>
             {% endfor %}
         </select>
         
         <div class="form-group" id="nouveau_type_rev" style="display:none;">
-            <label for="nouveau_type_commentaire">Nouveau type de commentaire:</label>
+            <label for="nouveau_type_commentaire"> <strong>Nouveau type de commentaire:</strong></label>
             <input type="text" name="nouveau_type_commentaire" id="nouveau_type_commentaire" class="form-control" value="{{ request.POST.nouveau_type_commentaire|default:'' }}">
         </div>
         
-        <p>Nom du technicien : {{ request.user.first_name }}  {{request.user.last_name }}</p>
+        <p><strong>Nom du technicien : </strong>{{ request.user.first_name }}  {{request.user.last_name }}</p>
 
-        <label for="object_commentaire">Objet du commentaire:</label>
+        <label for="object_commentaire"><strong>Objet du commentaire:</strong></label>
         <input type="text" name="object_commentaire" id="object_commentaire" class="form-control" value="{{ request.POST.object_commentaire|default:'' }}">
     </div>
 
     <div class="card">
-        <div class="card-header">Détails du commentaire</div>
+        <div class="card-header"><strong>Détails du commentaire</strong></div>
         <ul class="list-group list-group-flush">
-            <textarea id="detail_commentaire" name="detail_commentaire" rows="30"></textarea>
+            <textarea id="detail_commentaire" name="detail_commentaire" rows="30">{{request.POST.detail_commentaire}}</textarea>
         </ul>
         <button type="submit">Enregistrer</button>
     </div>
@@ -69,14 +132,23 @@
     document.addEventListener('DOMContentLoaded', function() {
         var selectTypeCommentaire = document.getElementById('id_type_revision');
         var divNouveauType = document.getElementById('nouveau_type_rev');
-    
-        selectTypeCommentaire.addEventListener('change', function() {
-            if(this.value === '6') { // Assurez-vous que '6' est l'ID correct pour "Autre ..."
+        
+        // Fonction pour mettre à jour l'affichage de divNouveauType
+        function updateDivDisplay() {
+            if(selectTypeCommentaire.value === '6') { // Assurez-vous que '6' est l'ID correct pour "Autre ..."
                 divNouveauType.style.display = 'block';
             } else {
                 divNouveauType.style.display = 'none';
             }
-        });
+        }
+
+        // Ajoutez l'écouteur d'événement pour le changement de valeur
+        selectTypeCommentaire.addEventListener('change', updateDivDisplay);
+
+        // Appelez updateDivDisplay au chargement pour initialiser l'affichage correctement
+        updateDivDisplay();
     });
 </script>
+
+
 {% endblock %}
