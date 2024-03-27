@@ -1,0 +1,784 @@
+{% extends "appliVanne/base.html" %} {% load static %} {% block title %} Modifier Vanne {% endblock %}
+
+{% block extra_css%}
+<link
+  rel="stylesheet"
+  href="{% static 'appliVanne/CSS/styleCreationVanne.css' %}" />
+{% endblock %}
+
+{% block extra_js%}
+    <script src="{% static 'appliVanne/JS/creationVanne.js' %}"></script>
+{% endblock%}
+
+
+{% block main %}
+
+    <h1>Modification de la vanne n°{{vanne.id_vanne}}</h1>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Erreur(s) lors de la soumission du formulaire :</strong>
+        <ul>
+            {% for field in form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label|capfirst }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+{%if form.errors%}
+    <form action="{% url 'edit' id_vanne=vanne.id_vanne %}" method="POST" id="leformulaire"> <!-- Assurez-vous que l'URL est correcte -->
+        {% csrf_token %}
+
+        <div id="infoGeneral">
+
+            <div class="form-group">
+                <label for="id_atelier">Nom de l'atelier:</label>
+                <select name="id_atelier" id="id_atelier" class="form-control">
+                    {% for atl in listAtelier %}
+                    <option value="{{atl.id_atelier}}" {% if request.POST.id_atelier|stringformat:"s" == atl.id_atelier|stringformat:"s" %}selected{% endif %}>{{ atl.nom_atelier }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group" id="nouveauAtelier" style="{% if request.POST.nouveau_atelier %}display:block;{% else %}display:none;{% endif %}">
+                <label for="nouveau_atelier">Nom du nouvel Atelier:</label>
+                <input type="text" name="nouveau_atelier" id="nouveau_atelier" class="form-control" value="{{ request.POST.nouveau_atelier|default_if_none:'' }}">
+            </div>
+            
+            <!-- Champ repère -->
+            <div class="form-group">
+                <label for="repere_vanne">Repère:</label>
+                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{ request.POST.repere_vanne|default_if_none:'' }}">
+            </div>
+
+            <!-- Champ affectation -->
+            <div class="form-group">
+                <label for="affectation_vanne">Affectation de la vanne:</label>
+                <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control" value="{{ request.POST.affectation_vanne|default_if_none:'' }}">
+            </div>
+
+            <!-- Champ numéro de commande -->
+            <div class="form-group">
+                <label for="numero_commande">Numéro de la Commande:</label>
+                <input type="text" name="numero_commande" id="numero_commande" class="form-control" value="{{ request.POST.numero_commande|default_if_none:'' }}">
+            </div>
+
+            <!--Date de la Commande-->
+            <div class="form-group">
+                <label for="date_de_la_commande">Date de la Commande:</label>
+                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{ request.POST.date_de_la_commande|default_if_none:'' }}">
+            </div>
+
+            <!-- Champ type de vanne -->
+            <div class="form-group">
+                <label for="type_vanne">Type de vanne:</label>
+                <select name="type_vanne" id="type_vanne" class="form-control">
+                    <option value="" {% if request.POST.type_vanne == "" %}selected{% endif %}>N/C</option>
+                    <option value="TOR" {% if request.POST.type_vanne == "TOR" %}selected{% endif %}>TOR</option>
+                    <option value="REG" {% if request.POST.type_vanne == "REG" %}selected{% endif %}>REG</option>
+                </select>
+            </div>
+
+            
+            <!--Frequence de revision-->
+            <div class="form-group">
+                <label>Cette vanne à besoin d'une revision ? </label>
+                <select name="infoRevisionBIS" id="infoRevisionBIS" class="form-control">
+                    <option value='0' {% if request.POST.revision == '0' %} selected {% endif %}>NON</option>
+                    <option value='1' {% if request.POST.revision == '1' %} selected {% endif %}>OUI</option>
+                </select>
+            </div>
+                
+            <div class="form-group" id="tempsRevision" style="display: none;">
+                <label for="tempsRev">À réviser tout les :</label>
+                <input type="number" name="tempsRev" id="tempsRev" class="form-control" value="{{ request.POST.tempsRev|default_if_none:'' }}">
+                ans
+            </div>
+
+
+
+        </div>
+
+        <div id="infoCorps">
+            <!-- Titre en gras -->
+            <h2 class="bold"> Information sur le corps </h2>
+        
+            <!-- Fournisseur -->
+            <div class="form-group">
+                <label for="id_fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur" id="id_fournisseur" class="form-control">
+                    {% for frn in listFournisseur %}
+
+                            <option value="{{ frn.id_fournisseur }}" {% if request.POST.id_fournisseur|stringformat:"s" == frn.id_fournisseur|stringformat:"s" %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>  
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <!-- Nouveau Fournisseur -->
+            <div class="form-group" id="nouveauFournisseur" style="{% if request.POST.nouveau_fournisseur and request.POST.nouveau_fournisseur != '-1' %}display:block;{% else %}display:none;{% endif %}">
+                <label for="nouveau_fournisseur">Nom du Nouveau Fournisseur:</label>
+                <input type="text" name="nouveau_fournisseur" id="nouveau_fournisseur" class="form-control" value="{{ request.POST.nouveau_fournisseur|default_if_none:'' }}">
+            </div>
+        
+            <!-- Taille du corps -->
+            <div class="form-group">
+                <label for="taille_corps">Taille du corps (DN):</label>
+                <input type="number" name="taille_corps" id="taille_corps" class="form-control" value="{{ request.POST.taille_corps|default_if_none:'' }}">
+            </div>
+        
+            <!-- Code du corps -->
+            <div class="form-group">
+                <label for="code_corps">Code du matériel:</label>
+                <input type="text" name="code_corps" id="code_corps" class="form-control" value="{{ request.POST.code_corps|default_if_none:'' }}">
+            </div>
+        
+            <!-- Type de corps -->
+            <div class="form-group">
+                <label for="type_corps">Type de corps:</label>
+                <input type="text" name="type_corps" id="type_corps" class="form-control" value="{{ request.POST.type_corps|default_if_none:'' }}">
+            </div>
+        
+            <!-- Tableaux d'informations -->
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>PN Corps</th>
+                        <th>CV Corps</th>
+                        <th>Numéro de série corps</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="pn_corps" class="form-control" value="{{ request.POST.pn_corps|default_if_none:'' }}"></td>
+                        <td><input type="number" name="cv_corps" class="form-control" value="{{ request.POST.cv_corps|default_if_none:'' }}"></td>
+                        <td><input type="text" name="numero_serie_corps" class="form-control" value="{{ request.POST.numero_serie_corps|default_if_none:'' }}"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Matière du corps</th>
+                        <th>Norme bride corps</th>
+                        <th>Garniture corps</th>
+                        <th>Type garniture</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="corps_corps" class="form-control" value="{{ request.POST.corps_corps|default_if_none:'' }}"></td>
+                        <td><input type="text" name="norme_bride_corps" class="form-control" value="{{ request.POST.norme_bride_corps|default_if_none:'' }}"></td>
+                        <td><input type="text" name="garniture_corps" class="form-control" value="{{ request.POST.garniture_corps|default_if_none:'' }}"></td>
+                        <td><input type="text" name="type_garniture" class="form-control" value="{{ request.POST.type_garniture|default_if_none:'' }}"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Matière arbre</th>
+                        <th>Matière siège</th>
+                        <th>Matière organe réglant</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="matiere_arbre" id="id_matiere_arbre" class="form-control" value="{{ request.POST.matiere_arbre|default_if_none:'' }}"></td>
+                        <td><input type="text" name="matiere_siege" id="id_matiere_siege" class="form-control" value="{{ request.POST.matiere_siege|default_if_none:'' }}"></td>
+                        <td><input type="text" name="matiere_organe_reglant" id="id_matiere_organe_reglant" class="form-control" value="{{ request.POST.matiere_organe_reglant|default_if_none:'' }}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="infoActionneur">
+            <!-- Titre en gras -->
+            <h2 class="bold"> Information sur l'actionneur </h2>
+        
+            <!-- Fournisseur -->
+            <div class="form-group">
+                <label for="fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur_actionneur" id="id_fournisseur_actionneur" class="form-control">
+                    {% for frn in listFournisseur %}
+                            <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur|stringformat:"s" == request.POST.id_fournisseur_actionneur|stringformat:"s" %} selected {% endif %}>{{ frn.nom_fournisseur }}</option>
+                    {% endfor %}
+                </select>
+                <!-- Nouveau Fournisseur Actionneur -->
+                <div class="form-group" id="nouveauFournisseurActionneur" style="{% if request.POST.nouveau_fournisseur_actionneur %}display:block;{% else %}display:none;{% endif %}">
+                    <label for="nouveauFournisseur">Nom du Nouveau Fournisseur:</label>
+                    <input type="text" name="nouveau_fournisseur_actionneur" id="nouveau_fournisseur_actionneur" class="form-control" value="{{ request.POST.nouveau_fournisseur_actionneur|default:'' }}">
+                </div>
+            </div>
+        
+            <!-- Taille de l'actionneur -->
+            <div class="form-group">
+                <label for="taille_actionneur">Taille de l'actionneur:</label>
+                <input type="text" name="taille_actionneur" id="id_taille_actionneur" class="form-control" value="{{ request.POST.taille_actionneur|default:'' }}">
+            </div>
+        
+            <!-- Type d'actionneur -->
+            <div class="form-group">
+                <label for="type_actionneur">Type d'actionneur:</label>
+                <input type="text" name="type_actionneur" id="id_type_actionneur" class="form-control" value="{{ request.POST.type_actionneur|default:'' }}">
+            </div>
+        
+            <!-- Tableaux d'informations -->
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Numéro de serie</th>
+                        <th>Commande MANU.</th>
+                        <th>Sens</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ request.POST.numero_serie_actionneur|default:'' }}"></td>
+                        <td>
+                            <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
+                                <option value="" {% if request.POST.commande_manuelle_actionneur == "" %}selected{% endif %}>N/C</option>
+                                <option value="OUI" {% if request.POST.commande_manuelle_actionneur == 'OUI' %} selected {% endif %}>OUI</option>
+                                <option value="NON" {% if request.POST.commande_manuelle_actionneur == 'NON' %} selected {% endif %}>NON</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">
+                                <option value="" {% if request.POST.sens_actionneur == '' %} selected {% endif %}>N/C</option>
+                                <option value="OMA" {% if request.POST.sens_actionneur == 'OMA' %} selected {% endif %}>OMA</option>
+                                <option value="FMA" {% if request.POST.sens_actionneur == 'FMA' %} selected {% endif %}>FMA</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+        
+                <!-- Autres informations sous forme de tableau -->
+                <table>
+                    <tr>
+                        <th>Pression Alim.</th>
+                        <th>Type Contact</th>
+                        <th>Effet</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="pression_alimentation" id="id_pression_alimentation" class="form-control" value="{{ request.POST.pression_alimentation|default:'' }}"></td>
+                        <td><input type="text" name="type_contact" id="id_type_contact" class="form-control" value="{{ request.POST.type_contact|default:'' }}"></td>
+                        <td>
+                            <select name="type_effet" id="id_type_effet" class="form-control">
+                                <option value="" {% if request.POST.type_effet == "" %}selected{% endif %}>N/C</option>
+                                <option value="SIMPLE" {% if request.POST.type_effet == 'SIMPLE' %} selected {% endif %}>SIMPLE</option>
+                                <option value="DOUBLE" {% if request.POST.type_effet == 'DOUBLE' %} selected {% endif %}>DOUBLE</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Contact</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="type_contact_actionneur" id="id_type_contact_actionneur" class="form-control">
+                                <option value="" {% if request.POST.type_contact_actionneur == '' %} selected {% endif %}>N/C</option>
+                                <option value="OUVERTURE" {% if request.POST.type_contact_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
+                                <option value="FERMETURE" {% if request.POST.type_contact_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
+                                <option value="FERM+OUVER" {% if request.POST.type_contact_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
+                            </select>
+                        </td>                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div id="infoPositionneurBIS">
+            <h3>Il y a un positionneur ?</h3>
+            <select name="presence_positionneur" id="presence_positionneur" class="form-control">
+                <option value='0' {% if request.POST.presence_positionneur == '0' %} selected {% endif %}>NON</option>
+                <option value='1' {% if request.POST.presence_positionneur == '1' %} selected {% endif %}>OUI</option>
+            </select>
+            </div>
+        </div>
+                
+        <div id="infoPositionneur" style="display: none;">
+            <h2 class="bold"> Information sur le positionneur </h2>
+        
+            <div class="form-group">
+                <label for="fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur_positionneur" id="id_fournisseur_positionneur" class="form-control">
+                    {% for frn in listFournisseur %}
+                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == request.POST.id_fournisseur_positionneur %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-group" id="nouveauFournisseurPositionneur" style="display:none;">
+                    <label for="nouveauFournisseur">Nom du Nouveau Fournisseur:</label>
+                    <input type="text" name="nouveau_fournisseur_positionneur" id="nouveau_fournisseur_positionneur" class="form-control" value="{{ request.POST.nouveau_fournisseur_positionneur|default:'' }}">
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="Fonctionnement positionneur"> Fonctionnement:</label>
+                <select name="id_fonctionnement_positionneur" id="id_fonctionnement_positionneur" class="form-control">
+                    <option value="" {% if pos.id_fonctionnement_postionneur == request.POST.id_fonctionnement_positionneur %}selected{% endif %}>N/C</option>
+                    {% for pos in listTypePos %}
+                    <option value="{{pos.id_fonctionnement_postionneur}}" {% if pos.id_fonctionnement_postionneur == request.POST.id_fonctionnement_positionneur %}selected{% endif %}>{{ pos.description_type_positionneur }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="type_positionneur"> Type positionneur:</label>
+                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ request.POST.type_positionneur|default:'' }}" class="form-control">
+            </div>
+        
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Numéro de serie</th>
+                        <th>Signal Entrée</th>
+                        <th>Alimentation</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ request.POST.numero_serie_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{ request.POST.signal_entree_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{ request.POST.alimentation_positionneur|default:'' }}" class="form-control"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Signal sortie</th>
+                        <th>Repere Came</th>
+                        <th>Face Came</th>
+                    </tr>
+                    <tr>
+                        <td><input type=" number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ request.POST.signal_sortie_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ request.POST.repere_came_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ request.POST.face_came_positionneur|default:'' }}" class="form-control"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Sens Action</th>
+                        <th>Fermée à</th>
+                        <th>Ouverte à</th>
+                        <th>Loi de commande</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="sens_action" id="id_sens_action" class="form-control">
+                                <option value="" {% if request.POST.sens_action == '' %}selected{% endif %}>N/C</option>
+                                <option value="DIRECT" {% if request.POST.sens_action == 'DIRECT' %}selected{% endif %}>DIRECT</option>
+                                <option value="INVERSE" {% if request.POST.sens_action == 'INVERSE' %}selected{% endif %}>INVERSE</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ request.POST.fermee_a_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="number" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ request.POST.ouverte_a_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ request.POST.loi_commande_positionneur|default:'' }}" class="form-control"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="editVanne">
+            <button type="submit" class="btn-btn-primary">ENREGISTRER LES MODIFICATIONS</button>
+            <a href="/vanne/{{vanne.id_vanne}}/supprimerTotal" class="btn-btn-primary-secondaire">SUPPRIMER TOTALEMENT LA VANNE</a>
+        </div>
+
+    </form>
+{%else%}
+    <form action="{% url 'edit' id_vanne=vanne.id_vanne %}" method="POST" id="leformulaire"> <!-- Assurez-vous que l'URL est correcte -->
+        {% csrf_token %}
+
+        
+        <input type="hidden" name="id_vanne" value="{{ vanne.id_vanne }}">
+
+        <div id="infoGeneral">
+
+            <div class="form-group">
+                <label for="id_atelier">Nom de l'atelier:</label>
+                <select name="id_atelier" id="id_atelier" class="form-control">
+                    {% for atl in listAtelier %}
+                            <option value="{{atl.id_atelier}}" {% if atl.id_atelier == vanne.id_atelier.id_atelier %}selected{% endif %}>
+                                {{ atl.nom_atelier }}
+                    {% endfor %}
+                </select>
+            </div>
+            
+            
+            <div class="form-group" id="nouveauAtelier" style="{% if request.POST.nouveau_atelier %}display:block;{% else %}display:none;{% endif %}">
+                <label for="nouveau_atelier">Nom du nouvel Atelier:</label>
+                <input type="text" name="nouveau_atelier" id="nouveau_atelier" class="form-control" value="{{ request.POST.nouveau_atelier|default_if_none:'' }}">
+            </div>
+            
+            <!-- Champ repère -->
+            <div class="form-group">
+                <label for="id_repere_vanne">Repère:</label>
+                <input type="text" name="repere_vanne" id="repere_vanne" class="form-control" value="{{vanne.repere_vanne}}">
+            </div>
+
+            <!-- Champ affectation -->
+            <div class="form-group">
+                <label for="affectation_vanne">Affectation:</label>
+                <input type="text" name="affectation_vanne" id="affectation_vanne" class="form-control" value=" {{vanne.affectation_vanne}}">
+            </div>
+
+            <!-- Champ numéro de commande -->
+            <div class="form-group">
+                <label for="numero_commande">Numero de la Commande:</label>
+                <input type="text" name="numero_commande" id="numero_commande" class="form-control" value="{{ vanne.numero_commande}}">
+            </div>
+
+            <!--Date de la Commande-->
+            <div class="form-group">
+                <label for="date_de_la_commande">Date de la Commande:</label>
+                <input type="date" name="date_de_la_commande" id="date_de_la_commande" class="form-control" value="{{date}}">
+            </div>
+
+            <!-- Champ type de vanne -->
+            <div class="form-group">
+                <label for="type_vanne">Type de vanne:</label>
+                <select name="type_vanne" id="type_vanne" class="form-control">
+                   
+                    <option value="" {% if vanne.type_vannes == "" %}selected{% endif %}></option>
+                    <option value="TOR" {% if vanne.type_vannes == "TOR" %}selected{% endif %}>TOR</option>
+                    <option value="REG" {% if vanne.type_vannes == "REG" %}selected{% endif %}>REG</option>
+
+                </select>
+            </div>
+
+            <!--Frequence de revision-->
+            <div class="form-group">
+                <label>Cette vanne à besoin d'une revision ? </label>
+                <select name="infoRevisionBIS" id="infoRevisionBIS" class="form-control">
+                  
+                        <option value='0' {% if vanne.voir_en == null %} selected {% endif %}>NON</option>
+                        <option value='1' {% if vanne.voir_en != null %} selected {% endif %}>OUI</option>
+
+                </select>
+            </div>
+                
+            <div class="form-group" id="tempsRevision" style="display: none;">
+                <label for="tempsRev">À réviser tout les :</label>
+                <input type="number" name="tempsRev" id="tempsRev" class="form-control" value="{{ vanne.freq_revision|default_if_none:'' }}">
+                ans
+            </div>
+
+
+
+        </div>
+
+        <div id="infoCorps">
+            <!-- Titre en gras -->
+            <h2 class="bold"> Information sur le corps </h2>
+        
+            <!-- Fournisseur -->
+            <div class="form-group">
+                <label for="id_fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur" id="id_fournisseur" class="form-control">
+                    {% for frn in listFournisseur %}
+                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == vanne.id_corps.id_fournisseur.id_fournisseur %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <!-- Nouveau Fournisseur -->
+            <div class="form-group" id="nouveauFournisseur" style="{% if request.POST.nouveau_fournisseur and request.POST.nouveau_fournisseur != '-1' %}display:block;{% else %}display:none;{% endif %}">
+                <label for="nouveau_fournisseur">Nom du Nouveau Fournisseur:</label>
+                <input type="text" name="nouveau_fournisseur" id="nouveau_fournisseur" class="form-control" value="{{ request.POST.nouveau_fournisseur|default_if_none:'' }}">
+            </div>
+        
+            <!-- Taille du corps -->
+            <div class="form-group">
+                <label for="taille_corps">Taille du corps:</label>
+                <input type="number" name="taille_corps" id="taille_corps" class="form-control" value="{{ vanne.id_corps.dn_corps }}">
+            </div>
+        
+            <!-- Code du corps -->
+            <div class="form-group">
+                <label for="code_corps">Code du corps:</label>
+                <input type="text" name="code_corps" id="code_corps" class="form-control" value="{{ vanne.id_corps.code_corps }}">
+            </div>
+        
+            <!-- Type de corps -->
+            <div class="form-group">
+                <label for="type_corps">Type de corps:</label>
+                <input type="text" name="type_corps" id="type_corps" class="form-control" value="{{ vanne.id_corps.type_corps }}">
+            </div>
+        
+            <!-- Tableaux d'informations -->
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>PN Corps</th>
+                        <th>CV Corps</th>
+                        <th>Numéro de série corps</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="pn_corps" class="form-control" value="{{ vanne.id_corps.pn_corps }}"></td>
+                        <td><input type="number" name="cv_corps" class="form-control" value="{{ vanne.id_corps.cv_corps }}"></td>
+                        <td><input type="text" name="numero_serie_corps" class="form-control" value="{{ vanne.id_corps.num_serie_corps }}"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Matière corps</th>
+                        <th>Norme bride corps</th>
+                        <th>Garniture corps</th>
+                        <th>Type garniture</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="corps_corps" class="form-control" value="{{ vanne.id_corps.corps_corps }}"></td>
+                        <td><input type="text" name="norme_bride_corps" class="form-control" value="{{ vanne.id_corps.norme_bride_corps|default_if_none:'' }}"></td>
+                        <td><input type="text" name="garniture_corps" class="form-control" value="{{ vanne.id_corps.matiere_garnitures_corps }}"></td>
+                        <td><input type="text" name="type_garniture" class="form-control" value="{{ vanne.id_corps.type_garniture_corps }}"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Matière arbre</th>
+                        <th>Matière siège</th>
+                        <th>Matière organe réglant</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="matiere_arbre" id="id_matiere_arbre" class="form-control" value="{{ vanne.id_corps.matiere_arbre_corps }}"></td>
+                        <td><input type="text" name="matiere_siege" id="id_matiere_siege" class="form-control" value="{{ vanne.id_corps.matiere_siege_corps }}"></td>
+                        <td><input type="text" name="matiere_organe_reglant" id="id_matiere_organe_reglant" class="form-control" value="{{ vanne.id_corps.matiere_org_reglant_corps }}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="infoActionneur">
+            <!-- Titre en gras -->
+            <h2 class="bold"> Information sur l'actionneur </h2>
+        
+            <!-- Fournisseur -->
+            <div class="form-group">
+                <label for="fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur_actionneur" id="id_fournisseur_actionneur" class="form-control">
+                    {% for frn in listFournisseur %}
+                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == vanne.id_actionneur.id_fournisseur.id_fournisseur %} selected {% endif %}>{{ frn.nom_fournisseur }}</option>
+                    {% endfor %}
+                </select>
+                <!-- Nouveau Fournisseur Actionneur -->
+                <div class="form-group" id="nouveauFournisseurActionneur" style="{% if request.POST.nouveau_fournisseur_actionneur %}display:block;{% else %}display:none;{% endif %}">
+                    <label for="nouveauFournisseur">Nom du Nouveau Fournisseur:</label>
+                    <input type="text" name="nouveau_fournisseur_actionneur" id="nouveau_fournisseur_actionneur" class="form-control" value="{{ request.POST.nouveau_fournisseur_actionneur|default:'' }}">
+                </div>
+            </div>
+        
+            <!-- Taille de l'actionneur -->
+            <div class="form-group">
+                <label for="taille_actionneur">Taille de l'actionneur:</label>
+                <input type="text" name="taille_actionneur" id="id_taille_actionneur" class="form-control" value="{{vanne.id_actionneur.taille_actionneur }}">
+            </div>
+        
+            <!-- Type d'actionneur -->
+            <div class="form-group">
+                <label for="type_actionneur">Type d'actionneur:</label>
+                <input type="text" name="type_actionneur" id="id_type_actionneur" class="form-control" value="{{ vanne.id_actionneur.type_actionneur}}">
+            </div>
+        
+            <!-- Tableaux d'informations -->
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Numéro de serie</th>
+                        <th>CDE. Manuelle</th>
+                        <th>Sens</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="numero_serie_actionneur" id="id_numero_serie_actionneur" class="form-control" value="{{ vanne.id_actionneur.num_serie_actionneur }}"></td>
+                        <td>
+                            <select name="commande_manuelle_actionneur" id="id_commande_manuelle_actionneur" class="form-control">
+                                <option value="" {% if vanne.id_actionneur.commande_manuel == '' %}selected{% endif %}></option>
+                                <option value="OUI" {% if vanne.id_actionneur.commande_manuel == 'OUI' %}selected{% endif %}>OUI</option>
+                                <option value="NON" {% if vanne.id_actionneur.commande_manuel == 'NON' %}selected{% endif %}>NON</option>
+                            </select>
+
+
+                            
+                        </td>
+                        <td>
+                            <select name="sens_actionneur" id="id_sens_actionneur" class="form-control">
+                                <option value="" {% if vanne.id_actionneur.sens_actionneur == '' %} selected {% endif %}></option>
+                                <option value="OMA" {% if vanne.id_actionneur.sens_actionneur == 'OMA' %} selected {% endif %}>OMA</option>
+                                <option value="FMA" {% if vanne.id_actionneur.sens_actionneur == 'FMA' %} selected {% endif %}>FMA</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                </table>
+        
+                <!-- Autres informations sous forme de tableau -->
+                <table>
+                    <tr>
+                        <th>Pression Alim.</th>
+                        <th>Type Contact</th>
+                        <th>Effet</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="pression_alimentation" id="id_pression_alimentation" class="form-control" value="{{ vanne.id_actionneur.pression_alimentation }}"></td>
+                        <td><input type="text" name="type_contact" id="type_contact" class="form-control" value="{{ vanne.id_actionneur.type_contact_actionneur }}"></td>
+                        <td>
+                            <select name="type_effet" id="id_type_effet" class="form-control">
+                                <option value="" {% if vanne.id_actionneur.actionneur_simpl_double_effet == '' %} selected {% endif %}></option>
+                                <option value="SIMPLE" {% if vanne.id_actionneur.actionneur_simpl_double_effet == 'SIMPLE' %} selected {% endif %}>SIMPLE</option>
+                                <option value="DOUBLE" {% if vanne.id_actionneur.actionneur_simpl_double_effet == 'DOUBLE' %} selected {% endif %}>DOUBLE</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Contact</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="type_contact_actionneur" id="type_contact_actionneur" class="form-control">
+                                <option value="" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == '' %} selected {% endif %}></option>
+                                <option value="OUVERTURE" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'OUVERTURE' %} selected {% endif %}>OUVERTURE</option>
+                                <option value="FERMETURE" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'FERMETURE' %} selected {% endif %}>FERMETURE</option>
+                                <option value="FERM+OUVER" {% if vanne.id_actionneur.contact_ouv_ferm_actionneur == 'FERM+OUVER' %} selected {% endif %}>OUVERTURE + FERMETURE</option>
+                                
+                            
+                            </select>
+
+                        </td>
+                        </td>                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div id="infoPositionneurBIS">
+            <h3>Il y a un positionneur ?</h3>
+            <select name="presence_positionneur" id="presence_positionneur" class="form-control">
+                <option value='0' {% if vanne.id_positionneur == null %} selected {% endif %}>NON</option>
+                <option value='1' {% if vanne.id_positionneur != null %} selected {% endif %}>OUI</option>
+            </select>
+            </div>
+        </div>
+                
+        <div id="infoPositionneur" style="display: none;">
+            <h2 class="bold"> Information sur le positionneur </h2>
+        
+            <div class="form-group">
+                <label for="fournisseur">Fournisseur:</label>
+                <select name="id_fournisseur_positionneur" id="id_fournisseur_positionneur" class="form-control">
+                    {% for frn in listFournisseur %}
+                    <option value="{{frn.id_fournisseur}}" {% if frn.id_fournisseur == vanne.id_positionneur.id_fournisseur.id_fournisseur %}selected{% endif %}>{{ frn.nom_fournisseur }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-group" id="nouveauFournisseurPositionneur" style="display:none;">
+                    <label for="nouveauFournisseur">Nom du Nouveau Fournisseur:</label>
+                    <input type="text" name="nouveau_fournisseur_positionneur" id="nouveau_fournisseur_positionneur" class="form-control" value="{{ request.POST.nouveau_fournisseur_positionneur|default:'' }}">
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="Fonctionnement positionneur"> Fonctionnement:</label>
+                <select name="id_fonctionnement_positionneur" id="id_fonctionnement_positionneur" class="form-control">
+                    {% for pos in listTypePos %}
+                    <option value="{{pos.id_fonctionnement_postionneur}}" {% if pos.id_fonctionnement_postionneur == vanne.id_positionneur.fonctionnement_positionneur.id_fonctionnement_postionneur %}selected{% endif %}>{{ pos.description_type_positionneur }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="type_actionneur"> Type positionneur:</label>
+                <input type="text" name="type_positionneur" id="id_type_positionneur" value="{{ vanne.id_positionneur.type_positionneur|default:'' }}" class="form-control">
+            </div>
+        
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Numéro de serie</th>
+                        <th>Signal Entrée</th>
+                        <th>Alimentation</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="numero_serie_positionneur" id="id_numero_serie_positionneur" value="{{ vanne.id_positionneur.num_serie_positionneur |default:''}}" class="form-control"></td>
+                        <td><input type="text" name="signal_entree_positionneur" id="id_signal_entree_positionneur" value="{{vanne.id_positionneur.signal_entre_positionneur|default:'' }}" class="form-control"></td>
+                        <td><input type="text" name="alimentation_positionneur" id="id_alimentation_positionneur" value="{{vanne.id_positionneur.presion_positionneur|default:'' }}" class="form-control"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Signal sortie</th>
+                        <th>Repere Came</th>
+                        <th>Face Came</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="signal_sortie_positionneur" id="id_signal_sortie_positionneur" value="{{ vanne.id_positionneur.signal_sortie|default:'' }}" class="form-control"  ></td>
+                        <td><input type="number" name="repere_came_positionneur" id="id_repere_came_positionneur" value="{{ vanne.id_positionneur.repere_came |default:''}}" class="form-control"></td>
+                        <td><input type="number" name="face_came_positionneur" id="id_face_came_positionneur" value="{{ vanne.id_positionneur.face_came |default:''}}" class="form-control"></td>
+                    </tr>
+                </table>
+        
+                <table>
+                    <tr>
+                        <th>Sens Action</th>
+                        <th>Fermée à</th>
+                        <th>Ouverte à</th>
+                        <th>Loi de commande</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="sens_action" id="id_sens_action" class="form-control">
+                                <option value="" {% if vanne.id_positionneur.sens_action == '' %}selected{% endif %}>N/C</option>
+                                <option value="DIRECT" {% if vanne.id_positionneur.sens_action == 'DIRECT' %}selected{% endif %}>DIRECT</option>
+                                <option value="INVERSE" {% if vanne.id_positionneur.sens_action == 'INVERSE' %}selected{% endif %}>INVERSE</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="fermee_a_positionneur" id="id_fermee_a_positionneur" value="{{ vanne.id_positionneur.fermer_a | default:''  }}" class="form-control"></td>
+                        <td><input type="text" name="ouverte_a_positionneur" id="id_ouverte_a_positionneur" value="{{ vanne.id_positionneur.ouvert_a |default:''}}" class="form-control"></td>
+                        <td><input type="text" name="loi_commande_positionneur" id="id_loi_commande_positionneur" value="{{ vanne.id_positionneur.loi_positionneur |default:'' }}" class="form-control"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="editVanne">
+            <button type="submit" class="btn-btn-primary">ENREGISTRER LA VANNE</button>
+            <a href="/vanne/{{vanne.id_vanne}}/supprimerTotal" class="btn-btn-primary-secondaire">SUPPRIMER TOTALEMENT LA VANNE</a>
+        </div>
+
+    </form>
+{%endif%}
+
+    <script>
+        // Attendez que le DOM soit entièrement chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélectionnez le lien par sa classe
+            var deleteLink = document.querySelector('.btn-btn-primary-secondaire');
+    
+            // Ajoutez un écouteur d'événements pour le clic
+            deleteLink.addEventListener('click', function(event) {
+                // Empêchez l'action par défaut (la redirection) de se produire immédiatement
+                event.preventDefault();
+    
+                // Affichez une boîte de dialogue de confirmation
+                var userConfirmation = confirm('Êtes-vous sûr de vouloir supprimer totalement cette vanne ?');
+    
+                // Si l'utilisateur clique sur "OK" dans la boîte de confirmation
+                if (userConfirmation) {
+                    // Redirigez l'utilisateur vers l'URL spécifiée dans l'attribut href du lien
+                    window.location.href = this.href;
+                }
+                // Si l'utilisateur clique sur "Annuler", l'action est simplement annulée et rien ne se passe
+            });
+        });
+
+        $('#leformulaire').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+    </script>
+    {% endblock %}
