@@ -11,7 +11,6 @@ from appliVanne.models import *
 
 # Create your views here.
 def connexion(request):
-    user = None
 
     if not request.user.is_authenticated:
         usr = request.POST['username']
@@ -27,7 +26,7 @@ def connexion(request):
         else :
             return render(
                 request,
-                'applicompte/login.html'
+                'appliVanne/vannes.html'
             )
 
     else :
