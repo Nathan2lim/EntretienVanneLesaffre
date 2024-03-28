@@ -41,6 +41,40 @@
         margin-bottom: 5px;
         font-weight: bold;
     }
+    /* Style de base pour les messages */
+ul.messages {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+ul.messages li {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+/* Styles spécifiques pour les différents types de messages */
+/* Ajustez les couleurs selon vos préférences */
+ul.messages li.info {
+  background-color: #017bff;
+}
+
+ul.messages li.success {
+  background-color: #28a745;
+}
+
+ul.messages li.warning {
+  background-color: #ffc107;
+  color: #212529; /* Couleur du texte pour un fond jaune */
+}
+
+ul.messages li.error {
+  background-color: #dc3545;
+}
+
+
 </style>
 {% endblock %}
 
@@ -48,6 +82,14 @@
 {% block main %}
 <div class="container">
     <p>Connexion</p>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
     <form id="form_login" method="post" action="/connexion/">
         {% csrf_token %}
         <div class="mb-3">

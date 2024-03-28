@@ -7,33 +7,26 @@ from django.contrib.auth import authenticate, login, logout
 from appliVanne.models import *
 
 
+from django.views.decorators.http import require_http_methods
+from django.contrib import messages
+
 
 
 # Create your views here.
 def connexion(request):
 
-    if not request.user.is_authenticated:
-        usr = request.POST['username']
-        pwd = request.POST['password']
-        user = authenticate(request, username = usr, password = pwd)
+    if request.user.is_authenticated:
+            return redirect('vannes')
+    else:
+        usr = request.POST.get('username')
+        pwd = request.POST.get('password')
+        user = authenticate(request, username=usr, password=pwd)
         if user is not None:
             login(request, user)
-
-            lesVanne = Vanne.objects.all()
-
             return redirect('vannes')
-
-        else :
-            return render(
-                request,
-                'appliVanne/vannes.html'
-            )
-
-    else :
-        return render(
-            request,
-            'applicompte/login.html'
-        )
+        else:
+            messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect.')
+            return redirect('login')
 
 def deconnexion(request):
     logout(request)

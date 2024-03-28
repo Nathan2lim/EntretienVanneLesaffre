@@ -91,7 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
-            'min_length': 6,  # Changer la longueur minimale selon vos besoins
+            'min_length': 1,  # Changer la longueur minimale selon vos besoins
         }
     },
 
