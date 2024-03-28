@@ -38,7 +38,9 @@ urlpatterns = [
     path("ajoutVanne/traitementAjoutVanne/", views.traitementAjoutVanne, name="traitementAjoutVanne"),
     path("ajoutVanne/traitementModifVanne/", views.traitementModifVanne, name="traitementModifVanne"),
     path("vanne/traitement_com/", views.traitement_com, name="traitement_com"),
-
+    path("fusion/", views.fusionner_fournisseurs, name="fusionner_fournisseurs"),
+    path("founisseurs/", views.listefournisseur, name="liste_fournisseur"),
+    path("renomer/", views.renomer_fournisseurs, name="renomer_fournisseurs"),
 
 ]
 

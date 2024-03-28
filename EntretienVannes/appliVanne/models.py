@@ -26,7 +26,8 @@ class FOURNISSEUR(models.Model):
     nom_fournisseur = models.CharField(max_length=255, verbose_name="Nom du fournisseur")
     email_fournisseur = models.EmailField(verbose_name="Adresse e-mail du fournisseur")
     tel_fournisseur = models.CharField(max_length=255, verbose_name="Numéro de téléphone du fournisseur")
-
+    def __str__(self):
+        return self.nom_fournisseur
 class ACTIONNEUR(models.Model):
     class Meta:
         db_table = 'ACTIONNEUR'

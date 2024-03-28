@@ -1,0 +1,47 @@
+{% extends "appliVanne/base.html" %} {% block title %} Les Actionneur {% endblock %}
+{% block main %}
+  
+<!--
+
+  Tableau avec liste des vanne  et le info suivante : 
+    - numéro de la vanne
+    - nom de l'atelier
+    - repere de la vanne
+    - affectation de la vanne
+    - type de vanne
+
+  option pour voir en detail, mettre à jour et supprimer la vanne
+
+  <thead>
+  <tr>
+    <th scope="col"><a href="?tri=id_vanne&ordre={% cycle 'asc' 'desc' %}">Identifiant</a></th>
+    <th scope="col"><a href="?tri=id_atelier__nom_atelier&ordre={% cycle 'asc' 'desc' %}">Atelier</a></th>
+    <th scope="col"><a href="?tri=repere_vanne&ordre={% cycle 'asc' 'desc' %}">Repere Vannes</a></th>
+ 
+
+-->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"> Identifiant</th>
+        <th scope="col">Fournisseur</th>
+        <th scope="col">Numero tel </th>
+        <th scope="col">Email </th>
+
+      </tr>
+    </thead>
+
+    {% for fourn in lesFournisseur %}
+      <tr>
+        <td>{{ fourn.id_fournisseur}}</td>
+        <td>{{ fourn.nom_fournisseur}}</td>
+        <td>{{ fourn.tel_founisseur}}</td>
+        <td>{{ fourn.email_fournisseur}}</td>
+
+      </tr>
+    {% endfor %}
+  </table>
+
+
+
+{% endblock %}

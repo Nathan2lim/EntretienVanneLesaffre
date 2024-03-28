@@ -13,6 +13,9 @@ from django.forms import formset_factory
 from .forms import CommentForm
 from django.db.models import Case, When, Value, IntegerField
 from .models import TypeRevision
+from django.contrib.auth.decorators import user_passes_test
+from django.db import transaction
+
 # Create your views here.
 
 
@@ -158,6 +161,7 @@ def rechange(request, id_vanne):
         vanne.repere_vanne = None
         vanne.affectation_vanne = None
         vanne.numero_commande = None
+        vanne.voir_en = None
         vanne.save() 
         
 
@@ -210,7 +214,7 @@ def recoverBIS(request, id_vanne):
         vanne.save() 
         
         rev = REVISON(
-            rev_id_vanne=get_object_or_404(Vanne, id_vanne=id_vanne),
+            rev_id_vanne=id_vanne,
             date_revision=datetime.now(),
             id_revision_vanne = numRev(id_vanne),
             type_revision = get_object_or_404(TypeRevision, id_type_revision=4),
@@ -702,7 +706,9 @@ def traitementModifVanne(request, id_vanne):
                         positionneur = POSITIONNEUR(**positionneur_data)
                         positionneur.save()
                         vanne.id_positionneur = positionneur
+                        vanne.type_vannes = "REG"
                 else:
+                    vanne.type_vannes = "TOR"
                     vanne.id_positionneur = None # Enlève le positionneur si non présent
 
 
@@ -1098,3 +1104,103 @@ def traitement_com(request):
                     "lesTypeRev": lesTypesRev
                 }
                 return render(request, 'appliVanne/comentaire.html', context)
+
+def superuser_required(view_func):
+    """Un décorateur pour vérifier si l'utilisateur est un super-utilisateur."""
+    decorated_view_func = user_passes_test(
+        lambda u: u.is_authenticated and u.is_superuser, 
+        login_url='/login/'  # Rediriger vers la page de connexion si la vérification échoue
+    )(view_func)
+    return decorated_view_func
+
+
+
+@superuser_required
+def fusionner_fournisseurs(request):
+    if request.method == 'POST':
+        ids_a_fusionner = request.POST.getlist('fournisseurs_a_fusionner')
+        nom_nouveau_fournisseur = request.POST['nouveau_nom']
+        
+        # Préparer les informations pour le récapitulatif
+        fournisseurs_a_fusionner = FOURNISSEUR.objects.filter(id_fournisseur__in=ids_a_fusionner)
+        nom_fournisseurs_a_fusionner = ", ".join(f.nom_fournisseur for f in fournisseurs_a_fusionner)
+        
+        with transaction.atomic():
+            # Créer le nouveau fournisseur
+            nouveau_fournisseur = FOURNISSEUR.objects.create(
+                nom_fournisseur=nom_nouveau_fournisseur,
+                email_fournisseur="email@example.com",  # Ajuster selon les besoins
+                tel_fournisseur="0000000000",          # Ajuster selon les besoins
+            )
+            
+            # Collecter les IDs des éléments à mettre à jour dans chaque modèle
+            actionneurs = ACTIONNEUR.objects.filter(id_fournisseur__in=ids_a_fusionner)
+            corps = CORPS.objects.filter(id_fournisseur__in=ids_a_fusionner)
+            positionneurs = POSITIONNEUR.objects.filter(id_fournisseur__in=ids_a_fusionner)
+            vannes = Vanne.objects.filter(id_fournisseur_vannes__in=ids_a_fusionner)
+            
+            # Mettre à jour les références vers le nouveau fournisseur et collecter les infos pour le récapitulatif
+            recap_modifications = []
+
+            def update_model_records(model_queryset, field_name):
+                updated_ids = []
+                for record in model_queryset:
+                    setattr(record, field_name, nouveau_fournisseur)
+                    record.save()
+                    updated_ids.append(str(record.pk))
+                return ", ".join(updated_ids)
+
+            recap_modifications.append(f"Actionneurs modifiés:<strong> {update_model_records(actionneurs, 'id_fournisseur')}</strong><br>")
+            recap_modifications.append(f"Corps modifiés:<strong> {update_model_records(corps, 'id_fournisseur')}</strong><br>")
+            recap_modifications.append(f"Positionneurs modifiés: <strong>{update_model_records(positionneurs, 'id_fournisseur')}</strong><br>")
+            recap_modifications.append(f"Vannes modifiées: <strong>{update_model_records(vannes, 'id_fournisseur_vannes')}</strong><br>")
+            
+            # Générer le string final pour le récapitulatif
+            recap_final = f"Fournisseurs fusionnés: <strong> {nom_fournisseurs_a_fusionner} </strong>dans le nouveau fournisseur <strong>'{nom_nouveau_fournisseur}'</strong>. " + ". ".join(recap_modifications)
+        
+        # Utiliser recap_final comme nécessaire, par exemple l'afficher à l'utilisateur ou le logger
+        fournisseurs_a_fusionner.delete()
+
+        print(recap_final)
+            
+            
+            
+        REVISON(
+            date_revision=datetime.now(),
+            type_revision = get_object_or_404(TypeRevision, id_type_revision=4),
+            commentaire_revision="Reprise de la vanne",
+            detail_commentaire = recap_final,
+            nom_technicien = get_object_or_404(User, username=request.user)
+        ).save()
+            
+
+        return redirect('liste_fournisseur')  # Rediriger vers une page de succès ou de récapitulation
+
+    else:
+        form = FusionFournisseurForm()
+    return render(request, 'appliVanne/fusionner_fournisseurs.html', {'form': form})
+
+def listefournisseur(request):
+    lesFournisseur = FOURNISSEUR.objects.all()
+    return render(request, 'appliVanne/listeFournisseur.html', {"lesFournisseur": lesFournisseur})
+
+@superuser_required
+def renomer_fournisseurs(request):
+    
+    if request.method == 'POST':
+        ancien_nom = request.POST['fournisseurs_a_renomer']
+        nom_nouveau_fournisseur = request.POST['nouveau_nom']
+        
+        try:
+            fournisseur = FOURNISSEUR.objects.get(id_fournisseur=ancien_nom)
+            fournisseur.nom_fournisseur = nom_nouveau_fournisseur
+            fournisseur.save()
+            # Optionnellement, redirige vers une nouvelle URL après succès
+            return redirect('liste_fournisseur')
+        except FOURNISSEUR.DoesNotExist:
+
+            pass  
+        redirect('liste_fournisseurs')
+    else:
+        form = renomerFournisseurForm()
+    return render(request, 'appliVanne/renomer_fournisseur.html', {'form': form})

@@ -23,8 +23,12 @@
   </head>
   <body>
     <header>
-      {%if user.is_authenticated%}
+      {% if user.is_superuser %}
+      {% include "./menuADMIN.html"%}
+
+      {% elif  user.is_authenticated%}
       {% include "./menu.html" %}
+      
       {%else%}
       {% include "./menuNonConnecter.html" %}
       {%endif%}

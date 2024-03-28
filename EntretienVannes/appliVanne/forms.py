@@ -17,7 +17,7 @@ class VanneForm(ModelForm):
 
     type_vanne = forms.ChoiceField(choices=(('TOR', 'TOR'), ('REG', 'REG')), label="Type de vanne", required=True)
     tempsRev = forms.IntegerField(label="Temps de révision", required=False, error_messages={'required': 'Ce champ est obligatoire.'})
-    date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=True)
+    date_de_la_commande = forms.DateField(label="Information générales : Date de la commande", required=False)
     
     
     
@@ -97,13 +97,13 @@ class VanneForm(ModelForm):
                 cleaned_data[field_name] = None
             # Ajoutez ici toute autre condition spécifique pour d'autres types de champs si nécessaire
             
-        date_commande = self.cleaned_data['date_de_la_commande']
+        date_commande = cleaned_data.get("date_de_la_commande")
         
 
         
         if not date_commande:
-            cleaned_data['date_de_la_commande'] = timezone.now().date()
-        
+            self.cleaned_data['date_de_la_commande'] = timezone.now().date()
+            print()
         return cleaned_data
 
         
@@ -130,3 +130,12 @@ class ajoutDeCom(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         id_type_revision = cleaned_data.get("id_type_revision")        
+
+class FusionFournisseurForm(forms.Form):
+    fournisseurs_a_fusionner = forms.ModelMultipleChoiceField(queryset=FOURNISSEUR.objects.all(), widget=forms.CheckboxSelectMultiple)
+    nouveau_nom = forms.CharField(max_length=100)
+    
+    
+class renomerFournisseurForm(forms.Form):
+        fournisseurs_a_renomer = forms.ModelChoiceField(queryset=FOURNISSEUR.objects.all(),required=True,label="Fournisseur à renommer")
+        nouveau_nom = forms.CharField(max_length=100, label="Nouveau nom du fournisseur")
