@@ -1,6 +1,7 @@
 {% load static %} 
 
 <style>
+  @media print {
     body {
         font-family: 'Arial', sans-serif;
         font-size: 15px; /* Taille de police réduite */
@@ -36,11 +37,15 @@
     }
     th {
         background-color: #f2f2f2; /* Couleur d'arrière-plan pour les en-têtes de tableaux */
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
     }
     .debutLigne {
         background-color: #007bff; /* Couleur d'arrière-plan pour les lignes de début */
         color: #fff; /* Couleur du texte pour un meilleur contraste */
         font-weight: bold; /* Texte en gras */
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
     }
     .ligneFin {
         text-align: left; /* Alignement du texte à droite pour les lignes finales */
@@ -48,6 +53,7 @@
     .information-section {
         margin-bottom: 10px; /* Espacement réduit entre les sections */
     }
+  }
 </style>
 
 
@@ -225,7 +231,7 @@
 
   {% if vanne.id_positionneur is null %}
 
-  <h4 style="margin-bottom:220px" > Aucun positionneur pour cette vanne </h4>
+  <h4 style="margin-bottom:10cm" > Aucun positionneur pour cette vanne </h4>
     
   {% else %}
 
@@ -250,7 +256,7 @@
 
     </tbody>
   </table>
-  <table style="margin-bottom:75px">
+  <table style="margin-bottom:7.5cm">
     <tbody>
         <tr>
             <td class="debutLigne">Alimentation</td>
@@ -322,14 +328,11 @@
   {% endfor %}
 </table>
 
-<!---
-  <script>
-    console.log("demarage impression")
-    window.print();
-    print();
-    console.log(" impression terminé")
 
-    window.location.href = '/vanne/{{vanne.id_vanne}}/detail';
-  </script>
--->
+<script>
+  window.addEventListener('load', function() {
+    window.print();
+  });
+</script>
+
 </div> <!-- <div id="tableauGeneral">-->

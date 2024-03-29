@@ -109,7 +109,7 @@ def formulaireAjoutVanne(request):
 
 def historiqueVanne(request):
     LesVannes = Vanne.objects.filter(en_service_vanne=0)
-    lesREv = REVISON.objects.all().order_by('-ajout_revision', '-id_revision')
+    lesREv = REVISON.objects.all().order_by('-id_revision')
     return render(request, "appliVanne/historique.html", {"listeVannes": LesVannes, "listeRev": lesREv})
 
 def delete(request, id_vanne):
@@ -466,7 +466,7 @@ def traitementAjoutVanne(request):
                     type_vannes=type_vannes, 
                     numero_commande=form.cleaned_data['numero_commande'],
                     id_atelier=atelier,
-                    date_commande= datetime.now()
+                    date_commande= form.cleaned_data['date_de_la_commande']
                 )
                 
                 vanSansPos = Vanne(
@@ -479,7 +479,7 @@ def traitementAjoutVanne(request):
                     type_vannes=type_vannes, 
                     numero_commande= form.cleaned_data['numero_commande'],
                     id_atelier=atelier,
-                    date_commande=datetime.now()
+                    date_commande=form.cleaned_data['date_de_la_commande']
                 )
                 corps.full_clean()
                 actionneur.full_clean()
@@ -489,14 +489,30 @@ def traitementAjoutVanne(request):
                     corps.save()
                     actionneur.save() 
                     
-                    
+                    vanne_instance = None  # Initialiser à None pour vérifier après la sauvegarde
                     if presence_positionneur == '1':
                         pos.save()
                         van.save()
+                        vanne_instance = van
                     else:
                         vanSansPos.save()
+                        vanne_instance = vanSansPos
+                        
+                    if vanne_instance:
+                        rev = REVISON(
+                            rev_id_vanne=vanne_instance.id_vanne,  # Utilisez l'instance directement si votre ForeignKey le permet
+                            date_revision=datetime.now(),
+                            id_revision_vanne=numRev(vanne_instance.id_vanne),  # L'id est maintenant disponible
+                            type_revision=get_object_or_404(TypeRevision, id_type_revision=1),
+                            commentaire_revision="Création d'une vanne",
+                            nom_technicien=get_object_or_404(User, username=request.user)
+                        )
+                        rev.full_clean()
+                        rev.save()
                     
                     success = True
+                    
+                    
                 else:
                     success = False
                 
@@ -505,6 +521,7 @@ def traitementAjoutVanne(request):
                 #return render(request, 'appliVanne/creationVanne.html', {sucess: sucess})
                 #form.save()
                 #LesVannes  = Vanne.objects.all()
+                
                 return render(request, "appliVanne/vannes.html", {"sucess": success, "listeVannes": LesVannes})
             else:
                 print(request)
@@ -1137,7 +1154,6 @@ def fusionner_fournisseurs(request):
             actionneurs = ACTIONNEUR.objects.filter(id_fournisseur__in=ids_a_fusionner)
             corps = CORPS.objects.filter(id_fournisseur__in=ids_a_fusionner)
             positionneurs = POSITIONNEUR.objects.filter(id_fournisseur__in=ids_a_fusionner)
-            vannes = Vanne.objects.filter(id_fournisseur_vannes__in=ids_a_fusionner)
             
             # Mettre à jour les références vers le nouveau fournisseur et collecter les infos pour le récapitulatif
             recap_modifications = []
@@ -1153,10 +1169,9 @@ def fusionner_fournisseurs(request):
             recap_modifications.append(f"Actionneurs modifiés:<strong> {update_model_records(actionneurs, 'id_fournisseur')}</strong><br>")
             recap_modifications.append(f"Corps modifiés:<strong> {update_model_records(corps, 'id_fournisseur')}</strong><br>")
             recap_modifications.append(f"Positionneurs modifiés: <strong>{update_model_records(positionneurs, 'id_fournisseur')}</strong><br>")
-            recap_modifications.append(f"Vannes modifiées: <strong>{update_model_records(vannes, 'id_fournisseur_vannes')}</strong><br>")
             
             # Générer le string final pour le récapitulatif
-            recap_final = f"Fournisseurs fusionnés: <strong> {nom_fournisseurs_a_fusionner} </strong>dans le nouveau fournisseur <strong>'{nom_nouveau_fournisseur}'</strong>. " + ". ".join(recap_modifications)
+            recap_final = f"Fournisseurs fusionnés: <strong> {nom_fournisseurs_a_fusionner} </strong>dans le nouveau fournisseur <strong>'{nom_nouveau_fournisseur}'</strong>. " + ". ".join(recap_modifications) + "<br>"
         
         # Utiliser recap_final comme nécessaire, par exemple l'afficher à l'utilisateur ou le logger
         fournisseurs_a_fusionner.delete()
@@ -1168,7 +1183,8 @@ def fusionner_fournisseurs(request):
         REVISON(
             date_revision=datetime.now(),
             type_revision = get_object_or_404(TypeRevision, id_type_revision=4),
-            commentaire_revision="Reprise de la vanne",
+            commentaire_revision="Fusion de fournisseurs",
+            
             detail_commentaire = recap_final,
             nom_technicien = get_object_or_404(User, username=request.user)
         ).save()

@@ -89,21 +89,44 @@ class VanneForm(ModelForm):
         # Vous pouvez ajouter d'autres validations ici si nécessaire
 
 
+        # Liste des champs à exclure
+        champs_exclus = [
+            'affectation_vanne', 'sens_action', 'infoRevisionBIS', 
+            'presence_positionneur', 'type_contact_actionneur', 'type_effet',
+            'sens_actionneur', 'commande_manuelle_actionneur', 'type_vanne'
+        ]
+
         for field_name, value in cleaned_data.items():
-            # Vérifie si la valeur est une chaîne vide pour n'importe quel champ
-            if isinstance(value, str) and value.strip() == '':
-                cleaned_data[field_name] = None
-            if isinstance(value, str) and value.strip() == 'None':
-                cleaned_data[field_name] = None
+            # S'assure que le champ n'est pas dans la liste des exclus et que la valeur n'est pas None
+            if field_name not in champs_exclus and value is not None and isinstance(value, str):
+                # Supprime tous les espaces
+                value = value.replace(" ", "")
+                # Remplace les virgules par des points
+                value = value.replace(",", ".")
+                # Convertit tout en majuscules
+                value = value.upper()
+
+                # Après transformation, vérifie si la valeur est une chaîne vide ou 'NONE'
+                if value == '' or value == 'NONE':  # Pas besoin de strip ici car il n'y a pas d'espace
+                    cleaned_data[field_name] = None
+                else:
+                    cleaned_data[field_name] = value
+            # Si le champ est dans les exclus ou la valeur est None, il n'est pas modifié
             # Ajoutez ici toute autre condition spécifique pour d'autres types de champs si nécessaire
-            
+
+                
         date_commande = cleaned_data.get("date_de_la_commande")
-        
+        print ("test date commande")
+        print(date_commande)
+        print ("fin test date commande")
 
         
         if not date_commande:
+            print ("TEST 2 date commande")
+            print (self.cleaned_data['date_de_la_commande'])
             self.cleaned_data['date_de_la_commande'] = timezone.now().date()
-            print()
+            print ("TEST 2 FIN date commande")
+
         return cleaned_data
 
         

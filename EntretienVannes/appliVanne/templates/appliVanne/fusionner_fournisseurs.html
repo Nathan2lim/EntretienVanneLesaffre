@@ -62,4 +62,19 @@
 
     
 </style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Masquer les options "Pas de Fournisseur" et "A.P.C."
+        var optionPasDeFournisseur = document.getElementById('id_fournisseurs_a_fusionner_0').closest('div');
+        var optionAPC = document.getElementById('id_fournisseurs_a_fusionner_45').closest('div');
+        
+        if (optionPasDeFournisseur) optionPasDeFournisseur.style.display = 'none';
+        if (optionAPC) optionAPC.style.display = 'none';
+    });
+    </script>
+
+    
+
 {% endblock %}

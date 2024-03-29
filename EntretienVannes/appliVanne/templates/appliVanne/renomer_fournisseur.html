@@ -62,4 +62,18 @@
 
     
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var selectElement = document.getElementById('id_fournisseurs_a_renomer');
+    
+        var optionPasDeFournisseur = selectElement.querySelector('option[value="0"]');
+        var optionAPC = selectElement.querySelector('option[value="45"]');
+    
+        if (optionPasDeFournisseur) optionPasDeFournisseur.disabled = true;
+        if (optionAPC) optionAPC.disabled = true;
+    });
+    
+    </script>
+    
 {% endblock %}
