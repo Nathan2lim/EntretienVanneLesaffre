@@ -305,8 +305,8 @@
 <table class="table table-striped  historique-modifications">
   <thead>
     <tr>
-      <th scope="col"> Id révision</a></th>
-      <th scope="col"> Id de la vanne</th>
+
+
       <th scope="col"> Date révision </a></th>
       <th scope="col">Type de révision </th>
       <th scope="col">Commentaire </th>
@@ -317,12 +317,12 @@
 
   {% for rev in listeRev %}
     <tr>
-      <td>{{ rev.id_revision}}</td>
-      <td>{{ rev.rev_id_vanne}}</td>
+
+
       <td>{{ rev.date_revision }}</td>
-      <td>{{ rev.type_revision }}</td> 
+      <td>{{ rev.type_revision.type_revision }}</td> 
       <td>{{ rev.commentaire_revision }}</td> 
-      <td>{{ rev.nom_technicien}}</td>
+      <td> {{ rev.nom_technicien.first_name }} {{rev.nom_technicien.last_name}}</td>
       
     </tr>
   {% endfor %}
